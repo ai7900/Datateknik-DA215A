@@ -1,0 +1,43 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.2.8</VERSION>
+ <DEVICE>"ATmega32U4"</DEVICE>
+ <WORKING_DIR>C:\Users\maste\OneDrive\Skrivbord\Labb2\Labb2\Debug</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\avrasm\inc</DIR>
+  <DIR>C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avrassembler\Include</DIR>
+  <DIR></DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>C:\Users\maste\OneDrive\Skrivbord\Labb2\Labb2\Labb2.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\avrasm\inc\m32U4def.inc</FILE>
+  <FILE>C:\Users\maste\OneDrive\Skrivbord\Labb2\Labb2\delay.inc</FILE>
+  <FILE>C:\Users\maste\OneDrive\Skrivbord\Labb2\Labb2\lcd.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>C:\Users\maste\OneDrive\Skrivbord\Labb2\Labb2\Debug\Labb2.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>Labb2.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>Labb2.map</FILE>
+  <FILE>Labb2.lss</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <init><FILE>C:\Users\maste\OneDrive\Skrivbord\Labb2\Labb2\Labb2.asm</FILE><LINE>61</LINE></init>
+  <delay_1_micros><FILE>C:\Users\maste\OneDrive\Skrivbord\Labb2\Labb2\delay.inc</FILE><LINE>12</LINE></delay_1_micros>
+  <delay_micros><FILE>C:\Users\maste\OneDrive\Skrivbord\Labb2\Labb2\delay.inc</FILE><LINE>26</LINE></delay_micros>
+  <delay_ms><FILE>C:\Users\maste\OneDrive\Skrivbord\Labb2\Labb2\delay.inc</FILE><LINE>54</LINE></delay_ms>
+  <loop_dms><FILE>C:\Users\maste\OneDrive\Skrivbord\Labb2\Labb2\delay.inc</FILE><LINE>56</LINE></loop_dms>
+  <lcd_write_nibble><FILE>C:\Users\maste\OneDrive\Skrivbord\Labb2\Labb2\lcd.inc</FILE><LINE>39</LINE></lcd_write_nibble>
+  <lcd_write_instr><FILE>C:\Users\maste\OneDrive\Skrivbord\Labb2\Labb2\lcd.inc</FILE><LINE>51</LINE></lcd_write_instr>
+  <lcd_write_chr><FILE>C:\Users\maste\OneDrive\Skrivbord\Labb2\Labb2\lcd.inc</FILE><LINE>65</LINE></lcd_write_chr>
+  <lcd_init><FILE>C:\Users\maste\OneDrive\Skrivbord\Labb2\Labb2\lcd.inc</FILE><LINE>77</LINE></lcd_init>
+  <init_pins><FILE>C:\Users\maste\OneDrive\Skrivbord\Labb2\Labb2\Labb2.asm</FILE><LINE>76</LINE></init_pins>
+  <main><FILE>C:\Users\maste\OneDrive\Skrivbord\Labb2\Labb2\Labb2.asm</FILE><LINE>94</LINE></main>
+  <loop><FILE>C:\Users\maste\OneDrive\Skrivbord\Labb2\Labb2\Labb2.asm</FILE><LINE>107</LINE></loop>
+  <read_keyboard><FILE>C:\Users\maste\OneDrive\Skrivbord\Labb2\Labb2\Labb2.asm</FILE><LINE>118</LINE></read_keyboard>
+  <scan_key><FILE>C:\Users\maste\OneDrive\Skrivbord\Labb2\Labb2\Labb2.asm</FILE><LINE>120</LINE></scan_key>
+  <return_key_val><FILE>C:\Users\maste\OneDrive\Skrivbord\Labb2\Labb2\Labb2.asm</FILE><LINE>140</LINE></return_key_val>
+ </LABELS>
+</ASSEMBLER_INFO>
