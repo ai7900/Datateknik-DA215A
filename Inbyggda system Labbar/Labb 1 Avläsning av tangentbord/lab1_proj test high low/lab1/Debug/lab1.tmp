@@ -1,0 +1,29 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.2.8</VERSION>
+ <DEVICE>"ATmega32U4"</DEVICE>
+ <WORKING_DIR>C:\Users\maste\OneDrive\Skrivbord\System skit\lab1_proj\lab1\Debug</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\avrasm\inc</DIR>
+  <DIR>C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avrassembler\Include</DIR>
+  <DIR></DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>C:\Users\maste\OneDrive\Skrivbord\System skit\lab1_proj\lab1\lab1.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\avrasm\inc\m32U4def.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>C:\Users\maste\OneDrive\Skrivbord\System skit\lab1_proj\lab1\Debug\lab1.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>lab1.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>lab1.map</FILE>
+  <FILE>lab1.lss</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <init><FILE>C:\Users\maste\OneDrive\Skrivbord\System skit\lab1_proj\lab1\lab1.asm</FILE><LINE>40</LINE></init>
+  <init_pins><FILE>C:\Users\maste\OneDrive\Skrivbord\System skit\lab1_proj\lab1\lab1.asm</FILE><LINE>54</LINE></init_pins>
+  <main><FILE>C:\Users\maste\OneDrive\Skrivbord\System skit\lab1_proj\lab1\lab1.asm</FILE><LINE>65</LINE></main>
+ </LABELS>
+</ASSEMBLER_INFO>
