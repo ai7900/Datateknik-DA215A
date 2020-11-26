@@ -1,29 +1,22 @@
-/*
- * lab1.asm
- * 
- * This is a very simple demo program made for the course DA215A at
- * Malmö University. The purpose of this program is:
- *	-	To test if a program can be transferred to the ATmega32U4
- *		microcontroller.
- *	-	To provide a base for further programming in "Laboration 1".
- *
- * After a successful transfer of the program, while the program is
- * running, the embedded LED on the Arduino board should be turned on.
- * The LED is connected to the D13 pin (PORTC, bit 7).
- *
- * Author:	Mathias Beckius
- *
- * Date:	2014-11-05
- *
- */ 
-/*  Johan Fritiofsson
-  Mattias Ståhlberg
 
-  This program reads input form a 4 bit keyboard.
-  Only 3 bits are used from the keyboard.
-  Values between 0-11 can be displayed binary on the display.
+/*
+Author: Johan Fritiofsson, Mattias Ståhlberg
+Date: 2020-11-26
+
+This Program displays ASCII on an LCD-display.
+It can take inputs from a 4bit keyboard and display the HEX numbers between 1-B on the screen as ASCII.
   
-  */
+*/
+
+/*
+Registers in use:
+R16 
+R18 
+R19 
+R24
+*/
+
+
 
 
 ;==============================================================================
@@ -75,9 +68,6 @@ init:
 ;==============================================================================
 init_pins:	
 
-	/*LDI R16, 0x80  ; BINARY b10000000 TO HEX
-	OUT DDRC, R16*/
-
 	LDI TEMP, 0xFF ; SET TEMP TO HIGH
 	OUT DDRF, TEMP ;PORT F OUTPUT
 	OUT DDRB, TEMP ;PORT B OUTPUT
@@ -95,9 +85,6 @@ main:
 	LDI R18, 0b00000001
 	LDI TEMP, CONVERT
 	ADD R18, TEMP
-
-
-	
 
 	LCD_WRITE_CHAR 'K'
 	LCD_WRITE_CHAR 'E'
