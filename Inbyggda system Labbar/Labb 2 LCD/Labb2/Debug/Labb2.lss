@@ -1,14 +1,14 @@
 
-AVRASM ver. 2.2.8  C:\Users\maste\OneDrive\Skrivbord\Labb2\Labb2\Labb2.asm Wed Nov 25 15:46:47 2020
+AVRASM ver. 2.2.8  C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 2 LCD\Labb2\Labb2.asm Tue Dec 01 14:19:52 2020
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\avrasm\inc\m32U4def.inc'
-C:\Users\maste\OneDrive\Skrivbord\Labb2\Labb2\Labb2.asm(56): Including file 'C:\Users\maste\OneDrive\Skrivbord\Labb2\Labb2\delay.inc'
-C:\Users\maste\OneDrive\Skrivbord\Labb2\Labb2\Labb2.asm(57): Including file 'C:\Users\maste\OneDrive\Skrivbord\Labb2\Labb2\lcd.inc'
+C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 2 LCD\Labb2\Labb2.asm(49): Including file 'C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 2 LCD\Labb2\delay.inc'
+C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 2 LCD\Labb2\Labb2.asm(50): Including file 'C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 2 LCD\Labb2\lcd.inc'
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\avrasm\inc\m32U4def.inc'
-C:\Users\maste\OneDrive\Skrivbord\Labb2\Labb2\Labb2.asm(56): Including file 'C:\Users\maste\OneDrive\Skrivbord\Labb2\Labb2\delay.inc'
-C:\Users\maste\OneDrive\Skrivbord\Labb2\Labb2\Labb2.asm(57): Including file 'C:\Users\maste\OneDrive\Skrivbord\Labb2\Labb2\lcd.inc'
+C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 2 LCD\Labb2\Labb2.asm(49): Including file 'C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 2 LCD\Labb2\delay.inc'
+C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 2 LCD\Labb2\Labb2.asm(50): Including file 'C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 2 LCD\Labb2\lcd.inc'
                                  
-                                 /*
+                                 
                                  
                                  ;***** Created: 2011-02-09 12:03 ******* Source: ATmega32U4.xml **********
                                  ;*************************************************************************
@@ -1402,31 +1402,24 @@ C:\Users\maste\OneDrive\Skrivbord\Labb2\Labb2\Labb2.asm(57): Including file 'C:\
                                  
                                  ; ***** END OF FILE ******************************************************
                                  
-                                  * lab1.asm
-                                  * 
-                                  * This is a very simple demo program made for the course DA215A at
-                                  * Malmö University. The purpose of this program is:
-                                  *	-	To test if a program can be transferred to the ATmega32U4
-                                  *		microcontroller.
-                                  *	-	To provide a base for further programming in "Laboration 1".
-                                  *
-                                  * After a successful transfer of the program, while the program is
-                                  * running, the embedded LED on the Arduino board should be turned on.
-                                  * The LED is connected to the D13 pin (PORTC, bit 7).
-                                  *
-                                  * Author:	Mathias Beckius
-                                  *
-                                  * Date:	2014-11-05
-                                  *
-                                  */ 
-                                 /*  Johan Fritiofsson
-                                   Mattias Ståhlberg
+                                 /*
+                                 Author: Johan Fritiofsson, Mattias Ståhlberg
+                                 Date: 2020-11-26
                                  
-                                   This program reads input form a 4 bit keyboard.
-                                   Only 3 bits are used from the keyboard.
-                                   Values between 0-11 can be displayed binary on the display.
+                                 This Program displays ASCII on an LCD-display.
+                                 It can take inputs from a 4bit keyboard and display the HEX numbers between 1-B on the screen as ASCII.
                                    
-                                   */
+                                 */
+                                 
+                                 /*
+                                 Registers in use:
+                                 R16 
+                                 R18 
+                                 R19 
+                                 R24
+                                 */
+                                 
+                                 
                                  
                                  
                                  ;==============================================================================
@@ -1656,9 +1649,6 @@ C:\Users\maste\OneDrive\Skrivbord\Labb2\Labb2\Labb2.asm(57): Including file 'C:\
                                  ;==============================================================================
                                  init_pins:	
                                  
-                                 	/*LDI R16, 0x80  ; BINARY b10000000 TO HEX
-                                 	OUT DDRC, R16*/
-                                 
 0000b4 ef0f                      	LDI TEMP, 0xFF ; SET TEMP TO HIGH
 0000b5 bb00                      	OUT DDRF, TEMP ;PORT F OUTPUT
 0000b6 b904                      	OUT DDRB, TEMP ;PORT B OUTPUT
@@ -1673,12 +1663,12 @@ C:\Users\maste\OneDrive\Skrivbord\Labb2\Labb2\Labb2.asm(57): Including file 'C:\
                                  ; Main part of program
                                  ;==============================================================================
                                  main:
+                                 
+                                 	; ASCII(1) = 0x30 = b00110000 = 48
+                                 
 0000bb e021                      	LDI R18, 0b00000001
 0000bc e300                      	LDI TEMP, CONVERT
 0000bd 0f20                      	ADD R18, TEMP
-                                 
-                                 
-                                 	
                                  
 0000be e48b
 0000bf dfc6                      	LCD_WRITE_CHAR 'K'
@@ -1705,7 +1695,7 @@ C:\Users\maste\OneDrive\Skrivbord\Labb2\Labb2\Labb2.asm(57): Including file 'C:\
 0000d3 cff6                      	RJMP loop
                                  	
                                  read_keyboard:
-0000d4 e02f                      	LDI R18, NO_KEY
+0000d4 e020                      	LDI R18, 0
                                  scan_key:
 0000d5 2f32                      	MOV R19, R18
 0000d6 0f33                      	LSL R19
@@ -1722,6 +1712,9 @@ C:\Users\maste\OneDrive\Skrivbord\Labb2\Labb2\Labb2.asm(57): Including file 'C:\
 0000df 9966                      	SBIC PINE, 6
 0000e0 c004                      	RJMP return_key_val
 0000e1 9523                      	INC R18
+                                 
+                                 	; Är vi 100% på att delay_ms inte ha påverkat R18 på något konstigt sätt?
+                                 	; Enkelt sätt att testa detta på är att hårdkoda in NOP:s som ersätter delay_ms funktionen.
                                  	
 0000e2 302c                      	CPI R18, 12
 0000e3 f789                      	BRNE scan_key

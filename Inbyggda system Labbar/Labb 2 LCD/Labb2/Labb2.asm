@@ -106,7 +106,7 @@ loop:
 	RJMP loop
 	
 read_keyboard:
-	LDI R18, NO_KEY
+	LDI R18, 0
 scan_key:
 	MOV R19, R18
 	LSL R19
