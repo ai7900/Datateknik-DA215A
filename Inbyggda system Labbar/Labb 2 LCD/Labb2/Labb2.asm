@@ -94,21 +94,18 @@ main:
 	LCD_WRITE_CHAR 'Y'
 	LCD_WRITE_CHAR ':'
 	LCD_INSTRUCTION 0xC0 ; SETS CURSOR TO LINE 1 COL O
-loop1: 
-	LDI R17, 0x0F
 loop:
 	RCALL read_keyboard
 	CPI RVAL, NO_KEY
-	BREQ loop1
+	BREQ loop
 	CPI RVAL, 10
 	BRLO write    ; IF RVAL is lower than 10 jump to write
 	LDI TEMP, 7		; Between 9 and A in ASCII is 7, therefore 7 is added to the number
 	ADD RVAL, TEMP
 write:
 	LDI TEMP, CONVERT
-	ADD RVAL, r17
+	ADD RVAL, TEMP
 	LCD_WRITE_REG_CHAR RVAL
-	LDI R17, 0x00
 	LDI R24, 250
 	RCALL delay_ms
 	RJMP loop

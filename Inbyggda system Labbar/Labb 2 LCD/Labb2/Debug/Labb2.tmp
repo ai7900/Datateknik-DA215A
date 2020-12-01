@@ -35,11 +35,10 @@
   <lcd_init><FILE>C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 2 LCD\Labb2\lcd.inc</FILE><LINE>77</LINE></lcd_init>
   <init_pins><FILE>C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 2 LCD\Labb2\Labb2.asm</FILE><LINE>69</LINE></init_pins>
   <main><FILE>C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 2 LCD\Labb2\Labb2.asm</FILE><LINE>84</LINE></main>
-  <loop1><FILE>C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 2 LCD\Labb2\Labb2.asm</FILE><LINE>97</LINE></loop1>
-  <loop><FILE>C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 2 LCD\Labb2\Labb2.asm</FILE><LINE>99</LINE></loop>
-  <read_keyboard><FILE>C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 2 LCD\Labb2\Labb2.asm</FILE><LINE>119</LINE></read_keyboard>
-  <write><FILE>C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 2 LCD\Labb2\Labb2.asm</FILE><LINE>107</LINE></write>
-  <scan_key><FILE>C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 2 LCD\Labb2\Labb2.asm</FILE><LINE>121</LINE></scan_key>
-  <return_key_val><FILE>C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 2 LCD\Labb2\Labb2.asm</FILE><LINE>144</LINE></return_key_val>
+  <loop><FILE>C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 2 LCD\Labb2\Labb2.asm</FILE><LINE>97</LINE></loop>
+  <read_keyboard><FILE>C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 2 LCD\Labb2\Labb2.asm</FILE><LINE>116</LINE></read_keyboard>
+  <write><FILE>C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 2 LCD\Labb2\Labb2.asm</FILE><LINE>105</LINE></write>
+  <scan_key><FILE>C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 2 LCD\Labb2\Labb2.asm</FILE><LINE>118</LINE></scan_key>
+  <return_key_val><FILE>C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 2 LCD\Labb2\Labb2.asm</FILE><LINE>141</LINE></return_key_val>
  </LABELS>
 </ASSEMBLER_INFO>

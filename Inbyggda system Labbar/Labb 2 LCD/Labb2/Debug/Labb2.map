@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.8  C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 2 LCD\Labb2\Labb2.asm Tue Dec 01 15:18:11 2020
+AVRASM ver. 2.2.8  C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 2 LCD\Labb2\Labb2.asm Tue Dec 01 15:31:02 2020
 
 
 EQU  SIGNATURE_000 0000001e
@@ -1020,9 +1020,8 @@ CSEG lcd_write_chr 00000086
 CSEG lcd_init     0000008d
 CSEG init_pins    000000b4
 CSEG main         000000bb
-CSEG loop1        000000ca
-CSEG loop         000000cb
-CSEG read_keyboard 000000da
-CSEG write        000000d2
-CSEG scan_key     000000db
-CSEG return_key_val 000000eb
+CSEG loop         000000ca
+CSEG read_keyboard 000000d8
+CSEG write        000000d1
+CSEG scan_key     000000d9
+CSEG return_key_val 000000e9
