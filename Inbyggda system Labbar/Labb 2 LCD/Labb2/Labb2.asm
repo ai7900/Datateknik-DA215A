@@ -5,6 +5,7 @@ Date: 2020-11-26
 
 This Program displays ASCII on an LCD-display.
 It can take inputs from a 4bit keyboard and display the HEX numbers between 1-B on the screen as ASCII.
+
   
 */
 
@@ -28,6 +29,7 @@ R24
 	.EQU CONVERT	= 0x30
 	.DEF TEMP		= R16
 	.DEF RVAL		= R24
+	.DEF LVAL		= R17
 	
 ;==========
 ; Sends instructions to LCD with a 39 us delay after command.
@@ -82,37 +84,32 @@ init_pins:
 ; Main part of program
 ;==============================================================================
 main:
-
-	; ASCII(1) = 0x30 = b00110000 = 48
-
-	LDI R18, 0b00000001
-	LDI TEMP, CONVERT
-	ADD R18, TEMP
-
 	LCD_WRITE_CHAR 'K'
 	LCD_WRITE_CHAR 'E'
 	LCD_WRITE_CHAR 'Y'
 	LCD_WRITE_CHAR ':'
 	LCD_INSTRUCTION 0xC0 ; SETS CURSOR TO LINE 1 COL O
-loop:
-	RCALL read_keyboard
-	CPI RVAL, NO_KEY
-	BREQ loop
-	CPI RVAL, 10
-	BRLO write    ; IF RVAL is lower than 10 jump to write
+key_release:
+	LDI LVAL, NO_KEY		; last value is NO_KEY								
+loop:																		  
+	RCALL read_keyboard														  
+	CPI RVAL, NO_KEY														  
+	BREQ key_release	; branch to key_relased if return value was NO_KEY	  
+	CP RVAL, LVAL															  
+	BREQ loop		; If RVAL and LVAL is equal branch to loop				  
+	MOV LVAL, RVAL	; Copy our return value to last value
+	CPI RVAL, 10	; Compare RVAL to 10
+	BRLO write		; IF RVAL is lower than 10 jump to write
 	LDI TEMP, 7		; Between 9 and A in ASCII is 7, therefore 7 is added to the number
 	ADD RVAL, TEMP
 write:
 	LDI TEMP, CONVERT
-	ADD RVAL, TEMP
+	ADD RVAL, TEMP				; Converting RVAL to ASCII
 	LCD_WRITE_REG_CHAR RVAL
 	LDI R24, 250
 	RCALL delay_ms
 	RJMP loop
 
-	
-
-	
 read_keyboard:
 	LDI R18, 0
 scan_key:
@@ -125,71 +122,15 @@ scan_key:
 	OUT PORTB, R19
 	PUSH R18
 	LDI R24, 1
-	RCALL delay_ms
+	RCALL delay_ms ; delay for bounce
 	POP R18
 	
 	SBIC PINE, 6
 	RJMP return_key_val
-	INC R18
-
-	; Är vi 100% på att delay_ms inte ha påverkat R18 på något konstigt sätt?
-	; Enkelt sätt att testa detta på är att hårdkoda in NOP:s som ersätter delay_ms funktionen.
-	
+	INC R18	
 	CPI R18, 12
 	BRNE scan_key
 	LDI R18, NO_KEY        ; no key was pressed!
 return_key_val:
 	MOV RVAL, R18		; COPY FROM R18 TO RVAL
 	RET
-			
-	
-/*
-	CALL read_keyboard
-
-	; LOGICAL SHIFT LEFT 1BIT X4
-	LSL RVAL  
-	LSL RVAL
-	LSL RVAL
-	LSL RVAL
-	; RETRUN VALUE TO PORT F
-	OUT PORTF, RVAL
-	NOP
-	NOP
-
-	RJMP main			; JUMP TO MAIN
-
-read_keyboard:
-	LDI R18, NO_KEY       ; reset counter	
-scan_key:
-	MOV R19, R18
-	; LOGICAL SHIFT LEFT X4
-	LSL R19
-	LSL R19
-	LSL R19
-	LSL R19
-
-	OUT PORTB, R19         ; set column and row
-	; 13 NOP NECCESARY SINCE 4051 SIGNAL TO ADDRESS MAX TIME 720 ns (1 NOP = 62,5 ns)
-	NOP             
-	NOP
-	NOP
-	NOP
-	NOP
-	NOP
-	NOP
-	NOP
-	NOP
-	NOP
-	NOP
-	NOP
-	NOP
-
-	SBIC PINE, 6 ; SKIP BIT IF IO REG IS CLEAR (IF PINE.6 = 0 SKIP NEXT INSTRUCTION)
-	RJMP return_key_val
-	INC R18	; INCREMENT
-	CPI R18, 12 ; COMPARE INTERMEDIATE (IF	R18 == 12)
-	BRNE scan_key	; BRANC NOT EQUAL JUMP scan_key
-	LDI R18, NO_KEY        ; no key was pressed!
-return_key_val:
-	MOV RVAL, R18		; COPY FROM R18 TO RVAL
-	RET*/

@@ -1,12 +1,12 @@
 
-AVRASM ver. 2.2.8  C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 2 LCD\Labb2\Labb2.asm Tue Dec 01 15:31:02 2020
+AVRASM ver. 2.2.8  C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 2 LCD\Labb2\Labb2.asm Tue Dec 01 16:02:28 2020
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\avrasm\inc\m32U4def.inc'
-C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 2 LCD\Labb2\Labb2.asm(49): Including file 'C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 2 LCD\Labb2\delay.inc'
-C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 2 LCD\Labb2\Labb2.asm(50): Including file 'C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 2 LCD\Labb2\lcd.inc'
+C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 2 LCD\Labb2\Labb2.asm(51): Including file 'C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 2 LCD\Labb2\delay.inc'
+C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 2 LCD\Labb2\Labb2.asm(52): Including file 'C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 2 LCD\Labb2\lcd.inc'
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\avrasm\inc\m32U4def.inc'
-C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 2 LCD\Labb2\Labb2.asm(49): Including file 'C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 2 LCD\Labb2\delay.inc'
-C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 2 LCD\Labb2\Labb2.asm(50): Including file 'C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 2 LCD\Labb2\lcd.inc'
+C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 2 LCD\Labb2\Labb2.asm(51): Including file 'C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 2 LCD\Labb2\delay.inc'
+C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 2 LCD\Labb2\Labb2.asm(52): Including file 'C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 2 LCD\Labb2\lcd.inc'
                                  
                                  
                                  
@@ -1408,6 +1408,7 @@ C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 2 LCD\Labb2\Labb2.asm(5
                                  
                                  This Program displays ASCII on an LCD-display.
                                  It can take inputs from a 4bit keyboard and display the HEX numbers between 1-B on the screen as ASCII.
+                                 
                                    
                                  */
                                  
@@ -1431,6 +1432,7 @@ C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 2 LCD\Labb2\Labb2.asm(5
                                  	.EQU CONVERT	= 0x30
                                  	.DEF TEMP		= R16
                                  	.DEF RVAL		= R24
+                                 	.DEF LVAL		= R17
                                  	
                                  ;==========
                                  ; Sends instructions to LCD with a 39 us delay after command.
@@ -1663,124 +1665,63 @@ C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 2 LCD\Labb2\Labb2.asm(5
                                  ; Main part of program
                                  ;==============================================================================
                                  main:
-                                 
-                                 	; ASCII(1) = 0x30 = b00110000 = 48
-                                 
-0000bb e021                      	LDI R18, 0b00000001
-0000bc e300                      	LDI TEMP, CONVERT
-0000bd 0f20                      	ADD R18, TEMP
-                                 
-0000be e48b
-0000bf dfc6                      	LCD_WRITE_CHAR 'K'
-0000c0 e485
-0000c1 dfc4                      	LCD_WRITE_CHAR 'E'
-0000c2 e589
-0000c3 dfc2                      	LCD_WRITE_CHAR 'Y'
-0000c4 e38a
-0000c5 dfc0                      	LCD_WRITE_CHAR ':'
-0000c6 ec80
-0000c7 dfb7
-0000c8 e287
-0000c9 df93                      	LCD_INSTRUCTION 0xC0 ; SETS CURSOR TO LINE 1 COL O
-                                 loop:
-0000ca d00d                      	RCALL read_keyboard
-0000cb 308f                      	CPI RVAL, NO_KEY
-0000cc f3e9                      	BREQ loop
-0000cd 308a                      	CPI RVAL, 10
-0000ce f010                      	BRLO write    ; IF RVAL is lower than 10 jump to write
-0000cf e007                      	LDI TEMP, 7		; Between 9 and A in ASCII is 7, therefore 7 is added to the number
-0000d0 0f80                      	ADD RVAL, TEMP
+0000bb e48b
+0000bc dfc9                      	LCD_WRITE_CHAR 'K'
+0000bd e485
+0000be dfc7                      	LCD_WRITE_CHAR 'E'
+0000bf e589
+0000c0 dfc5                      	LCD_WRITE_CHAR 'Y'
+0000c1 e38a
+0000c2 dfc3                      	LCD_WRITE_CHAR ':'
+0000c3 ec80
+0000c4 dfba
+0000c5 e287
+0000c6 df96                      	LCD_INSTRUCTION 0xC0 ; SETS CURSOR TO LINE 1 COL O
+                                 key_release:
+0000c7 e01f                      	LDI LVAL, NO_KEY		; last value is NO_KEY								
+                                 loop:																		  
+0000c8 d010                      	RCALL read_keyboard														  
+0000c9 308f                      	CPI RVAL, NO_KEY														  
+0000ca f3e1                      	BREQ key_release	; branch to key_relased if return value was NO_KEY	  
+0000cb 1781                      	CP RVAL, LVAL															  
+0000cc f3d9                      	BREQ loop		; If RVAL and LVAL is equal branch to loop				  
+0000cd 2f18                      	MOV LVAL, RVAL	; Copy our return value to last value
+0000ce 308a                      	CPI RVAL, 10	; Compare RVAL to 10
+0000cf f010                      	BRLO write		; IF RVAL is lower than 10 jump to write
+0000d0 e007                      	LDI TEMP, 7		; Between 9 and A in ASCII is 7, therefore 7 is added to the number
+0000d1 0f80                      	ADD RVAL, TEMP
                                  write:
-0000d1 e300                      	LDI TEMP, CONVERT
-0000d2 0f80                      	ADD RVAL, TEMP
-0000d3 2f88
-0000d4 dfb1                      	LCD_WRITE_REG_CHAR RVAL
-0000d5 ef8a                      	LDI R24, 250
-0000d6 df96                      	RCALL delay_ms
-0000d7 cff2                      	RJMP loop
+0000d2 e300                      	LDI TEMP, CONVERT
+0000d3 0f80                      	ADD RVAL, TEMP				; Converting RVAL to ASCII
+0000d4 2f88
+0000d5 dfb0                      	LCD_WRITE_REG_CHAR RVAL
+0000d6 ef8a                      	LDI R24, 250
+0000d7 df95                      	RCALL delay_ms
+0000d8 cfef                      	RJMP loop
                                  
-                                 	
-                                 
-                                 	
                                  read_keyboard:
-0000d8 e020                      	LDI R18, 0
+0000d9 e020                      	LDI R18, 0
                                  scan_key:
-0000d9 2f32                      	MOV R19, R18
-0000da 0f33                      	LSL R19
+0000da 2f32                      	MOV R19, R18
 0000db 0f33                      	LSL R19
 0000dc 0f33                      	LSL R19
 0000dd 0f33                      	LSL R19
+0000de 0f33                      	LSL R19
                                  	
-0000de b935                      	OUT PORTB, R19
-0000df 932f                      	PUSH R18
-0000e0 e081                      	LDI R24, 1
-0000e1 df8b                      	RCALL delay_ms
-0000e2 912f                      	POP R18
+0000df b935                      	OUT PORTB, R19
+0000e0 932f                      	PUSH R18
+0000e1 e081                      	LDI R24, 1
+0000e2 df8a                      	RCALL delay_ms ; delay for bounce
+0000e3 912f                      	POP R18
                                  	
-0000e3 9966                      	SBIC PINE, 6
-0000e4 c004                      	RJMP return_key_val
-0000e5 9523                      	INC R18
-                                 
-                                 	; Är vi 100% på att delay_ms inte ha påverkat R18 på något konstigt sätt?
-                                 	; Enkelt sätt att testa detta på är att hårdkoda in NOP:s som ersätter delay_ms funktionen.
-                                 	
-0000e6 302c                      	CPI R18, 12
-0000e7 f789                      	BRNE scan_key
-0000e8 e02f                      	LDI R18, NO_KEY        ; no key was pressed!
+0000e4 9966                      	SBIC PINE, 6
+0000e5 c004                      	RJMP return_key_val
+0000e6 9523                      	INC R18	
+0000e7 302c                      	CPI R18, 12
+0000e8 f789                      	BRNE scan_key
+0000e9 e02f                      	LDI R18, NO_KEY        ; no key was pressed!
                                  return_key_val:
-0000e9 2f82                      	MOV RVAL, R18		; COPY FROM R18 TO RVAL
-0000ea 9508                      	RET
-                                 			
-                                 	
-                                 /*
-                                 	CALL read_keyboard
-                                 
-                                 	; LOGICAL SHIFT LEFT 1BIT X4
-                                 	LSL RVAL  
-                                 	LSL RVAL
-                                 	LSL RVAL
-                                 	LSL RVAL
-                                 	; RETRUN VALUE TO PORT F
-                                 	OUT PORTF, RVAL
-                                 	NOP
-                                 	NOP
-                                 
-                                 	RJMP main			; JUMP TO MAIN
-                                 
-                                 read_keyboard:
-                                 	LDI R18, NO_KEY       ; reset counter	
-                                 scan_key:
-                                 	MOV R19, R18
-                                 	; LOGICAL SHIFT LEFT X4
-                                 	LSL R19
-                                 	LSL R19
-                                 	LSL R19
-                                 	LSL R19
-                                 
-                                 	OUT PORTB, R19         ; set column and row
-                                 	; 13 NOP NECCESARY SINCE 4051 SIGNAL TO ADDRESS MAX TIME 720 ns (1 NOP = 62,5 ns)
-                                 	NOP             
-                                 	NOP
-                                 	NOP
-                                 	NOP
-                                 	NOP
-                                 	NOP
-                                 	NOP
-                                 	NOP
-                                 	NOP
-                                 	NOP
-                                 	NOP
-                                 	NOP
-                                 	NOP
-                                 
-                                 	SBIC PINE, 6 ; SKIP BIT IF IO REG IS CLEAR (IF PINE.6 = 0 SKIP NEXT INSTRUCTION)
-                                 	RJMP return_key_val
-                                 	INC R18	; INCREMENT
-                                 	CPI R18, 12 ; COMPARE INTERMEDIATE (IF	R18 == 12)
-                                 	BRNE scan_key	; BRANC NOT EQUAL JUMP scan_key
-                                 	LDI R18, NO_KEY        ; no key was pressed!
-                                 return_key_val:
-                                 	MOV RVAL, R18		; COPY FROM R18 TO RVAL
+0000ea 2f82                      	MOV RVAL, R18		; COPY FROM R18 TO RVAL
 
 
 RESOURCE USE INFORMATION
@@ -1800,24 +1741,24 @@ counted separately from r26..r31 here.
 "ATmega32U4" register use summary:
 x  :   0 y  :   0 z  :   0 r0 :   0 r1 :   0 r2 :   0 r3 :   0 r4 :   0 
 r5 :   0 r6 :   0 r7 :   0 r8 :   0 r9 :   0 r10:   0 r11:   0 r12:   0 
-r13:   0 r14:   0 r15:   0 r16:  16 r17:   0 r18:  13 r19:   6 r20:   0 
-r21:   0 r22:   0 r23:   0 r24:  41 r25:   0 r26:   0 r27:   0 r28:   0 
+r13:   0 r14:   0 r15:   0 r16:  14 r17:   3 r18:  11 r19:   6 r20:   0 
+r21:   0 r22:   0 r23:   0 r24:  43 r25:   0 r26:   0 r27:   0 r28:   0 
 r29:   0 r30:   0 r31:   0 
-Registers used: 4 out of 35 (11.4%)
+Registers used: 5 out of 35 (14.3%)
 
 "ATmega32U4" instruction use summary:
-.lds  :   0 .sts  :   0 adc   :   0 add   :   3 adiw  :   0 and   :   0 
+.lds  :   0 .sts  :   0 adc   :   0 add   :   2 adiw  :   0 and   :   0 
 andi  :   0 asr   :   0 bclr  :   0 bld   :   0 brbc  :   0 brbs  :   0 
-brcc  :   0 brcs  :   0 break :   0 breq  :   1 brge  :   0 brhc  :   0 
+brcc  :   0 brcs  :   0 break :   0 breq  :   2 brge  :   0 brhc  :   0 
 brhs  :   0 brid  :   0 brie  :   0 brlo  :   1 brlt  :   0 brmi  :   0 
 brne  :   3 brpl  :   0 brsh  :   0 brtc  :   0 brts  :   0 brvc  :   0 
 brvs  :   0 bset  :   0 bst   :   0 call  :   2 cbi   :   3 cbr   :   0 
 clc   :   0 clh   :   0 cli   :   0 cln   :   0 clr   :   0 cls   :   0 
-clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :   0 cpc   :   0 
+clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :   1 cpc   :   0 
 cpi   :   5 cpse  :   0 dec   :   2 eor   :   0 fmul  :   0 fmuls :   0 
 fmulsu:   0 icall :   0 ijmp  :   0 in    :   0 inc   :   1 jmp   :   0 
-ld    :   0 ldd   :   0 ldi   :  38 lds   :   0 lpm   :   0 lsl   :   4 
-lsr   :   0 mov   :   4 movw  :   0 mul   :   0 muls  :   0 mulsu :   0 
+ld    :   0 ldd   :   0 ldi   :  37 lds   :   0 lpm   :   0 lsl   :   4 
+lsr   :   0 mov   :   5 movw  :   0 mul   :   0 muls  :   0 mulsu :   0 
 neg   :   0 nop   :  18 or    :   0 ori   :   0 out   :   8 pop   :   1 
 push  :   1 rcall :  35 ret   :   9 reti  :   0 rjmp  :   4 rol   :   0 
 ror   :   0 sbc   :   0 sbci  :   0 sbi   :   2 sbic  :   1 sbis  :   0 
@@ -1825,12 +1766,12 @@ sbiw  :   0 sbr   :   0 sbrc  :   0 sbrs  :   0 sec   :   0 seh   :   0
 sei   :   0 sen   :   0 ser   :   0 ses   :   0 set   :   0 sev   :   0 
 sez   :   0 sleep :   0 spm   :   0 st    :   0 std   :   0 sts   :   0 
 sub   :   0 subi  :   0 swap  :   2 tst   :   0 wdr   :   0 
-Instructions used: 22 out of 113 (19.5%)
+Instructions used: 23 out of 113 (20.4%)
 
 "ATmega32U4" memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000000 0x0001d6    300      0    300   32768   0.9%
+[.cseg] 0x000000 0x0001d8    302      0    302   32768   0.9%
 [.dseg] 0x000100 0x000100      0      0      0    2560   0.0%
 [.eseg] 0x000000 0x000000      0      0      0    1024   0.0%
 
