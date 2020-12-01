@@ -82,6 +82,9 @@ init_pins:
 ; Main part of program
 ;==============================================================================
 main:
+
+	; ASCII(1) = 0x30 = b00110000 = 48
+
 	LDI R18, 0b00000001
 	LDI TEMP, CONVERT
 	ADD R18, TEMP
@@ -120,6 +123,9 @@ scan_key:
 	SBIC PINE, 6
 	RJMP return_key_val
 	INC R18
+
+	; Är vi 100% på att delay_ms inte ha påverkat R18 på något konstigt sätt?
+	; Enkelt sätt att testa detta på är att hårdkoda in NOP:s som ersätter delay_ms funktionen.
 	
 	CPI R18, 12
 	BRNE scan_key
