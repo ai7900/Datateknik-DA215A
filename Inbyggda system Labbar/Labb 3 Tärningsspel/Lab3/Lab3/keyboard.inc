@@ -10,12 +10,12 @@
 
 
 ;-----------------------------------------------------------------
-; read_keyboard
+ read_keyboard:
 ; Parameters none
 ; R18: loop through 0-12.
 ; OUT: R24: contains binary value from keyboard.
 ; Limitations: If no input NO_KEY is returned.
-;----------------------------------------------------------------read_keyboard:
+;----------------------------------------------------------------read_keyboard:
 	LDI R18, 0
 scan_key:
 	MOV R19, R18

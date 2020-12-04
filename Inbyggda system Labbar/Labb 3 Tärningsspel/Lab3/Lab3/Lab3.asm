@@ -26,9 +26,10 @@
 	RJMP init
 
 	.ORG PM_START
+	.INCLUDE "keyboard.inc"
 	.INCLUDE "delay.inc"
 	.INCLUDE "lcd.inc"
-	.INCLUDE "keyboard.inc"
+	
 ;==============================================================================
 ; Basic initializations of stack pointer, I/O pins, etc.
 ;==============================================================================
@@ -71,7 +72,7 @@ main:
 key_release:
 	LDI LVAL, NO_KEY		; last value is NO_KEY								
 loop:																		  
-	RCALL read_keyboard														  
+	RCALL read_keyboard												  
 	CPI RVAL, NO_KEY														  
 	BREQ key_release	; branch to key_relased if return value was NO_KEY	  
 	CP RVAL, LVAL															  
@@ -88,4 +89,3 @@ write:
 	LDI R24, 250
 	RCALL delay_ms
 	RJMP loop
-

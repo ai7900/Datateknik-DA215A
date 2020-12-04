@@ -15,7 +15,7 @@
     <Name>Lab3</Name>
     <RootNamespace>Lab3</RootNamespace>
     <ToolchainFlavour>Native</ToolchainFlavour>
-    <EntryFile>$(MSBuildProjectDirectory)\main.asm</EntryFile>
+    <EntryFile>$(MSBuildProjectDirectory)\Lab3.asm</EntryFile>
     <KeepTimersRunning>true</KeepTimersRunning>
     <OverrideVtor>false</OverrideVtor>
     <CacheFlash>true</CacheFlash>
@@ -76,7 +76,7 @@
     <Compile Include="lcd.inc">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="main.asm">
+    <Compile Include="Lab3.asm">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
