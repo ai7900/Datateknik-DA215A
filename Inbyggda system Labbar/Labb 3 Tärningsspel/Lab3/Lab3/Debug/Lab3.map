@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.8  C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\Lab3.asm Fri Dec 04 10:39:33 2020
+AVRASM ver. 2.2.8  C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\Lab3.asm Fri Dec 04 11:28:06 2020
 
 
 EQU  SIGNATURE_000 0000001e
@@ -1005,25 +1005,26 @@ EQU  CONVERT      00000030
 DEF  TEMP         r16
 DEF  RVAL         r24
 DEF  LVAL         r17
-CSEG init         000000be
-CSEG read_keyboard 00000056
-CSEG scan_key     00000057
-CSEG delay_ms     00000080
-CSEG return_key_val 00000067
-CSEG delay_1_micros 00000069
-CSEG delay_micros 00000070
-CSEG loop_dms     00000081
+CSEG init         000000cc
+CSEG delay_1_micros 00000056
+CSEG delay_micros 0000005d
+CSEG delay_ms     0000006d
+CSEG loop_dms     0000006e
 EQU  E_PORT       0000000b
 EQU  E            00000007
 EQU  RS_PORT      0000000b
 EQU  RS           00000006
 EQU  D_PORT       00000011
-CSEG lcd_write_nibble 0000008d
-CSEG lcd_write_instr 00000092
-CSEG lcd_write_chr 00000099
-CSEG lcd_init     000000a0
-CSEG init_pins    000000c7
-CSEG main         000000ce
-CSEG key_release  000000da
-CSEG loop         000000db
-CSEG write        000000e5
+CSEG lcd_write_nibble 0000007a
+CSEG lcd_write_instr 0000007f
+CSEG lcd_write_chr 00000086
+CSEG lcd_init     0000008d
+CSEG read_keyboard 000000ab
+CSEG scan_key     000000ac
+CSEG return_key_val 000000bc
+CSEG key_compare  000000be
+CSEG key_release  000000ca
+CSEG loop         000000e8
+CSEG write        000000c7
+CSEG init_pins    000000d5
+CSEG main         000000dc

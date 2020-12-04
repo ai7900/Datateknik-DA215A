@@ -1,14 +1,14 @@
 
-AVRASM ver. 2.2.8  C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\Lab3.asm Fri Dec 04 10:39:33 2020
+AVRASM ver. 2.2.8  C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\Lab3.asm Fri Dec 04 11:28:06 2020
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\avrasm\inc\m32U4def.inc'
-C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\Lab3.asm(29): Including file 'C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\keyboard.inc'
-C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\Lab3.asm(30): Including file 'C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\delay.inc'
-C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\Lab3.asm(31): Including file 'C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\lcd.inc'
+C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\Lab3.asm(29): Including file 'C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\delay.inc'
+C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\Lab3.asm(30): Including file 'C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\lcd.inc'
+C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\Lab3.asm(31): Including file 'C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\keyboard.inc'
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\avrasm\inc\m32U4def.inc'
-C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\Lab3.asm(29): Including file 'C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\keyboard.inc'
-C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\Lab3.asm(30): Including file 'C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\delay.inc'
-C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\Lab3.asm(31): Including file 'C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\lcd.inc'
+C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\Lab3.asm(29): Including file 'C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\delay.inc'
+C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\Lab3.asm(30): Including file 'C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\lcd.inc'
+C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\Lab3.asm(31): Including file 'C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\keyboard.inc'
                                  
                                  ;
                                  
@@ -1428,51 +1428,9 @@ C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab
                                  ;==============================================================================
                                  	.CSEG
                                  	.ORG RESET
-000000 c0bd                      	RJMP init
+000000 c0cb                      	RJMP init
                                  
                                  	.ORG PM_START
-                                 	.INCLUDE "keyboard.inc"
-                                 
-                                  * keyboard.inc
-                                  * This file contians a subrutine for reading binary inputs from from a 4-bit keyboard 0-B
-                                  * Registers in use:
-                                  *  -Internal: R18, R19 
-                                  *  -Output: R24  
-                                  *  Created: 2020-12-04 09:54:59
-                                  *   Author: Johan Fritiofsson, Mattias Ståhlberg
-                                  */ 
-                                 
-                                 
-                                 ;-----------------------------------------------------------------
-                                  read_keyboard:
-                                 ; Parameters none
-                                 ; R18: loop through 0-12.
-                                 ; OUT: R24: contains binary value from keyboard.
-                                 ; Limitations: If no input NO_KEY is returned.
-                                 ;----------------------------------------------------------------read_keyboard:
-000056 e020                      	LDI R18, 0
-                                 scan_key:
-000057 2f32                      	MOV R19, R18
-000058 0f33                      	LSL R19
-000059 0f33                      	LSL R19
-00005a 0f33                      	LSL R19
-00005b 0f33                      	LSL R19
-                                 	
-00005c b935                      	OUT PORTB, R19
-00005d 932f                      	PUSH R18
-00005e e081                      	LDI R24, 1
-00005f d020                      	RCALL delay_ms ; delay for bounce
-000060 912f                      	POP R18
-                                 	
-000061 9966                      	SBIC PINE, 6
-000062 c004                      	RJMP return_key_val
-000063 9523                      	INC R18	
-000064 302c                      	CPI R18, 12
-000065 f789                      	BRNE scan_key
-000066 e02f                      	LDI R18, NO_KEY        ; no key was pressed!
-                                 return_key_val:
-000067 2f82                      	MOV RVAL, R18		; COPY FROM R18 TO RVAL
-000068 9508                      	RET
                                  	.INCLUDE "delay.inc"
                                  
                                   * delay.inc
@@ -1487,13 +1445,13 @@ C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab
                                  ;==============================================================================
                                  delay_1_micros:   /* UPPGIFT: komplettera med ett antal NOP-instruktioner!!! */
                                  	; 6 NOP:s reqired for 16MHz 1µs highs and lows.
-000069 0000                      	NOP
-00006a 0000                      	NOP
-00006b 0000                      	NOP
-00006c 0000                      	NOP
-00006d 0000                      	NOP
-00006e 0000                      	NOP
-00006f 9508                      	RET
+000056 0000                      	NOP
+000057 0000                      	NOP
+000058 0000                      	NOP
+000059 0000                      	NOP
+00005a 0000                      	NOP
+00005b 0000                      	NOP
+00005c 9508                      	RET
                                  
                                  ;==============================================================================
                                  ; Delay of X µs
@@ -1506,43 +1464,43 @@ C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab
                                          ; n = 12  => we need 12 NOP:s for longer times.
                                      ; 3 NOP:s work good for shorter times (1-3µs)
                                      ; See generated time graph for microseconds in exel
-000070 0000                      	NOP
-000071 0000                      	NOP
-000072 0000                      	NOP
-000073 0000                      	NOP
-000074 0000                      	NOP
-000075 0000                      	NOP
-000076 0000                      	NOP
-000077 0000                      	NOP
-000078 0000                      	NOP
-000079 0000                      	NOP
-00007a 0000                      	NOP
-00007b 0000                      	NOP
-00007c 958a                      	DEC R24
-00007d 3080                      	CPI R24, 0			; more loops to do?
-00007e f789                      	BRNE delay_micros	;	continue!
-00007f 9508                      	RET
+00005d 0000                      	NOP
+00005e 0000                      	NOP
+00005f 0000                      	NOP
+000060 0000                      	NOP
+000061 0000                      	NOP
+000062 0000                      	NOP
+000063 0000                      	NOP
+000064 0000                      	NOP
+000065 0000                      	NOP
+000066 0000                      	NOP
+000067 0000                      	NOP
+000068 0000                      	NOP
+000069 958a                      	DEC R24
+00006a 3080                      	CPI R24, 0			; more loops to do?
+00006b f789                      	BRNE delay_micros	;	continue!
+00006c 9508                      	RET
                                  
                                  ;==============================================================================
                                  ; Delay of X ms
                                  ;	LDI + RCALL = 4 cycles
                                  ;==============================================================================
                                  delay_ms:
-000080 2f28                      	MOV R18, R24
+00006d 2f28                      	MOV R18, R24
                                  loop_dms:
-000081 ef8a                      	LDI R24, 250
-000082 dfed                      	RCALL delay_micros
-000083 ef8a                      	LDI R24, 250
-000084 dfeb                      	RCALL delay_micros
-000085 ef8a                      	LDI R24, 250
-000086 dfe9                      	RCALL delay_micros
-000087 ef8a                      	LDI R24, 250
-000088 dfe7                      	RCALL delay_micros
-000089 952a                      	DEC R18
-00008a 3020                      	CPI R18, 0			; more loops to do?
-00008b f7a9                      	BRNE loop_dms		;	continue!
+00006e ef8a                      	LDI R24, 250
+00006f dfed                      	RCALL delay_micros
+000070 ef8a                      	LDI R24, 250
+000071 dfeb                      	RCALL delay_micros
+000072 ef8a                      	LDI R24, 250
+000073 dfe9                      	RCALL delay_micros
+000074 ef8a                      	LDI R24, 250
+000075 dfe7                      	RCALL delay_micros
+000076 952a                      	DEC R18
+000077 3020                      	CPI R18, 0			; more loops to do?
+000078 f7a9                      	BRNE loop_dms		;	continue!
                                  	.INCLUDE "lcd.inc"
-00008c 9508                      
+000079 9508                      
                                   * lcd.inc
                                   * This file contains subroutines for communicating with a Hitachi HD44780
                                   * LCD controller (or compatible circuit).
@@ -1591,11 +1549,11 @@ C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab
                                  ; Write the most significant nibble (of the content in R24) to the LCD.
                                  ;==============================================================================
                                  lcd_write_nibble:
-00008d bb81                      	OUT	D_PORT, R24			; write data
-00008e 9a5f                      	SBI	E_PORT, E			; set Enable pin for...
-00008f dfd9                      	RCALL delay_1_micros	; ...1 µs!
-000090 985f                      	CBI	E_PORT, E			; clear Enable pin
-000091 9508                      	RET
+00007a bb81                      	OUT	D_PORT, R24			; write data
+00007b 9a5f                      	SBI	E_PORT, E			; set Enable pin for...
+00007c dfd9                      	RCALL delay_1_micros	; ...1 µs!
+00007d 985f                      	CBI	E_PORT, E			; clear Enable pin
+00007e 9508                      	RET
                                  
                                  ;==============================================================================
                                  ; Write to the Instruction Register.
@@ -1603,13 +1561,13 @@ C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab
                                  ; A minimum of 39 µs delay must be generated after each instruction!
                                  ;==============================================================================
                                  lcd_write_instr:
-000092 985e                      	CBI	RS_PORT, RS			; select Instruction Register
-000093 dff9                      	RCALL lcd_write_nibble	; write MSB's
-000094 9582                      	SWAP R24
-000095 dff7                      	RCALL lcd_write_nibble	; write LSB's
-000096 e28d                      	LDI R24, 45
-000097 dfd8                      	RCALL delay_micros
-000098 9508                      	RET
+00007f 985e                      	CBI	RS_PORT, RS			; select Instruction Register
+000080 dff9                      	RCALL lcd_write_nibble	; write MSB's
+000081 9582                      	SWAP R24
+000082 dff7                      	RCALL lcd_write_nibble	; write LSB's
+000083 e28d                      	LDI R24, 45
+000084 dfd8                      	RCALL delay_micros
+000085 9508                      	RET
                                  
                                  ;==============================================================================
                                  ; Write a character to the Data Register.
@@ -1617,119 +1575,162 @@ C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab
                                  ; After the character has been written, a delay of 43 µs is generated! 
                                  ;==============================================================================
                                  lcd_write_chr:
-000099 9a5e                      	SBI RS_PORT, RS			; select Data Register
-00009a dff2                      	RCALL lcd_write_nibble	; write MSB's
-00009b 9582                      	SWAP R24
-00009c dff0                      	RCALL lcd_write_nibble	; write LSB's
-00009d e28d                      	LDI R24, 45
-00009e dfd1                      	RCALL delay_micros
-00009f 9508                      	RET
+000086 9a5e                      	SBI RS_PORT, RS			; select Data Register
+000087 dff2                      	RCALL lcd_write_nibble	; write MSB's
+000088 9582                      	SWAP R24
+000089 dff0                      	RCALL lcd_write_nibble	; write LSB's
+00008a e28d                      	LDI R24, 45
+00008b dfd1                      	RCALL delay_micros
+00008c 9508                      	RET
                                  
                                  ;==============================================================================
                                  ; Initialize the LCD.
                                  ;==============================================================================
                                  lcd_init:		
-0000a0 e184                      	LDI	R24, 20				; wait more than 15 ms after power-up!
-0000a1 dfde                      	RCALL delay_ms
-0000a2 985e                      	CBI	RS_PORT, RS			; select Instruction Register
-0000a3 e380                      	LDI	R24, 0x30			; Function Set: 8 bit data interface
-0000a4 dfe8                      	RCALL lcd_write_nibble
-0000a5 e08a                      	LDI	R24, 10				; wait 10 ms
-0000a6 dfd9                      	RCALL delay_ms
-0000a7 e380                      	LDI	R24, 0x30			; Function Set: 8 bit data interface
-0000a8 dfe4                      	RCALL lcd_write_nibble
-0000a9 e08a                      	LDI	R24, 10				; wait 10 ms
-0000aa dfd5                      	RCALL delay_ms
-0000ab e380                      	LDI	R24, 0x30			; Function Set: 8 bit data interface
-0000ac dfe0                      	RCALL lcd_write_nibble
-0000ad e08a                      	LDI	R24, 10				; wait 10 ms
-0000ae dfd1                      	RCALL delay_ms
+00008d e184                      	LDI	R24, 20				; wait more than 15 ms after power-up!
+00008e dfde                      	RCALL delay_ms
+00008f 985e                      	CBI	RS_PORT, RS			; select Instruction Register
+000090 e380                      	LDI	R24, 0x30			; Function Set: 8 bit data interface
+000091 dfe8                      	RCALL lcd_write_nibble
+000092 e08a                      	LDI	R24, 10				; wait 10 ms
+000093 dfd9                      	RCALL delay_ms
+000094 e380                      	LDI	R24, 0x30			; Function Set: 8 bit data interface
+000095 dfe4                      	RCALL lcd_write_nibble
+000096 e08a                      	LDI	R24, 10				; wait 10 ms
+000097 dfd5                      	RCALL delay_ms
+000098 e380                      	LDI	R24, 0x30			; Function Set: 8 bit data interface
+000099 dfe0                      	RCALL lcd_write_nibble
+00009a e08a                      	LDI	R24, 10				; wait 10 ms
+00009b dfd1                      	RCALL delay_ms
                                  
-0000af e280                      	LDI	R24, 0x20			; Function Set: switch to 4 bit data interface
-0000b0 dfdc                      	RCALL lcd_write_nibble
-0000b1 e28d                      	LDI R24, 45				; must be followed by a minimum
-0000b2 dfbd                      	RCALL delay_micros		; delay of 39 µs
+00009c e280                      	LDI	R24, 0x20			; Function Set: switch to 4 bit data interface
+00009d dfdc                      	RCALL lcd_write_nibble
+00009e e28d                      	LDI R24, 45				; must be followed by a minimum
+00009f dfbd                      	RCALL delay_micros		; delay of 39 µs
                                  
-0000b3 e288                      	LDI	R24, 0x28			; Function Set: 4 bit data interface, 2 lines,
-0000b4 dfdd                      	RCALL lcd_write_instr	;				Font 5x10
+0000a0 e288                      	LDI	R24, 0x28			; Function Set: 4 bit data interface, 2 lines,
+0000a1 dfdd                      	RCALL lcd_write_instr	;				Font 5x10
                                  
-0000b5 e08c                      	LDI	R24, 0x0C			; Display on, Cursor off
-0000b6 dfdb                      	RCALL lcd_write_instr
+0000a2 e08c                      	LDI	R24, 0x0C			; Display on, Cursor off
+0000a3 dfdb                      	RCALL lcd_write_instr
                                  
-0000b7 e081                      	LDI	R24, 0x01			; Clear Display
-0000b8 dfd9                      	RCALL lcd_write_instr
-0000b9 e082                      	LDI	R24, 2				; must be followed by a minimum
-0000ba dfc5                      	RCALL delay_ms			; delay of 1.53 ms
+0000a4 e081                      	LDI	R24, 0x01			; Clear Display
+0000a5 dfd9                      	RCALL lcd_write_instr
+0000a6 e082                      	LDI	R24, 2				; must be followed by a minimum
+0000a7 dfc5                      	RCALL delay_ms			; delay of 1.53 ms
                                  
-0000bb e086                      	LDI R24, 0x06			; Entry Mode Set: incremental cursor movement,
-0000bc dfd5                      	RCALL lcd_write_instr	;				  no display shift
-0000bd 9508                      	
+0000a8 e086                      	LDI R24, 0x06			; Entry Mode Set: incremental cursor movement,
+0000a9 dfd5                      	RCALL lcd_write_instr	;				  no display shift
+                                 	.INCLUDE "keyboard.inc"
+0000aa 9508                      
+                                  * keyboard.inc
+                                  * This file contians a subrutine for reading binary inputs from from a 4-bit keyboard 0-B
+                                  * Registers in use:
+                                  *  -Internal: R18, R19 
+                                  *  -Output: R24  
+                                  *  Created: 2020-12-04 09:54:59
+                                  *   Author: Johan Fritiofsson, Mattias Ståhlberg
+                                  */ 
+                                 
+                                 
+                                 
+                                 read_keyboard:
+0000ab e020                      	LDI R18, 0
+                                 scan_key:
+0000ac 2f32                      	MOV R19, R18
+0000ad 0f33                      	LSL R19
+0000ae 0f33                      	LSL R19
+0000af 0f33                      	LSL R19
+0000b0 0f33                      	LSL R19
+                                 	
+0000b1 b935                      	OUT PORTB, R19
+0000b2 932f                      	PUSH R18
+0000b3 e081                      	LDI R24, 1
+0000b4 dfb8                      	RCALL delay_ms ; delay for bounce
+0000b5 912f                      	POP R18
+                                 	
+0000b6 9966                      	SBIC PINE, 6
+0000b7 c004                      	RJMP return_key_val
+0000b8 9523                      	INC R18	
+0000b9 302c                      	CPI R18, 12
+0000ba f789                      	BRNE scan_key
+0000bb e02f                      	LDI R18, NO_KEY        ; no key was pressed!
+                                 return_key_val:
+0000bc 2f82                      	MOV RVAL, R18		; COPY FROM R18 TO RVAL
+0000bd 9508                      	RET
+                                 
+                                 key_compare:
+0000be 308f                          CPI RVAL, NO_KEY
+0000bf f051                          BREQ key_release    ; branch to key_relased if return value was NO_KEY
+0000c0 1781                          CP RVAL, LVAL
+0000c1 f131                          BREQ loop        ; If RVAL and LVAL is equal branch to loop
+0000c2 2f18                          MOV LVAL, RVAL    ; Copy our return value to last value
+0000c3 308a                          CPI RVAL, 10    ; Compare RVAL to 10
+0000c4 f010                          BRLO write        ; IF RVAL is lower than 10 jump to write
+0000c5 e007                          LDI TEMP, 7        ; Between 9 and A in ASCII is 7, therefore 7 is added to the number
+0000c6 0f80                          ADD RVAL, TEMP
+                                 write:
+0000c7 e300                          LDI TEMP, CONVERT
+0000c8 0f80                          ADD RVAL, TEMP                ; Converting RVAL to ASCII
+0000c9 9508                          RET
+                                 
+                                 key_release:
+0000ca e01f                          LDI LVAL, NO_KEY        ; last value is NO_KEY
+0000cb c01c                      	
                                  ;==============================================================================
                                  ; Basic initializations of stack pointer, I/O pins, etc.
                                  ;==============================================================================
                                  init:
                                  	; Set stack pointer to point at the end of RAM.
-0000be ef0f                      	LDI R16, LOW(RAMEND)
-0000bf bf0d                      	OUT SPL, R16
-0000c0 e00a                      	LDI R16, HIGH(RAMEND)
-0000c1 bf0e                      	OUT SPH, R16
+0000cc ef0f                      	LDI R16, LOW(RAMEND)
+0000cd bf0d                      	OUT SPL, R16
+0000ce e00a                      	LDI R16, HIGH(RAMEND)
+0000cf bf0e                      	OUT SPH, R16
                                  	; Initialize pins
-0000c2 940e 00c7                 	CALL init_pins
-0000c4 940e 00a0                 	CALL lcd_init
+0000d0 940e 00d5                 	CALL init_pins
+0000d2 940e 008d                 	CALL lcd_init
                                  	; Jump to main part of program
-0000c6 c007                      	RJMP main
+0000d4 c007                      	RJMP main
                                  
                                  ;==============================================================================
                                  ; Initialize I/O pins
                                  ;==============================================================================
                                  init_pins:	
                                  
-0000c7 ef0f                      	LDI TEMP, 0xFF ; SET TEMP TO HIGH
-0000c8 bb00                      	OUT DDRF, TEMP ;PORT F OUTPUT
-0000c9 b904                      	OUT DDRB, TEMP ;PORT B OUTPUT
-0000ca b90a                      	OUT DDRD, TEMP ;PORT D OUTPUT
+0000d5 ef0f                      	LDI TEMP, 0xFF ; SET TEMP TO HIGH
+0000d6 bb00                      	OUT DDRF, TEMP ;PORT F OUTPUT
+0000d7 b904                      	OUT DDRB, TEMP ;PORT B OUTPUT
+0000d8 b90a                      	OUT DDRD, TEMP ;PORT D OUTPUT
                                  
-0000cb e000                      	LDI TEMP, 0x00 ; SET TEMP TO LOW
-0000cc b90d                      	OUT DDRE, TEMP ; PORT E INPUT
+0000d9 e000                      	LDI TEMP, 0x00 ; SET TEMP TO LOW
+0000da b90d                      	OUT DDRE, TEMP ; PORT E INPUT
                                  
-0000cd 9508                      	RET
+0000db 9508                      	RET
                                  
                                  ;==============================================================================
                                  ; Main part of program
                                  ;==============================================================================
                                  main:
-0000ce e48b
-0000cf dfc9                      	LCD_WRITE_CHAR 'K'
-0000d0 e485
-0000d1 dfc7                      	LCD_WRITE_CHAR 'E'
-0000d2 e589
-0000d3 dfc5                      	LCD_WRITE_CHAR 'Y'
-0000d4 e38a
-0000d5 dfc3                      	LCD_WRITE_CHAR ':'
-0000d6 ec80
-0000d7 dfba
-0000d8 e287
-0000d9 df96                      	LCD_INSTRUCTION 0xC0 ; SETS CURSOR TO LINE 1 COL O
-                                 key_release:
-0000da e01f                      	LDI LVAL, NO_KEY		; last value is NO_KEY								
+0000dc e48b
+0000dd dfa8                      	LCD_WRITE_CHAR 'K'
+0000de e485
+0000df dfa6                      	LCD_WRITE_CHAR 'E'
+0000e0 e589
+0000e1 dfa4                      	LCD_WRITE_CHAR 'Y'
+0000e2 e38a
+0000e3 dfa2                      	LCD_WRITE_CHAR ':'
+0000e4 ec80
+0000e5 df99
+0000e6 e287
+0000e7 df75                      	LCD_INSTRUCTION 0xC0 ; SETS CURSOR TO LINE 1 COL O		
+                                 				
                                  loop:																		  
-0000db df7a                      	RCALL read_keyboard												  
-0000dc 308f                      	CPI RVAL, NO_KEY														  
-0000dd f3e1                      	BREQ key_release	; branch to key_relased if return value was NO_KEY	  
-0000de 1781                      	CP RVAL, LVAL															  
-0000df f3d9                      	BREQ loop		; If RVAL and LVAL is equal branch to loop				  
-0000e0 2f18                      	MOV LVAL, RVAL	; Copy our return value to last value
-0000e1 308a                      	CPI RVAL, 10	; Compare RVAL to 10
-0000e2 f010                      	BRLO write		; IF RVAL is lower than 10 jump to write
-0000e3 e007                      	LDI TEMP, 7		; Between 9 and A in ASCII is 7, therefore 7 is added to the number
-0000e4 0f80                      	ADD RVAL, TEMP
-                                 write:
-0000e5 e300                      	LDI TEMP, CONVERT
-0000e6 0f80                      	ADD RVAL, TEMP				; Converting RVAL to ASCII
-0000e7 2f88
-0000e8 dfb0                      	LCD_WRITE_REG_CHAR RVAL
-0000e9 ef8a                      	LDI R24, 250
-0000ea df95                      	RCALL delay_ms
+0000e8 dfc2                      	RCALL read_keyboard	
+0000e9 dfd4                      	RCALL key_compare											  
+0000ea 2f88
+0000eb df9a                      	LCD_WRITE_REG_CHAR RVAL
+0000ec ef8a                      	LDI R24, 250
+0000ed df7f                      	RCALL delay_ms
 
 
 RESOURCE USE INFORMATION
@@ -1768,7 +1769,7 @@ fmulsu:   0 icall :   0 ijmp  :   0 in    :   0 inc   :   1 jmp   :   0
 ld    :   0 ldd   :   0 ldi   :  37 lds   :   0 lpm   :   0 lsl   :   4 
 lsr   :   0 mov   :   5 movw  :   0 mul   :   0 muls  :   0 mulsu :   0 
 neg   :   0 nop   :  18 or    :   0 ori   :   0 out   :   8 pop   :   1 
-push  :   1 rcall :  35 ret   :   9 reti  :   0 rjmp  :   4 rol   :   0 
+push  :   1 rcall :  36 ret   :  10 reti  :   0 rjmp  :   5 rol   :   0 
 ror   :   0 sbc   :   0 sbci  :   0 sbi   :   2 sbic  :   1 sbis  :   0 
 sbiw  :   0 sbr   :   0 sbrc  :   0 sbrs  :   0 sec   :   0 seh   :   0 
 sei   :   0 sen   :   0 ser   :   0 ses   :   0 set   :   0 sev   :   0 
@@ -1779,7 +1780,7 @@ Instructions used: 23 out of 113 (20.4%)
 "ATmega32U4" memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000000 0x0001d8    302      0    302   32768   0.9%
+[.cseg] 0x000000 0x0001de    308      0    308   32768   0.9%
 [.dseg] 0x000100 0x000100      0      0      0    2560   0.0%
 [.eseg] 0x000000 0x000000      0      0      0    1024   0.0%
 

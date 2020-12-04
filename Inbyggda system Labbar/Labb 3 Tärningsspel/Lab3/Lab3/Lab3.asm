@@ -26,9 +26,9 @@
 	RJMP init
 
 	.ORG PM_START
-	.INCLUDE "keyboard.inc"
 	.INCLUDE "delay.inc"
 	.INCLUDE "lcd.inc"
+	.INCLUDE "keyboard.inc"
 	
 ;==============================================================================
 ; Basic initializations of stack pointer, I/O pins, etc.
@@ -68,23 +68,11 @@ main:
 	LCD_WRITE_CHAR 'E'
 	LCD_WRITE_CHAR 'Y'
 	LCD_WRITE_CHAR ':'
-	LCD_INSTRUCTION 0xC0 ; SETS CURSOR TO LINE 1 COL O
-key_release:
-	LDI LVAL, NO_KEY		; last value is NO_KEY								
+	LCD_INSTRUCTION 0xC0 ; SETS CURSOR TO LINE 1 COL O		
+				
 loop:																		  
-	RCALL read_keyboard												  
-	CPI RVAL, NO_KEY														  
-	BREQ key_release	; branch to key_relased if return value was NO_KEY	  
-	CP RVAL, LVAL															  
-	BREQ loop		; If RVAL and LVAL is equal branch to loop				  
-	MOV LVAL, RVAL	; Copy our return value to last value
-	CPI RVAL, 10	; Compare RVAL to 10
-	BRLO write		; IF RVAL is lower than 10 jump to write
-	LDI TEMP, 7		; Between 9 and A in ASCII is 7, therefore 7 is added to the number
-	ADD RVAL, TEMP
-write:
-	LDI TEMP, CONVERT
-	ADD RVAL, TEMP				; Converting RVAL to ASCII
+	RCALL read_keyboard	
+	RCALL key_compare											  
 	LCD_WRITE_REG_CHAR RVAL
 	LDI R24, 250
 	RCALL delay_ms

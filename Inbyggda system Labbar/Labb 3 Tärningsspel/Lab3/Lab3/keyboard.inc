@@ -9,13 +9,8 @@
  */ 
 
 
-;-----------------------------------------------------------------
- read_keyboard:
-; Parameters none
-; R18: loop through 0-12.
-; OUT: R24: contains binary value from keyboard.
-; Limitations: If no input NO_KEY is returned.
-;----------------------------------------------------------------read_keyboard:
+
+read_keyboard:
 	LDI R18, 0
 scan_key:
 	MOV R19, R18
@@ -39,3 +34,22 @@ scan_key:
 return_key_val:
 	MOV RVAL, R18		; COPY FROM R18 TO RVAL
 	RET
+
+key_compare:
+    CPI RVAL, NO_KEY
+    BREQ key_release    ; branch to key_relased if return value was NO_KEY
+    CP RVAL, LVAL
+    BREQ loop        ; If RVAL and LVAL is equal branch to loop
+    MOV LVAL, RVAL    ; Copy our return value to last value
+    CPI RVAL, 10    ; Compare RVAL to 10
+    BRLO write        ; IF RVAL is lower than 10 jump to write
+    LDI TEMP, 7        ; Between 9 and A in ASCII is 7, therefore 7 is added to the number
+    ADD RVAL, TEMP
+write:
+    LDI TEMP, CONVERT
+    ADD RVAL, TEMP                ; Converting RVAL to ASCII
+    RET
+
+key_release:
+    LDI LVAL, NO_KEY        ; last value is NO_KEY
+	RJMP loop
