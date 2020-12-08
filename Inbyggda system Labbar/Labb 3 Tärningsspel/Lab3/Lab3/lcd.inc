@@ -44,6 +44,12 @@
 	.EQU D_PORT		= PORTF		; port for data/instructions
 
 ;==============================================================================
+; Definitions of registers, etc. ("constants")
+;==============================================================================
+Str_1:	.DB "Welcome!"
+		.EQU Sz_str1		= 8		; Size for Str_1
+
+;==============================================================================
 ; Write the most significant nibble (of the content in R24) to the LCD.
 ;==============================================================================
 lcd_write_nibble:
