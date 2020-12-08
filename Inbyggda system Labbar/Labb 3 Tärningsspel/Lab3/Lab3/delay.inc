@@ -4,7 +4,22 @@
  * Author:	Mattias Ståhlberg & Johan Fritiofsson
  *
  * Date:	2020-11-25
- */ 
+ */
+  
+;==============================================================================
+; Delay seconds
+;==============================================================================
+	.MACRO DELAY_1S
+	LDI R24, 250
+	RCALL delay_ms
+	LDI R24, 250
+	RCALL delay_ms
+	LDI R24, 250
+	RCALL delay_ms
+	LDI R24, 250
+	RCALL delay_ms
+	.ENDMACRO
+
 
 ;==============================================================================
 ; Delay of 1 µs (including RCALL)

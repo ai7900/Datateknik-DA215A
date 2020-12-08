@@ -68,7 +68,11 @@ init_pins:
 ; Main part of program
 ;==============================================================================
 main:
-	PRINTSTRING Hello_str1
+	PRINTSTRING Dice_start
+	DELAY_1S
+	LCD_INSTRUCTION 0x01 ; CLEAR LCD
+	DELAY_1S
+	PRINTSTRING Dice_2
 	
 				
 loop:																		  

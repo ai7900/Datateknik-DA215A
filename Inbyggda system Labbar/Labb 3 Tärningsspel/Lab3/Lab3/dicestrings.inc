@@ -11,6 +11,9 @@
 ;==============================================================================
 	Str_1:		.DB "Welcome!",0,0			
 	Hello_str1: .DB "Hello",0
-	Dice_start: .DB "Welcome to the dice game",0,0
-	Dice_roll:	.DB "Rolling the dice"
+	Dice_start: .DB "DICE GAME",0,0
+	Dice_roll:	.DB "Rolling the dice",0
+	Dice_2:		.DB "Press 2 to roll",0
+	Dice_value: .DB "Value: ",0
+
 	

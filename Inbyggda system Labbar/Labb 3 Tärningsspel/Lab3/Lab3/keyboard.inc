@@ -45,16 +45,8 @@ key_compare:
     CPI RVAL, NO_KEY
     BREQ key_release    ; branch to key_relased if return value was NO_KEY
     CP RVAL, LVAL
-    BREQ keyboard_return        ; If RVAL and LVAL is equal branch to loop
+    BREQ key_return        ; If RVAL and LVAL is equal branch to loop
     MOV LVAL, RVAL    ; Copy our return value to last value
- /*   CPI RVAL, 10    ; Compare RVAL to 10
-    BRLO write        ; IF RVAL is lower than 10 jump to write
-    LDI TEMP, 7        ; Between 9 and A in ASCII is 7, therefore 7 is added to the number
-    ADD RVAL, TEMP
-write:
-    LDI TEMP, CONVERT
-    ADD RVAL, TEMP                ; Converting RVAL to ASCII
-    RET*/
 	LDI ZH, high(map_table <<1)		;Initialize Z pointer
 	LDI ZL, low(map_table <<1)
 	ADD ZL, RVAL					;Add index
@@ -66,6 +58,5 @@ write:
 key_release:
     LDI LVAL, NO_KEY        ; last value is NO_KEY
 	RJMP loop
-
-keyboard_return:
+key_return:
 	JMP loop

@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.8  C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\Lab3.asm Tue Dec 08 15:57:56 2020
+AVRASM ver. 2.2.8  C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\Lab3.asm Tue Dec 08 16:23:41 2020
 
 
 EQU  SIGNATURE_000 0000001e
@@ -1005,7 +1005,7 @@ EQU  CONVERT      00000030
 DEF  TEMP         r16
 DEF  RVAL         r24
 DEF  LVAL         r17
-CSEG init         000000f7
+CSEG init         000000fd
 CSEG delay_1_micros 00000056
 CSEG delay_micros 0000005d
 CSEG delay_ms     0000006d
@@ -1026,11 +1026,13 @@ CSEG scan_key     000000b8
 CSEG return_key_val 000000c8
 CSEG key_compare  000000ca
 CSEG key_release  000000d6
-CSEG keyboard_return 000000d8
-CSEG loop         0000010a
+CSEG key_return   000000d8
+CSEG loop         00000127
 CSEG Str_1        000000da
 CSEG Hello_str1   000000df
 CSEG Dice_start   000000e2
-CSEG Dice_roll    000000ef
-CSEG init_pins    00000100
-CSEG main         00000107
+CSEG Dice_roll    000000e8
+CSEG Dice_2       000000f1
+CSEG Dice_value   000000f9
+CSEG init_pins    00000106
+CSEG main         0000010d

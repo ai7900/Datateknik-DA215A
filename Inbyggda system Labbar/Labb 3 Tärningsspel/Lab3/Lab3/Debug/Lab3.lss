@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.8  C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\Lab3.asm Tue Dec 08 15:57:56 2020
+AVRASM ver. 2.2.8  C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\Lab3.asm Tue Dec 08 16:23:41 2020
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\avrasm\inc\m32U4def.inc'
 C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\Lab3.asm(29): Including file 'C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\delay.inc'
@@ -1430,7 +1430,7 @@ C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab
                                  ;==============================================================================
                                  	.CSEG
                                  	.ORG RESET
-000000 c0f6                      	RJMP init
+000000 c0fc                      	RJMP init
                                  
                                  	.ORG PM_START
                                  	.INCLUDE "delay.inc"
@@ -1440,7 +1440,22 @@ C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab
                                   * Author:	Mattias Ståhlberg & Johan Fritiofsson
                                   *
                                   * Date:	2020-11-25
-                                  */ 
+                                  */
+                                   
+                                 ;==============================================================================
+                                 ; Delay seconds
+                                 ;==============================================================================
+                                 	.MACRO DELAY_1S
+                                 	LDI R24, 250
+                                 	RCALL delay_ms
+                                 	LDI R24, 250
+                                 	RCALL delay_ms
+                                 	LDI R24, 250
+                                 	RCALL delay_ms
+                                 	LDI R24, 250
+                                 	RCALL delay_ms
+                                 	.ENDMACRO
+                                 
                                  
                                  ;==============================================================================
                                  ; Delay of 1 µs (including RCALL)
@@ -1702,16 +1717,8 @@ C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab
 0000ca 308f                          CPI RVAL, NO_KEY
 0000cb f051                          BREQ key_release    ; branch to key_relased if return value was NO_KEY
 0000cc 1781                          CP RVAL, LVAL
-0000cd f051                          BREQ keyboard_return        ; If RVAL and LVAL is equal branch to loop
+0000cd f051                          BREQ key_return        ; If RVAL and LVAL is equal branch to loop
 0000ce 2f18                          MOV LVAL, RVAL    ; Copy our return value to last value
-                                  /*   CPI RVAL, 10    ; Compare RVAL to 10
-                                     BRLO write        ; IF RVAL is lower than 10 jump to write
-                                     LDI TEMP, 7        ; Between 9 and A in ASCII is 7, therefore 7 is added to the number
-                                     ADD RVAL, TEMP
-                                 write:
-                                     LDI TEMP, CONVERT
-                                     ADD RVAL, TEMP                ; Converting RVAL to ASCII
-                                     RET*/
 0000cf e0f1                      	LDI ZH, high(map_table <<1)		;Initialize Z pointer
 0000d0 e6e2                      	LDI ZL, low(map_table <<1)
 0000d1 0fe8                      	ADD ZL, RVAL					;Add index
@@ -1722,11 +1729,10 @@ C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab
                                  
                                  key_release:
 0000d6 e01f                          LDI LVAL, NO_KEY        ; last value is NO_KEY
-0000d7 c032                      	RJMP loop
-                                 
-                                 keyboard_return:
+0000d7 c04f                      	RJMP loop
+                                 key_return:
                                  	.INCLUDE "dicestrings.inc"
-0000d8 940c 010a                 
+0000d8 940c 0127                 
                                   * dicestrings.inc
                                   *
                                   *  Created: 2020-12-08 15:52:24
@@ -1745,27 +1751,38 @@ C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab
 0000df 6548
 0000e0 6c6c
 0000e1 006f                      	Hello_str1: .DB "Hello",0
-0000e2 6557
-0000e3 636c
-0000e4 6d6f
-0000e5 2065
-0000e6 6f74
-0000e7 7420
-0000e8 6568
-0000e9 6420
-0000ea 6369
-0000eb 2065
-0000ec 6167
-0000ed 656d
-0000ee 0000                      	Dice_start: .DB "Welcome to the dice game",0,0
-0000ef 6f52
-0000f0 6c6c
-0000f1 6e69
-0000f2 2067
-0000f3 6874
-0000f4 2065
-0000f5 6964
-0000f6 6563                      	Dice_roll:	.DB "Rolling the dice"
+0000e2 4944
+0000e3 4543
+0000e4 4720
+0000e5 4d41
+0000e6 0045
+C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\dicestrings.inc(14): warning: .cseg .db misalignment - padding zero byte
+C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\Lab3.asm(32): 'C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\dicestrings.inc' included form here
+0000e7 0000                      	Dice_start: .DB "DICE GAME",0,0
+0000e8 6f52
+0000e9 6c6c
+0000ea 6e69
+0000eb 2067
+0000ec 6874
+0000ed 2065
+0000ee 6964
+0000ef 6563
+C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\dicestrings.inc(15): warning: .cseg .db misalignment - padding zero byte
+C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\Lab3.asm(32): 'C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\dicestrings.inc' included form here
+0000f0 0000                      	Dice_roll:	.DB "Rolling the dice",0
+0000f1 7250
+0000f2 7365
+0000f3 2073
+0000f4 2032
+0000f5 6f74
+0000f6 7220
+0000f7 6c6f
+0000f8 006c                      	Dice_2:		.DB "Press 2 to roll",0
+0000f9 6156
+0000fa 756c
+0000fb 3a65
+0000fc 0020                      	Dice_value: .DB "Value: ",0
+                                 
                                  	//.INCLUDE "stats.inc"
                                  	//.INCLUDE "monitor.inc"
                                  
@@ -1775,48 +1792,71 @@ C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab
                                  ;==============================================================================
                                  init:
                                  	; Set stack pointer to point at the end of RAM.
-0000f7 ef0f                      	LDI R16, LOW(RAMEND)
-0000f8 bf0d                      	OUT SPL, R16
-0000f9 e00a                      	LDI R16, HIGH(RAMEND)
-0000fa bf0e                      	OUT SPH, R16
+0000fd ef0f                      	LDI R16, LOW(RAMEND)
+0000fe bf0d                      	OUT SPL, R16
+0000ff e00a                      	LDI R16, HIGH(RAMEND)
+000100 bf0e                      	OUT SPH, R16
                                  	; Initialize pins
-0000fb 940e 0100                 	CALL init_pins
-0000fd 940e 008d                 	CALL lcd_init
+000101 940e 0106                 	CALL init_pins
+000103 940e 008d                 	CALL lcd_init
                                  	; Jump to main part of program
-0000ff c007                      	RJMP main
+000105 c007                      	RJMP main
                                  
                                  ;==============================================================================
                                  ; Initialize I/O pins
                                  ;==============================================================================
                                  init_pins:	
                                  
-000100 ef0f                      	LDI TEMP, 0xFF ; SET TEMP TO HIGH
-000101 bb00                      	OUT DDRF, TEMP ;PORT F OUTPUT
-000102 b904                      	OUT DDRB, TEMP ;PORT B OUTPUT
-000103 b90a                      	OUT DDRD, TEMP ;PORT D OUTPUT
+000106 ef0f                      	LDI TEMP, 0xFF ; SET TEMP TO HIGH
+000107 bb00                      	OUT DDRF, TEMP ;PORT F OUTPUT
+000108 b904                      	OUT DDRB, TEMP ;PORT B OUTPUT
+000109 b90a                      	OUT DDRD, TEMP ;PORT D OUTPUT
                                  
-000104 e000                      	LDI TEMP, 0x00 ; SET TEMP TO LOW
-000105 b90d                      	OUT DDRE, TEMP ; PORT E INPUT
+00010a e000                      	LDI TEMP, 0x00 ; SET TEMP TO LOW
+00010b b90d                      	OUT DDRE, TEMP ; PORT E INPUT
                                  
-000106 9508                      	RET
+00010c 9508                      	RET
                                  
                                  ;==============================================================================
                                  ; Main part of program
                                  ;==============================================================================
                                  main:
-000107 e0f1
-000108 ebee
-000109 dfa1                      	PRINTSTRING Hello_str1
+00010d e0f1
+00010e ece4
+00010f df9b                      	PRINTSTRING Dice_start
+000110 ef8a
+000111 df5b
+000112 ef8a
+000113 df59
+000114 ef8a
+000115 df57
+000116 ef8a
+000117 df55                      	DELAY_1S
+000118 e081
+000119 df65
+00011a e287
+00011b df41                      	LCD_INSTRUCTION 0x01 ; CLEAR LCD
+00011c ef8a
+00011d df4f
+00011e ef8a
+00011f df4d
+000120 ef8a
+000121 df4b
+000122 ef8a
+000123 df49                      	DELAY_1S
+000124 e0f1
+000125 eee2
+000126 df84                      	PRINTSTRING Dice_2
                                  	
                                  				
                                  loop:																		  
-00010a dfac                      	RCALL read_keyboard	
-00010b dfbe                      	RCALL key_compare											  
-00010c 2f88
-00010d df78                      	LCD_WRITE_REG_CHAR RVAL
-00010e ef8a                      	LDI R24, 250
-00010f df5d                      	RCALL delay_ms
-000110 cff9                      	RJMP loop
+000127 df8f                      	RCALL read_keyboard	
+000128 dfa1                      	RCALL key_compare											  
+000129 2f88
+00012a df5b                      	LCD_WRITE_REG_CHAR RVAL
+00012b ef8a                      	LDI R24, 250
+00012c df40                      	RCALL delay_ms
+00012d cff9                      	RJMP loop
 
 
 RESOURCE USE INFORMATION
@@ -1837,8 +1877,8 @@ counted separately from r26..r31 here.
 x  :   0 y  :   0 z  :   3 r0 :   0 r1 :   0 r2 :   0 r3 :   0 r4 :   0 
 r5 :   0 r6 :   0 r7 :   0 r8 :   0 r9 :   0 r10:   0 r11:   0 r12:   0 
 r13:   0 r14:   0 r15:   0 r16:  12 r17:   3 r18:  11 r19:   6 r20:   0 
-r21:   0 r22:   0 r23:   0 r24:  39 r25:   0 r26:   0 r27:   0 r28:   0 
-r29:   0 r30:   3 r31:   3 
+r21:   0 r22:   0 r23:   0 r24:  49 r25:   0 r26:   0 r27:   0 r28:   0 
+r29:   0 r30:   4 r31:   4 
 Registers used: 8 out of 35 (22.9%)
 
 "ATmega32U4" instruction use summary:
@@ -1852,10 +1892,10 @@ clc   :   0 clh   :   0 cli   :   0 cln   :   0 clr   :   0 cls   :   0
 clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :   1 cpc   :   0 
 cpi   :   5 cpse  :   0 dec   :   2 eor   :   0 fmul  :   0 fmuls :   0 
 fmulsu:   0 icall :   0 ijmp  :   0 in    :   0 inc   :   1 jmp   :   1 
-ld    :   0 ldd   :   0 ldi   :  34 lds   :   0 lpm   :   5 lsl   :   4 
+ld    :   0 ldd   :   0 ldi   :  46 lds   :   0 lpm   :   5 lsl   :   4 
 lsr   :   0 mov   :   5 movw  :   0 mul   :   0 muls  :   0 mulsu :   0 
 neg   :   0 nop   :  18 or    :   0 ori   :   0 out   :   8 pop   :   1 
-push  :   1 rcall :  32 ret   :  11 reti  :   0 rjmp  :   5 rol   :   0 
+push  :   1 rcall :  43 ret   :  11 reti  :   0 rjmp  :   5 rol   :   0 
 ror   :   0 sbc   :   0 sbci  :   0 sbi   :   2 sbic  :   1 sbis  :   0 
 sbiw  :   0 sbr   :   0 sbrc  :   0 sbrs  :   0 sec   :   0 seh   :   0 
 sei   :   0 sen   :   0 ser   :   0 ses   :   0 set   :   0 sev   :   0 
@@ -1866,8 +1906,8 @@ Instructions used: 25 out of 113 (22.1%)
 "ATmega32U4" memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000000 0x000222    306     70    376   32768   1.1%
+[.cseg] 0x000000 0x00025c    352     82    434   32768   1.3%
 [.dseg] 0x000100 0x000100      0      0      0    2560   0.0%
 [.eseg] 0x000000 0x000000      0      0      0    1024   0.0%
 
-Assembly complete, 0 errors, 0 warnings
+Assembly complete, 0 errors, 2 warnings
