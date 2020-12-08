@@ -30,6 +30,7 @@
 	.INCLUDE "lcd.inc"
 	.INCLUDE "keyboard.inc"
 	.INCLUDE "dicestrings.inc"
+	.INCLUDE "dice.inc"
 	//.INCLUDE "stats.inc"
 	//.INCLUDE "monitor.inc"
 
@@ -80,23 +81,32 @@ loop:
 	RCALL read_keyboard	
 	RCALL key_compare	
 	CPI RVAL, '2'			; if input is 2
-	BREQ roll_dice
-	CPI RVAL, 0x33			; if input is 3
+	BREQ roll_dice_prep
+	CPI RVAL, '3'			; if input is 3
 	BREQ show_stats				
-	CPI RVAL, 0x38			; if input is 8
+	CPI RVAL, '8'			; if input is 8
 	BREQ clear_stats	
-	CPI RVAL, 0x39			; if input is 8
+	CPI RVAL, '9'			; if input is 8
 	BREQ monitor						  
 	//LCD_WRITE_REG_CHAR RVAL
 	LDI R24, 250
 	RCALL delay_ms
 	RJMP loop
 
-roll_dice:
+roll_dice_prep:
 	RCALL lcd_clear_display 
 	LDI R24, 40
 	RCALL delay_ms
 	PRINTSTRING Dice_roll
+	RCALL roll_dice
+	PUSH R24
+	RCALL lcd_clear_display
+	LDI R24, 40
+	RCALL delay_ms
+	POP R24
+	PRINTSTRING dice_value
+	RCALL key_compare
+	RCALL lcd_write_chr
 	DELAY_1S
 	RJMP again
 
