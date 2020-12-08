@@ -29,6 +29,10 @@
 	.INCLUDE "delay.inc"
 	.INCLUDE "lcd.inc"
 	.INCLUDE "keyboard.inc"
+	.INCLUDE "dicestrings.inc"
+	//.INCLUDE "stats.inc"
+	//.INCLUDE "monitor.inc"
+
 	
 ;==============================================================================
 ; Basic initializations of stack pointer, I/O pins, etc.
@@ -64,12 +68,8 @@ init_pins:
 ; Main part of program
 ;==============================================================================
 main:
-	RCALL write_welcome
-	/*LCD_WRITE_CHAR 'K'
-	LCD_WRITE_CHAR 'E'
-	LCD_WRITE_CHAR 'Y'
-	LCD_WRITE_CHAR ':'*/
-	LCD_INSTRUCTION 0xC0 ; SETS CURSOR TO LINE 1 COL O		
+	PRINTSTRING Hello_str1
+	
 				
 loop:																		  
 	RCALL read_keyboard	
@@ -78,16 +78,3 @@ loop:
 	LDI R24, 250
 	RCALL delay_ms
 	RJMP loop
-
-
-write_welcome:
-	LDI ZH, high(Str_1<<1)
-	LDI ZL, low(Str_1<<1)
-	CLR R16
-Nxt1:
-	LPM R24, Z+
-	RCALL lcd_write_chr
-	INC R16
-	CPI R16, Sz_str1
-	BRLT Nxt1				; If R16 < Sz_str1 jump Nxt1. Loopar om R16 inte har kommit upp till Sz_str1 och skriver ut nästa bokstav.
-	RET

@@ -45,7 +45,7 @@ key_compare:
     CPI RVAL, NO_KEY
     BREQ key_release    ; branch to key_relased if return value was NO_KEY
     CP RVAL, LVAL
-    BREQ loop        ; If RVAL and LVAL is equal branch to loop
+    BREQ keyboard_return        ; If RVAL and LVAL is equal branch to loop
     MOV LVAL, RVAL    ; Copy our return value to last value
  /*   CPI RVAL, 10    ; Compare RVAL to 10
     BRLO write        ; IF RVAL is lower than 10 jump to write
@@ -66,3 +66,6 @@ write:
 key_release:
     LDI LVAL, NO_KEY        ; last value is NO_KEY
 	RJMP loop
+
+keyboard_return:
+	JMP loop

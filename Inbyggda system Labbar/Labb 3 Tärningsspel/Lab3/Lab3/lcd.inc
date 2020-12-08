@@ -11,6 +11,15 @@
  */
 
 ;==========
+; Loads Z pointer with string pos in program memory.
+;=========
+	.MACRO PRINTSTRING
+	LDI ZH, high(@0<<1)
+	LDI ZL, low(@0<<1)
+	RCALL lcd_write_string_loop
+	.ENDMACRO
+
+;==========
 ; Sends instructions to LCD with a 39 us delay after command.
 ;=========
 	.MACRO LCD_INSTRUCTION
@@ -46,8 +55,7 @@
 ;==============================================================================
 ; Definitions of registers, etc. ("constants")
 ;==============================================================================
-Str_1:	.DB "Welcome!"
-		.EQU Sz_str1		= 8		; Size for Str_1
+
 
 ;==============================================================================
 ; Write the most significant nibble (of the content in R24) to the LCD.
@@ -125,4 +133,16 @@ lcd_init:
 
 	LDI R24, 0x06			; Entry Mode Set: incremental cursor movement,
 	RCALL lcd_write_instr	;				  no display shift
+	RET
+
+;==============================================================================
+; Writes string to LCD
+;==============================================================================
+lcd_write_string_loop:
+	LPM R24, Z+
+	LPM R16, Z
+	RCALL lcd_write_chr
+/*	INC R16*/
+	CPI R16,0x00
+	BRNE lcd_write_string_loop				; If R16 == 0x00 exit otherwise loop for print of next char.
 	RET
