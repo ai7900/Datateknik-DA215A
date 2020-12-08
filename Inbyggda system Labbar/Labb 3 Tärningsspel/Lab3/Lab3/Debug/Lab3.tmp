@@ -27,15 +27,16 @@
  </OUTPUT_FILES>
  <LABELS>
   <init><FILE>C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\Lab3.asm</FILE><LINE>40</LINE></init>
-  <delay_1_micros><FILE>C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\delay.inc</FILE><LINE>27</LINE></delay_1_micros>
-  <delay_micros><FILE>C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\delay.inc</FILE><LINE>41</LINE></delay_micros>
-  <delay_ms><FILE>C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\delay.inc</FILE><LINE>69</LINE></delay_ms>
-  <loop_dms><FILE>C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\delay.inc</FILE><LINE>71</LINE></loop_dms>
+  <delay_1_micros><FILE>C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\delay.inc</FILE><LINE>35</LINE></delay_1_micros>
+  <delay_micros><FILE>C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\delay.inc</FILE><LINE>49</LINE></delay_micros>
+  <delay_ms><FILE>C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\delay.inc</FILE><LINE>77</LINE></delay_ms>
+  <loop_dms><FILE>C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\delay.inc</FILE><LINE>79</LINE></loop_dms>
   <lcd_write_nibble><FILE>C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\lcd.inc</FILE><LINE>63</LINE></lcd_write_nibble>
   <lcd_write_instr><FILE>C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\lcd.inc</FILE><LINE>75</LINE></lcd_write_instr>
   <lcd_write_chr><FILE>C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\lcd.inc</FILE><LINE>89</LINE></lcd_write_chr>
   <lcd_init><FILE>C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\lcd.inc</FILE><LINE>101</LINE></lcd_init>
   <lcd_write_string_loop><FILE>C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\lcd.inc</FILE><LINE>141</LINE></lcd_write_string_loop>
+  <lcd_clear_display><FILE>C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\lcd.inc</FILE><LINE>150</LINE></lcd_clear_display>
   <map_table><FILE>C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\keyboard.inc</FILE><LINE>15</LINE></map_table>
   <read_keyboard><FILE>C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\keyboard.inc</FILE><LINE>19</LINE></read_keyboard>
   <scan_key><FILE>C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\keyboard.inc</FILE><LINE>21</LINE></scan_key>
@@ -50,7 +51,14 @@
   <Dice_roll><FILE>C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\dicestrings.inc</FILE><LINE>15</LINE></Dice_roll>
   <Dice_2><FILE>C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\dicestrings.inc</FILE><LINE>16</LINE></Dice_2>
   <Dice_value><FILE>C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\dicestrings.inc</FILE><LINE>17</LINE></Dice_value>
+  <Dice_temp><FILE>C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\dicestrings.inc</FILE><LINE>18</LINE></Dice_temp>
+  <Dice_temp1><FILE>C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\dicestrings.inc</FILE><LINE>19</LINE></Dice_temp1>
+  <Dice_temp2><FILE>C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\dicestrings.inc</FILE><LINE>20</LINE></Dice_temp2>
   <init_pins><FILE>C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\Lab3.asm</FILE><LINE>55</LINE></init_pins>
   <main><FILE>C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\Lab3.asm</FILE><LINE>70</LINE></main>
+  <roll_dice><FILE>C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\Lab3.asm</FILE><LINE>94</LINE></roll_dice>
+  <show_stats><FILE>C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\Lab3.asm</FILE><LINE>101</LINE></show_stats>
+  <clear_stats><FILE>C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\Lab3.asm</FILE><LINE>108</LINE></clear_stats>
+  <monitor><FILE>C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\Lab3.asm</FILE><LINE>115</LINE></monitor>
  </LABELS>
 </ASSEMBLER_INFO>

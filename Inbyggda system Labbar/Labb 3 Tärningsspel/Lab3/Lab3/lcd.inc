@@ -146,3 +146,7 @@ lcd_write_string_loop:
 	CPI R16,0x00
 	BRNE lcd_write_string_loop				; If R16 == 0x00 exit otherwise loop for print of next char.
 	RET
+
+lcd_clear_display:
+	LCD_INSTRUCTION 0x01
+	RET

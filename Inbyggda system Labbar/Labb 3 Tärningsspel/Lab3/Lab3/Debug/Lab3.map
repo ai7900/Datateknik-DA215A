@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.8  C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\Lab3.asm Tue Dec 08 16:23:41 2020
+AVRASM ver. 2.2.8  C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\Lab3.asm Tue Dec 08 16:43:41 2020
 
 
 EQU  SIGNATURE_000 0000001e
@@ -1005,7 +1005,7 @@ EQU  CONVERT      00000030
 DEF  TEMP         r16
 DEF  RVAL         r24
 DEF  LVAL         r17
-CSEG init         000000fd
+CSEG init         0000010d
 CSEG delay_1_micros 00000056
 CSEG delay_micros 0000005d
 CSEG delay_ms     0000006d
@@ -1020,19 +1020,27 @@ CSEG lcd_write_instr 0000007f
 CSEG lcd_write_chr 00000086
 CSEG lcd_init     0000008d
 CSEG lcd_write_string_loop 000000ab
-CSEG map_table    000000b1
-CSEG read_keyboard 000000b7
-CSEG scan_key     000000b8
-CSEG return_key_val 000000c8
-CSEG key_compare  000000ca
-CSEG key_release  000000d6
-CSEG key_return   000000d8
-CSEG loop         00000127
-CSEG Str_1        000000da
-CSEG Hello_str1   000000df
-CSEG Dice_start   000000e2
-CSEG Dice_roll    000000e8
-CSEG Dice_2       000000f1
-CSEG Dice_value   000000f9
-CSEG init_pins    00000106
-CSEG main         0000010d
+CSEG lcd_clear_display 000000b1
+CSEG map_table    000000b6
+CSEG read_keyboard 000000bc
+CSEG scan_key     000000bd
+CSEG return_key_val 000000cd
+CSEG key_compare  000000cf
+CSEG key_release  000000db
+CSEG key_return   000000dd
+CSEG loop         00000134
+CSEG Str_1        000000df
+CSEG Hello_str1   000000e4
+CSEG Dice_start   000000e7
+CSEG Dice_roll    000000ed
+CSEG Dice_2       000000f6
+CSEG Dice_value   000000fe
+CSEG Dice_temp    00000102
+CSEG Dice_temp1   00000106
+CSEG Dice_temp2   00000109
+CSEG init_pins    00000116
+CSEG main         0000011d
+CSEG roll_dice    00000141
+CSEG show_stats   00000148
+CSEG clear_stats  0000014f
+CSEG monitor      00000156
