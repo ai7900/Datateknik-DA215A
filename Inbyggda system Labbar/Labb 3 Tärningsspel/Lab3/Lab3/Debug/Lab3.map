@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.8  C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\Lab3.asm Fri Dec 04 11:28:06 2020
+AVRASM ver. 2.2.8  C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\Lab3.asm Tue Dec 08 13:34:22 2020
 
 
 EQU  SIGNATURE_000 0000001e
@@ -1005,7 +1005,7 @@ EQU  CONVERT      00000030
 DEF  TEMP         r16
 DEF  RVAL         r24
 DEF  LVAL         r17
-CSEG init         000000cc
+CSEG init         000000d2
 CSEG delay_1_micros 00000056
 CSEG delay_micros 0000005d
 CSEG delay_ms     0000006d
@@ -1019,12 +1019,12 @@ CSEG lcd_write_nibble 0000007a
 CSEG lcd_write_instr 0000007f
 CSEG lcd_write_chr 00000086
 CSEG lcd_init     0000008d
-CSEG read_keyboard 000000ab
-CSEG scan_key     000000ac
-CSEG return_key_val 000000bc
-CSEG key_compare  000000be
-CSEG key_release  000000ca
-CSEG loop         000000e8
-CSEG write        000000c7
-CSEG init_pins    000000d5
-CSEG main         000000dc
+CSEG map_table    000000ab
+CSEG read_keyboard 000000b1
+CSEG scan_key     000000b2
+CSEG return_key_val 000000c2
+CSEG key_compare  000000c4
+CSEG key_release  000000d0
+CSEG loop         000000ee
+CSEG init_pins    000000db
+CSEG main         000000e2

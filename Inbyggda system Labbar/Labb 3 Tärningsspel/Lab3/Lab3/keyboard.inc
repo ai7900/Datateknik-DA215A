@@ -9,6 +9,12 @@
  */ 
 
 
+ ;==============================================================================
+; Definitions of registers, etc. ("constants")
+;==============================================================================
+	map_table: .DB "147*2580369#"
+
+
 
 read_keyboard:
 	LDI R18, 0
@@ -41,14 +47,21 @@ key_compare:
     CP RVAL, LVAL
     BREQ loop        ; If RVAL and LVAL is equal branch to loop
     MOV LVAL, RVAL    ; Copy our return value to last value
-    CPI RVAL, 10    ; Compare RVAL to 10
+ /*   CPI RVAL, 10    ; Compare RVAL to 10
     BRLO write        ; IF RVAL is lower than 10 jump to write
     LDI TEMP, 7        ; Between 9 and A in ASCII is 7, therefore 7 is added to the number
     ADD RVAL, TEMP
 write:
     LDI TEMP, CONVERT
     ADD RVAL, TEMP                ; Converting RVAL to ASCII
-    RET
+    RET*/
+	LDI ZH, high(map_table <<1)		;Initialize Z pointer
+	LDI ZL, low(map_table <<1)
+	ADD ZL, RVAL					;Add index
+	LDI RVAL, 0x00
+	ADC ZH,RVAL						;Add 0 to catch Carry, if present
+	LPM RVAL, Z
+	RET
 
 key_release:
     LDI LVAL, NO_KEY        ; last value is NO_KEY

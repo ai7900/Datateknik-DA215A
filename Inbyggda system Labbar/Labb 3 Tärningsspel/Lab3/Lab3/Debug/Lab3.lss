@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.8  C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\Lab3.asm Fri Dec 04 11:28:06 2020
+AVRASM ver. 2.2.8  C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\Lab3.asm Tue Dec 08 13:34:22 2020
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\avrasm\inc\m32U4def.inc'
 C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\Lab3.asm(29): Including file 'C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\delay.inc'
@@ -1428,7 +1428,7 @@ C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab
                                  ;==============================================================================
                                  	.CSEG
                                  	.ORG RESET
-000000 c0cb                      	RJMP init
+000000 c0d1                      	RJMP init
                                  
                                  	.ORG PM_START
                                  	.INCLUDE "delay.inc"
@@ -1633,104 +1633,122 @@ C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab
                                   */ 
                                  
                                  
+                                  ;==============================================================================
+                                 ; Definitions of registers, etc. ("constants")
+                                 ;==============================================================================
+0000ab 3431
+0000ac 2a37
+0000ad 3532
+0000ae 3038
+0000af 3633
+0000b0 2339                      	map_table: .DB "147*2580369#"
+                                 
+                                 
                                  
                                  read_keyboard:
-0000ab e020                      	LDI R18, 0
+0000b1 e020                      	LDI R18, 0
                                  scan_key:
-0000ac 2f32                      	MOV R19, R18
-0000ad 0f33                      	LSL R19
-0000ae 0f33                      	LSL R19
-0000af 0f33                      	LSL R19
-0000b0 0f33                      	LSL R19
+0000b2 2f32                      	MOV R19, R18
+0000b3 0f33                      	LSL R19
+0000b4 0f33                      	LSL R19
+0000b5 0f33                      	LSL R19
+0000b6 0f33                      	LSL R19
                                  	
-0000b1 b935                      	OUT PORTB, R19
-0000b2 932f                      	PUSH R18
-0000b3 e081                      	LDI R24, 1
-0000b4 dfb8                      	RCALL delay_ms ; delay for bounce
-0000b5 912f                      	POP R18
+0000b7 b935                      	OUT PORTB, R19
+0000b8 932f                      	PUSH R18
+0000b9 e081                      	LDI R24, 1
+0000ba dfb2                      	RCALL delay_ms ; delay for bounce
+0000bb 912f                      	POP R18
                                  	
-0000b6 9966                      	SBIC PINE, 6
-0000b7 c004                      	RJMP return_key_val
-0000b8 9523                      	INC R18	
-0000b9 302c                      	CPI R18, 12
-0000ba f789                      	BRNE scan_key
-0000bb e02f                      	LDI R18, NO_KEY        ; no key was pressed!
+0000bc 9966                      	SBIC PINE, 6
+0000bd c004                      	RJMP return_key_val
+0000be 9523                      	INC R18	
+0000bf 302c                      	CPI R18, 12
+0000c0 f789                      	BRNE scan_key
+0000c1 e02f                      	LDI R18, NO_KEY        ; no key was pressed!
                                  return_key_val:
-0000bc 2f82                      	MOV RVAL, R18		; COPY FROM R18 TO RVAL
-0000bd 9508                      	RET
+0000c2 2f82                      	MOV RVAL, R18		; COPY FROM R18 TO RVAL
+0000c3 9508                      	RET
                                  
                                  key_compare:
-0000be 308f                          CPI RVAL, NO_KEY
-0000bf f051                          BREQ key_release    ; branch to key_relased if return value was NO_KEY
-0000c0 1781                          CP RVAL, LVAL
-0000c1 f131                          BREQ loop        ; If RVAL and LVAL is equal branch to loop
-0000c2 2f18                          MOV LVAL, RVAL    ; Copy our return value to last value
-0000c3 308a                          CPI RVAL, 10    ; Compare RVAL to 10
-0000c4 f010                          BRLO write        ; IF RVAL is lower than 10 jump to write
-0000c5 e007                          LDI TEMP, 7        ; Between 9 and A in ASCII is 7, therefore 7 is added to the number
-0000c6 0f80                          ADD RVAL, TEMP
+0000c4 308f                          CPI RVAL, NO_KEY
+0000c5 f051                          BREQ key_release    ; branch to key_relased if return value was NO_KEY
+0000c6 1781                          CP RVAL, LVAL
+0000c7 f131                          BREQ loop        ; If RVAL and LVAL is equal branch to loop
+0000c8 2f18                          MOV LVAL, RVAL    ; Copy our return value to last value
+                                  /*   CPI RVAL, 10    ; Compare RVAL to 10
+                                     BRLO write        ; IF RVAL is lower than 10 jump to write
+                                     LDI TEMP, 7        ; Between 9 and A in ASCII is 7, therefore 7 is added to the number
+                                     ADD RVAL, TEMP
                                  write:
-0000c7 e300                          LDI TEMP, CONVERT
-0000c8 0f80                          ADD RVAL, TEMP                ; Converting RVAL to ASCII
-0000c9 9508                          RET
+                                     LDI TEMP, CONVERT
+                                     ADD RVAL, TEMP                ; Converting RVAL to ASCII
+                                     RET*/
+0000c9 e0f1                      	LDI ZH, high(map_table <<1)
+0000ca e5e6                      	LDI ZL, low(map_table <<1)
+0000cb 0fe8                      	ADD ZL, RVAL
+0000cc e080                      	LDI RVAL, 0x00
+0000cd 1ff8                      	ADC ZH,RVAL
+0000ce 9184                      	LPM RVAL, Z
+0000cf 9508                      	RET
                                  
                                  key_release:
-0000ca e01f                          LDI LVAL, NO_KEY        ; last value is NO_KEY
-0000cb c01c                      	
+0000d0 e01f                          LDI LVAL, NO_KEY        ; last value is NO_KEY
+0000d1 c01c                      	
                                  ;==============================================================================
                                  ; Basic initializations of stack pointer, I/O pins, etc.
                                  ;==============================================================================
                                  init:
                                  	; Set stack pointer to point at the end of RAM.
-0000cc ef0f                      	LDI R16, LOW(RAMEND)
-0000cd bf0d                      	OUT SPL, R16
-0000ce e00a                      	LDI R16, HIGH(RAMEND)
-0000cf bf0e                      	OUT SPH, R16
+0000d2 ef0f                      	LDI R16, LOW(RAMEND)
+0000d3 bf0d                      	OUT SPL, R16
+0000d4 e00a                      	LDI R16, HIGH(RAMEND)
+0000d5 bf0e                      	OUT SPH, R16
                                  	; Initialize pins
-0000d0 940e 00d5                 	CALL init_pins
-0000d2 940e 008d                 	CALL lcd_init
+0000d6 940e 00db                 	CALL init_pins
+0000d8 940e 008d                 	CALL lcd_init
                                  	; Jump to main part of program
-0000d4 c007                      	RJMP main
+0000da c007                      	RJMP main
                                  
                                  ;==============================================================================
                                  ; Initialize I/O pins
                                  ;==============================================================================
                                  init_pins:	
                                  
-0000d5 ef0f                      	LDI TEMP, 0xFF ; SET TEMP TO HIGH
-0000d6 bb00                      	OUT DDRF, TEMP ;PORT F OUTPUT
-0000d7 b904                      	OUT DDRB, TEMP ;PORT B OUTPUT
-0000d8 b90a                      	OUT DDRD, TEMP ;PORT D OUTPUT
+0000db ef0f                      	LDI TEMP, 0xFF ; SET TEMP TO HIGH
+0000dc bb00                      	OUT DDRF, TEMP ;PORT F OUTPUT
+0000dd b904                      	OUT DDRB, TEMP ;PORT B OUTPUT
+0000de b90a                      	OUT DDRD, TEMP ;PORT D OUTPUT
                                  
-0000d9 e000                      	LDI TEMP, 0x00 ; SET TEMP TO LOW
-0000da b90d                      	OUT DDRE, TEMP ; PORT E INPUT
+0000df e000                      	LDI TEMP, 0x00 ; SET TEMP TO LOW
+0000e0 b90d                      	OUT DDRE, TEMP ; PORT E INPUT
                                  
-0000db 9508                      	RET
+0000e1 9508                      	RET
                                  
                                  ;==============================================================================
                                  ; Main part of program
                                  ;==============================================================================
                                  main:
-0000dc e48b
-0000dd dfa8                      	LCD_WRITE_CHAR 'K'
-0000de e485
-0000df dfa6                      	LCD_WRITE_CHAR 'E'
-0000e0 e589
-0000e1 dfa4                      	LCD_WRITE_CHAR 'Y'
-0000e2 e38a
-0000e3 dfa2                      	LCD_WRITE_CHAR ':'
-0000e4 ec80
-0000e5 df99
-0000e6 e287
-0000e7 df75                      	LCD_INSTRUCTION 0xC0 ; SETS CURSOR TO LINE 1 COL O		
+0000e2 e48b
+0000e3 dfa2                      	LCD_WRITE_CHAR 'K'
+0000e4 e485
+0000e5 dfa0                      	LCD_WRITE_CHAR 'E'
+0000e6 e589
+0000e7 df9e                      	LCD_WRITE_CHAR 'Y'
+0000e8 e38a
+0000e9 df9c                      	LCD_WRITE_CHAR ':'
+0000ea ec80
+0000eb df93
+0000ec e287
+0000ed df6f                      	LCD_INSTRUCTION 0xC0 ; SETS CURSOR TO LINE 1 COL O		
                                  				
                                  loop:																		  
-0000e8 dfc2                      	RCALL read_keyboard	
-0000e9 dfd4                      	RCALL key_compare											  
-0000ea 2f88
-0000eb df9a                      	LCD_WRITE_REG_CHAR RVAL
-0000ec ef8a                      	LDI R24, 250
-0000ed df7f                      	RCALL delay_ms
+0000ee dfc2                      	RCALL read_keyboard	
+0000ef dfd4                      	RCALL key_compare											  
+0000f0 2f88
+0000f1 df94                      	LCD_WRITE_REG_CHAR RVAL
+0000f2 ef8a                      	LDI R24, 250
+0000f3 df79                      	RCALL delay_ms
 
 
 RESOURCE USE INFORMATION
@@ -1748,25 +1766,25 @@ counted separately from r26..r31 here.
 .dseg memory usage only counts static data declared with .byte
 
 "ATmega32U4" register use summary:
-x  :   0 y  :   0 z  :   0 r0 :   0 r1 :   0 r2 :   0 r3 :   0 r4 :   0 
+x  :   0 y  :   0 z  :   1 r0 :   0 r1 :   0 r2 :   0 r3 :   0 r4 :   0 
 r5 :   0 r6 :   0 r7 :   0 r8 :   0 r9 :   0 r10:   0 r11:   0 r12:   0 
-r13:   0 r14:   0 r15:   0 r16:  14 r17:   3 r18:  11 r19:   6 r20:   0 
-r21:   0 r22:   0 r23:   0 r24:  43 r25:   0 r26:   0 r27:   0 r28:   0 
-r29:   0 r30:   0 r31:   0 
-Registers used: 5 out of 35 (14.3%)
+r13:   0 r14:   0 r15:   0 r16:  10 r17:   3 r18:  11 r19:   6 r20:   0 
+r21:   0 r22:   0 r23:   0 r24:  44 r25:   0 r26:   0 r27:   0 r28:   0 
+r29:   0 r30:   2 r31:   2 
+Registers used: 8 out of 35 (22.9%)
 
 "ATmega32U4" instruction use summary:
-.lds  :   0 .sts  :   0 adc   :   0 add   :   2 adiw  :   0 and   :   0 
+.lds  :   0 .sts  :   0 adc   :   1 add   :   1 adiw  :   0 and   :   0 
 andi  :   0 asr   :   0 bclr  :   0 bld   :   0 brbc  :   0 brbs  :   0 
 brcc  :   0 brcs  :   0 break :   0 breq  :   2 brge  :   0 brhc  :   0 
-brhs  :   0 brid  :   0 brie  :   0 brlo  :   1 brlt  :   0 brmi  :   0 
+brhs  :   0 brid  :   0 brie  :   0 brlo  :   0 brlt  :   0 brmi  :   0 
 brne  :   3 brpl  :   0 brsh  :   0 brtc  :   0 brts  :   0 brvc  :   0 
 brvs  :   0 bset  :   0 bst   :   0 call  :   2 cbi   :   3 cbr   :   0 
 clc   :   0 clh   :   0 cli   :   0 cln   :   0 clr   :   0 cls   :   0 
 clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :   1 cpc   :   0 
-cpi   :   5 cpse  :   0 dec   :   2 eor   :   0 fmul  :   0 fmuls :   0 
+cpi   :   4 cpse  :   0 dec   :   2 eor   :   0 fmul  :   0 fmuls :   0 
 fmulsu:   0 icall :   0 ijmp  :   0 in    :   0 inc   :   1 jmp   :   0 
-ld    :   0 ldd   :   0 ldi   :  37 lds   :   0 lpm   :   0 lsl   :   4 
+ld    :   0 ldd   :   0 ldi   :  38 lds   :   0 lpm   :   2 lsl   :   4 
 lsr   :   0 mov   :   5 movw  :   0 mul   :   0 muls  :   0 mulsu :   0 
 neg   :   0 nop   :  18 or    :   0 ori   :   0 out   :   8 pop   :   1 
 push  :   1 rcall :  36 ret   :  10 reti  :   0 rjmp  :   5 rol   :   0 
@@ -1775,12 +1793,12 @@ sbiw  :   0 sbr   :   0 sbrc  :   0 sbrs  :   0 sec   :   0 seh   :   0
 sei   :   0 sen   :   0 ser   :   0 ses   :   0 set   :   0 sev   :   0 
 sez   :   0 sleep :   0 spm   :   0 st    :   0 std   :   0 sts   :   0 
 sub   :   0 subi  :   0 swap  :   2 tst   :   0 wdr   :   0 
-Instructions used: 23 out of 113 (20.4%)
+Instructions used: 24 out of 113 (21.2%)
 
 "ATmega32U4" memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000000 0x0001de    308      0    308   32768   0.9%
+[.cseg] 0x000000 0x0001ea    308     12    320   32768   1.0%
 [.dseg] 0x000100 0x000100      0      0      0    2560   0.0%
 [.eseg] 0x000000 0x000000      0      0      0    1024   0.0%
 
