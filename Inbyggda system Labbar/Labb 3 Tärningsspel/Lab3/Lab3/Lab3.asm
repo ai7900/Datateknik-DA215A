@@ -70,6 +70,7 @@ init_pins:
 main:
 	PRINTSTRING Dice_start
 	DELAY_1S
+again:
 	RCALL lcd_clear_display  
 	DELAY_1S
 	PRINTSTRING Dice_2
@@ -78,7 +79,7 @@ main:
 loop:																		  
 	RCALL read_keyboard	
 	RCALL key_compare	
-	CPI RVAL, 0x32			; if input is 2
+	CPI RVAL, '2'			; if input is 2
 	BREQ roll_dice
 	CPI RVAL, 0x33			; if input is 3
 	BREQ show_stats				
@@ -96,25 +97,29 @@ roll_dice:
 	LDI R24, 40
 	RCALL delay_ms
 	PRINTSTRING Dice_roll
-	RJMP loop
+	DELAY_1S
+	RJMP again
 
 show_stats:
 	RCALL lcd_clear_display 
 	LDI R24, 40
 	RCALL delay_ms
 	PRINTSTRING Dice_temp
-	RJMP loop
+	DELAY_1S
+	RJMP again
 
 clear_stats:
 	RCALL lcd_clear_display 
 	LDI R24, 40
 	RCALL delay_ms
 	PRINTSTRING Dice_temp1
-	RJMP loop
+	DELAY_1S
+	RJMP again
 
 monitor:
 	RCALL lcd_clear_display 
 	LDI R24, 40
 	RCALL delay_ms
 	PRINTSTRING Dice_temp2
-	RJMP loop
+	DELAY_1S
+	RJMP again

@@ -53,10 +53,9 @@ key_compare:
 	LDI RVAL, 0x00
 	ADC ZH,RVAL						;Add 0 to catch Carry, if present
 	LPM RVAL, Z
+key_return:
 	RET
 
 key_release:
     LDI LVAL, NO_KEY        ; last value is NO_KEY
-	RJMP loop
-key_return:
-	JMP loop
+	RJMP key_return
