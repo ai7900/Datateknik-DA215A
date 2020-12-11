@@ -49,7 +49,7 @@ moni_print_address:
 monitor:
 	RCALL lcd_clear_display
 	PRINTSTRING monitorstr
-	RCALL delay_1_s
+	DELAY_1S ;RCALL delay_1_s
 	LDI	XH,	0x00	; set start value
 	LDI	XL,	0x00
 moni_next:
@@ -64,7 +64,7 @@ moni_next:
 	BREQ moni_more
 
 	; some number was returned. Use it in the X register
-	RCALL to_ASCII	; map key to corresponding number.....
+//	RCALL to_ASCII	; map key to corresponding number.....
 	SUBI RVAL, 0x30	; convert from ASCII to number
 	MOV	XH, RVAL	; use number as high start address
 	CLR	XL			; set XL to 00

@@ -91,6 +91,9 @@
     <Compile Include="stats.inc">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="stat_data.inc">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Assembler.targets" />
 </Project>

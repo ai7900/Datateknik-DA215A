@@ -31,8 +31,9 @@
 	.INCLUDE "keyboard.inc"
 	.INCLUDE "dicestrings.inc"
 	.INCLUDE "dice.inc"
-	//.INCLUDE "stats.inc"
-	//.INCLUDE "monitor.inc"
+	.INCLUDE "stats.inc"
+	.INCLUDE "monitor.inc"
+	.INCLUDE "stat_data.inc"
 
 	
 ;==============================================================================
@@ -47,6 +48,8 @@ init:
 	; Initialize pins
 	CALL init_pins
 	CALL lcd_init
+	CALL init_stat
+	CALL init_monitor
 	; Jump to main part of program
 	RJMP main
 
@@ -87,7 +90,7 @@ loop:
 	CPI RVAL, '8'			; if input is 8
 	BREQ clear_stats	
 	CPI RVAL, '9'			; if input is 8
-	BREQ monitor						  
+	BREQ go_monitor						  
 	//LCD_WRITE_REG_CHAR RVAL
 	LDI R24, 250
 	RCALL delay_ms
@@ -121,17 +124,18 @@ show_stats:
 	RJMP again
 
 clear_stats:
-	RCALL lcd_clear_display 
+/*	RCALL lcd_clear_display 
 	LDI R24, 40
-	RCALL delay_ms
-	PRINTSTRING Dice_temp1
+	RCALL delay_ms*/
+	RCALL clearstat
 	DELAY_1S
 	RJMP again
 
-monitor:
-	RCALL lcd_clear_display 
+go_monitor:
+/*	RCALL lcd_clear_display 
 	LDI R24, 40
 	RCALL delay_ms
 	PRINTSTRING Dice_temp2
-	DELAY_1S
+	DELAY_1S*/
+	RCALL monitor
 	RJMP again

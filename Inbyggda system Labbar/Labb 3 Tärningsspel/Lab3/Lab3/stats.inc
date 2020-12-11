@@ -26,7 +26,7 @@ countsixs:
 
 ; init statistics module
 init_stat:
-	RCALL clear_stat	; clear data structure
+	//RCALL clear_stat	; clear data structure
 	RET
 
 ; print content of RVAL on display
@@ -54,7 +54,7 @@ printhex:
 	RCALL lcd_write_chr		; write to LCD
 	RET
 
-showstat:
+/*showstat:
 	RCALL lcd_clear_display
 	PRINTSTRING totalstring
 	LDI RVAL, 0
@@ -105,10 +105,10 @@ showstat:
 	RCALL delay_1_s
 
 	RCALL lcd_clear_display
-	RET
+	RET*/
 
 clearstat:
 	RCALL lcd_clear_display
 	PRINTSTRING clearstring
-	RCALL clear_stat
+	//RCALL clear_stat
 	RET

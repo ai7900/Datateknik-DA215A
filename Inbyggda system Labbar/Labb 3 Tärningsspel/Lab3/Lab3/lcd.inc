@@ -148,5 +148,9 @@ lcd_write_string_loop:
 	RET
 
 lcd_clear_display:
+	PUSH R24
 	LCD_INSTRUCTION 0x01
+	LDI R24, 40
+	RCALL delay_ms
+	POP R24
 	RET
