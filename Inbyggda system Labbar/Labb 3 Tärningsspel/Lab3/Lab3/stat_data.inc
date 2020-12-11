@@ -23,18 +23,52 @@ The following functions are provided:
 	clear_stat	(no parameters in nor out)
 				Clears all data.
 --------------------------------------------------------*/
+; REGISTER IN USE:
+; R15 - TEMP VARIABLE
+; R16 - DICE VALUE
+; R24 - RETURN VALUE
 
 	.DSEG				; The following applies to the RAM:
 	.ORG	0x100			; Set starting
 							; address of data
 							; segment to 0x100
 
-//<your_label>:	.BYTE		<n>		; <skapa så mycket plats som behövs.
-									;Antag att max värde per lagrad variabel är 255>
+stat_total:	.BYTE		7		; <skapa så mycket plats som behövs.
+									
+
 	.CSEG
-store_stat:		;<skriv kod för rutinen>
+store_stat:		
+	LDI XH, HIGH(stat_total)
+	LDI XL, LOW(stat_total)
+	LD R15, X
+	INC R15
+	ST X, R15	; INCREASE TOTAL DICE ROLLS, AND STORE IT TO MEMORY
+
+	ADD XL, R16
+	LDI R24, 0
+	ADC XH, R24
+	LD R15,X
+	INC R15
+	ST X, R15		; INCREASE SPECIFIC DICE ROLL (Nbr1-6)
+
 	RET
-get_stat:		;<skriv kod för rutinen>
+
+get_stat:
+	LDI XH, HIGH(stat_total)
+	LDI XL, LOW(stat_total)
+	ADD XL, RVAL
+	LDI RVAL, 0
+	ADC XH, RVAL
+	LD RVAL, X
+			
 	RET
-clear_stat:     ;<skriv kod för rutinen>
-	RET
+clear_stat:    
+	LDI R16, 0x00
+	STS stat_total, R16
+	STS stat_total+1, R16
+	STS stat_total+2, R16
+	STS stat_total+3, R16
+	STS stat_total+4, R16
+	STS stat_total+5, R16
+	STS stat_total+6, R16
+ 	RET

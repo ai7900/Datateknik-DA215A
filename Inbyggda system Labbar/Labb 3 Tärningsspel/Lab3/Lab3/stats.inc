@@ -26,7 +26,7 @@ countsixs:
 
 ; init statistics module
 init_stat:
-	//RCALL clear_stat	; clear data structure
+	RCALL clear_stat	; clear data structure
 	RET
 
 ; print content of RVAL on display
@@ -54,61 +54,68 @@ printhex:
 	RCALL lcd_write_chr		; write to LCD
 	RET
 
-/*showstat:
+showstat:
 	RCALL lcd_clear_display
 	PRINTSTRING totalstring
 	LDI RVAL, 0
 	RCALL get_stat			; get total number of throws	
 	RCALL printhex			; print as 2 hex numbers
-	RCALL delay_1_s
+	DELAY_1S
+	DELAY_1S
 
 	RCALL lcd_clear_display
 	PRINTSTRING countones
 	LDI RVAL, 1
 	RCALL get_stat			; get total number of throws	
 	RCALL printhex			; print as 2 hex numbers
-	RCALL delay_1_s
+	DELAY_1S
+	DELAY_1S
 
 	RCALL lcd_clear_display
 	PRINTSTRING counttwos
 	LDI RVAL, 2
 	RCALL get_stat			; get total number of throws	
 	RCALL printhex			; print as 2 hex numbers
-	RCALL delay_1_s
+	DELAY_1S
+	DELAY_1S
 
 	RCALL lcd_clear_display
 	PRINTSTRING countthrees
 	LDI RVAL, 3
 	RCALL get_stat			; get total number of throws	
 	RCALL printhex			; print as 2 hex numbers
-	RCALL delay_1_s
+	DELAY_1S
+	DELAY_1S
 
 	RCALL lcd_clear_display
 	PRINTSTRING countfours
 	LDI RVAL, 4
 	RCALL get_stat			; get total number of throws	
 	RCALL printhex			; print as 2 hex numbers
-	RCALL delay_1_s
+	DELAY_1S
+	DELAY_1S
 
 	RCALL lcd_clear_display
 	PRINTSTRING countfives
 	LDI RVAL, 5
 	RCALL get_stat			; get total number of throws	
 	RCALL printhex			; print as 2 hex numbers
-	RCALL delay_1_s
+	DELAY_1S
+	DELAY_1S
 
 	RCALL lcd_clear_display
 	PRINTSTRING countsixs
 	LDI RVAL, 6
 	RCALL get_stat			; get total number of throws	
 	RCALL printhex			; print as 2 hex numbers
-	RCALL delay_1_s
+	DELAY_1S
+	DELAY_1S
 
 	RCALL lcd_clear_display
-	RET*/
+	RET
 
 clearstat:
 	RCALL lcd_clear_display
 	PRINTSTRING clearstring
-	//RCALL clear_stat
+	RCALL clear_stat
 	RET

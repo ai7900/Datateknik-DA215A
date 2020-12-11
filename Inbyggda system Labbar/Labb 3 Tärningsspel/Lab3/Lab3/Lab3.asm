@@ -76,7 +76,7 @@ main:
 	DELAY_1S
 again:
 	RCALL lcd_clear_display  
-	DELAY_1S
+	
 	PRINTSTRING Dice_2
 	
 				
@@ -116,26 +116,14 @@ roll_dice_prep:
 	RJMP again
 
 show_stats:
-	RCALL lcd_clear_display 
-	LDI R24, 40
-	RCALL delay_ms
-	PRINTSTRING Dice_temp
-	DELAY_1S
+
+	RCALL showstat
 	RJMP again
 
 clear_stats:
-/*	RCALL lcd_clear_display 
-	LDI R24, 40
-	RCALL delay_ms*/
 	RCALL clearstat
-	DELAY_1S
 	RJMP again
 
 go_monitor:
-/*	RCALL lcd_clear_display 
-	LDI R24, 40
-	RCALL delay_ms
-	PRINTSTRING Dice_temp2
-	DELAY_1S*/
 	RCALL monitor
 	RJMP again

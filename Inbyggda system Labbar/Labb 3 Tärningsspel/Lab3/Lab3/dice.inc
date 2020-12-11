@@ -20,6 +20,7 @@ test:
 	RCALL key_convert
 	CPI RVAL, ROLL_KEY
 	BREQ roll	;yes, key 1 is still pressed
+	RCALL store_stat
 	RET			;no, key is released
 roll:
 	DEC R16		;start cycle count here

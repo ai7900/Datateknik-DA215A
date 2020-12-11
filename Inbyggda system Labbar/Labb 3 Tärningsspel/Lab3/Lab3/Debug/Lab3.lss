@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.8  C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\Lab3.asm Fri Dec 11 13:05:15 2020
+AVRASM ver. 2.2.8  C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\Lab3.asm Fri Dec 11 15:00:29 2020
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\avrasm\inc\m32U4def.inc'
 C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\Lab3.asm(29): Including file 'C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\delay.inc'
@@ -1438,7 +1438,7 @@ C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab
                                  ;==============================================================================
                                  	.CSEG
                                  	.ORG RESET
-000000 c1a8                      	RJMP init
+000000 c26f                      	RJMP init
                                  
                                  	.ORG PM_START
                                  	.INCLUDE "delay.inc"
@@ -1832,12 +1832,13 @@ C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab
 000111 dfae                      	RCALL read_keyboard	;key-value in RVAL
 000112 dfc5                      	RCALL key_convert
 000113 3382                      	CPI RVAL, ROLL_KEY
-000114 f009                      	BREQ roll	;yes, key 1 is still pressed
-000115 9508                      	RET			;no, key is released
+000114 f011                      	BREQ roll	;yes, key 1 is still pressed
+000115 d137                      	RCALL store_stat
+000116 9508                      	RET			;no, key is released
                                  roll:
-000116 950a                      	DEC R16		;start cycle count here
-000117 f3b1                      	BREQ roll_dice ;R16 is zero?, start agn at 6
-000118 cff6                      	RJMP test	;no, keep rolling
+000117 950a                      	DEC R16		;start cycle count here
+000118 f3a9                      	BREQ roll_dice ;R16 is zero?, start agn at 6
+000119 cff5                      	RJMP test	;no, keep rolling
                                  	
                                  	.INCLUDE "stats.inc"
                                  
@@ -1849,161 +1850,280 @@ C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab
                                  
                                  
                                  clearstring:
-000119 6c43
-00011a 6165
-00011b 6972
-00011c 676e
-00011d 2e2e
-00011e 002e                      	.DB "Clearing...",0 
+00011a 6c43
+00011b 6165
+00011c 6972
+00011d 676e
+00011e 2e2e
+00011f 002e                      	.DB "Clearing...",0 
                                  totalstring:
-00011f 6f54
-000120 6174
-000121 206c
-000122 6874
-000123 6f72
-000124 7377
-000125 003a                      	.DB "Total throws:",0
+000120 6f54
+000121 6174
+000122 206c
+000123 6874
+000124 6f72
+000125 7377
+000126 003a                      	.DB "Total throws:",0
                                  countones:
-000126 624e
-000127 2072
-000128 666f
-000129 3120
-00012a 7327
-00012b 003a                      	.DB "Nbr of 1's:",0
+000127 624e
+000128 2072
+000129 666f
+00012a 3120
+00012b 7327
+00012c 003a                      	.DB "Nbr of 1's:",0
                                  counttwos:
-00012c 624e
-00012d 2072
-00012e 666f
-00012f 3220
-000130 7327
-000131 003a                      	.DB "Nbr of 2's:",0
+00012d 624e
+00012e 2072
+00012f 666f
+000130 3220
+000131 7327
+000132 003a                      	.DB "Nbr of 2's:",0
                                  countthrees:
-000132 624e
-000133 2072
-000134 666f
-000135 3320
-000136 7327
-000137 003a                      	.DB "Nbr of 3's:",0
+000133 624e
+000134 2072
+000135 666f
+000136 3320
+000137 7327
+000138 003a                      	.DB "Nbr of 3's:",0
                                  countfours:
-000138 624e
-000139 2072
-00013a 666f
-00013b 3420
-00013c 7327
-00013d 003a                      	.DB "Nbr of 4's:",0
+000139 624e
+00013a 2072
+00013b 666f
+00013c 3420
+00013d 7327
+00013e 003a                      	.DB "Nbr of 4's:",0
                                  countfives:
-00013e 624e
-00013f 2072
-000140 666f
-000141 3520
-000142 7327
-000143 003a                      	.DB "Nbr of 5's:",0
+00013f 624e
+000140 2072
+000141 666f
+000142 3520
+000143 7327
+000144 003a                      	.DB "Nbr of 5's:",0
                                  countsixs:
-000144 624e
-000145 2072
-000146 666f
-000147 3620
-000148 7327
-000149 003a                      	.DB "Nbr of 6's:",0
+000145 624e
+000146 2072
+000147 666f
+000148 3620
+000149 7327
+00014a 003a                      	.DB "Nbr of 6's:",0
                                  
                                  
                                  ; init statistics module
                                  init_stat:
-                                 	//RCALL clear_stat	; clear data structure
-00014a 9508                      	RET
+00014b d114                      	RCALL clear_stat	; clear data structure
+00014c 9508                      	RET
                                  
                                  ; print content of RVAL on display
                                  
-00014b 3130
-00014c 3332
-00014d 3534
-00014e 3736
-00014f 3938
-000150 4241
-000151 4443
-000152 4645                      hexconv: .DB "0123456789ABCDEF"
+00014d 3130
+00014e 3332
+00014f 3534
+000150 3736
+000151 3938
+000152 4241
+000153 4443
+000154 4645                      hexconv: .DB "0123456789ABCDEF"
                                  printhex:
-000153 e0f2                      	LDI		ZH, HIGH(hexconv<<1)
-000154 e9e6                      	LDI		ZL, LOW(hexconv<<1)
-000155 2e58                      	MOV		R5, RVAL		; save content
-000156 9582                      	SWAP	RVAL			; 
-000157 708f                      	ANDI	RVAL, 0x0F		; mask out low nibble
-000158 0fe8                      	ADD		ZL, RVAL
-000159 2466                      	CLR		R6
-00015a 1df6                      	ADC		ZH, R6			; handle carry, if needed		
-00015b 9184                      	LPM		RVAL, Z			; convert number to ASCII
-00015c df29                      	RCALL	lcd_write_chr	; write to LCD
-00015d 2d85                      	MOV		RVAL, R5		; retrieve content
-00015e 708f                      	ANDI	RVAL, 0x0F		; mask out low nibble
-00015f e9e6                      	LDI		ZL, LOW(hexconv<<1) ; reset ZL to start
-000160 e0f2                      	LDI		ZH, HIGH(hexconv<<1)
-000161 0fe8                      	ADD		ZL, RVAL
-000162 2466                      	CLR		R6
-000163 1df6                      	ADC		ZH, R6			; handle carry, if needed		
-000164 9184                      	LPM		RVAL, Z			; convert number to ASCII
-000165 df20                      	RCALL lcd_write_chr		; write to LCD
-000166 9508                      	RET
+000155 e0f2                      	LDI		ZH, HIGH(hexconv<<1)
+000156 e9ea                      	LDI		ZL, LOW(hexconv<<1)
+000157 2e58                      	MOV		R5, RVAL		; save content
+000158 9582                      	SWAP	RVAL			; 
+000159 708f                      	ANDI	RVAL, 0x0F		; mask out low nibble
+00015a 0fe8                      	ADD		ZL, RVAL
+00015b 2466                      	CLR		R6
+00015c 1df6                      	ADC		ZH, R6			; handle carry, if needed		
+00015d 9184                      	LPM		RVAL, Z			; convert number to ASCII
+00015e df27                      	RCALL	lcd_write_chr	; write to LCD
+00015f 2d85                      	MOV		RVAL, R5		; retrieve content
+000160 708f                      	ANDI	RVAL, 0x0F		; mask out low nibble
+000161 e9ea                      	LDI		ZL, LOW(hexconv<<1) ; reset ZL to start
+000162 e0f2                      	LDI		ZH, HIGH(hexconv<<1)
+000163 0fe8                      	ADD		ZL, RVAL
+000164 2466                      	CLR		R6
+000165 1df6                      	ADC		ZH, R6			; handle carry, if needed		
+000166 9184                      	LPM		RVAL, Z			; convert number to ASCII
+000167 df1e                      	RCALL lcd_write_chr		; write to LCD
+000168 9508                      	RET
                                  
-                                 /*showstat:
-                                 	RCALL lcd_clear_display
-                                 	PRINTSTRING totalstring
-                                 	LDI RVAL, 0
-                                 	RCALL get_stat			; get total number of throws	
-                                 	RCALL printhex			; print as 2 hex numbers
-                                 	RCALL delay_1_s
+                                 showstat:
+000169 df47                      	RCALL lcd_clear_display
+00016a e0f2
+00016b e4e0
+00016c df3e                      	PRINTSTRING totalstring
+00016d e080                      	LDI RVAL, 0
+00016e d0ea                      	RCALL get_stat			; get total number of throws	
+00016f dfe5                      	RCALL printhex			; print as 2 hex numbers
+000170 ef8a
+000171 defb
+000172 ef8a
+000173 def9
+000174 ef8a
+000175 def7
+000176 ef8a
+000177 def5                      	DELAY_1S
+000178 ef8a
+000179 def3
+00017a ef8a
+00017b def1
+00017c ef8a
+00017d deef
+00017e ef8a
+00017f deed                      	DELAY_1S
                                  
-                                 	RCALL lcd_clear_display
-                                 	PRINTSTRING countones
-                                 	LDI RVAL, 1
-                                 	RCALL get_stat			; get total number of throws	
-                                 	RCALL printhex			; print as 2 hex numbers
-                                 	RCALL delay_1_s
+000180 df30                      	RCALL lcd_clear_display
+000181 e0f2
+000182 e4ee
+000183 df27                      	PRINTSTRING countones
+000184 e081                      	LDI RVAL, 1
+000185 d0d3                      	RCALL get_stat			; get total number of throws	
+000186 dfce                      	RCALL printhex			; print as 2 hex numbers
+000187 ef8a
+000188 dee4
+000189 ef8a
+00018a dee2
+00018b ef8a
+00018c dee0
+00018d ef8a
+00018e dede                      	DELAY_1S
+00018f ef8a
+000190 dedc
+000191 ef8a
+000192 deda
+000193 ef8a
+000194 ded8
+000195 ef8a
+000196 ded6                      	DELAY_1S
                                  
-                                 	RCALL lcd_clear_display
-                                 	PRINTSTRING counttwos
-                                 	LDI RVAL, 2
-                                 	RCALL get_stat			; get total number of throws	
-                                 	RCALL printhex			; print as 2 hex numbers
-                                 	RCALL delay_1_s
+000197 df19                      	RCALL lcd_clear_display
+000198 e0f2
+000199 e5ea
+00019a df10                      	PRINTSTRING counttwos
+00019b e082                      	LDI RVAL, 2
+00019c d0bc                      	RCALL get_stat			; get total number of throws	
+00019d dfb7                      	RCALL printhex			; print as 2 hex numbers
+00019e ef8a
+00019f decd
+0001a0 ef8a
+0001a1 decb
+0001a2 ef8a
+0001a3 dec9
+0001a4 ef8a
+0001a5 dec7                      	DELAY_1S
+0001a6 ef8a
+0001a7 dec5
+0001a8 ef8a
+0001a9 dec3
+0001aa ef8a
+0001ab dec1
+0001ac ef8a
+0001ad debf                      	DELAY_1S
                                  
-                                 	RCALL lcd_clear_display
-                                 	PRINTSTRING countthrees
-                                 	LDI RVAL, 3
-                                 	RCALL get_stat			; get total number of throws	
-                                 	RCALL printhex			; print as 2 hex numbers
-                                 	RCALL delay_1_s
+0001ae df02                      	RCALL lcd_clear_display
+0001af e0f2
+0001b0 e6e6
+0001b1 def9                      	PRINTSTRING countthrees
+0001b2 e083                      	LDI RVAL, 3
+0001b3 d0a5                      	RCALL get_stat			; get total number of throws	
+0001b4 dfa0                      	RCALL printhex			; print as 2 hex numbers
+0001b5 ef8a
+0001b6 deb6
+0001b7 ef8a
+0001b8 deb4
+0001b9 ef8a
+0001ba deb2
+0001bb ef8a
+0001bc deb0                      	DELAY_1S
+0001bd ef8a
+0001be deae
+0001bf ef8a
+0001c0 deac
+0001c1 ef8a
+0001c2 deaa
+0001c3 ef8a
+0001c4 dea8                      	DELAY_1S
                                  
-                                 	RCALL lcd_clear_display
-                                 	PRINTSTRING countfours
-                                 	LDI RVAL, 4
-                                 	RCALL get_stat			; get total number of throws	
-                                 	RCALL printhex			; print as 2 hex numbers
-                                 	RCALL delay_1_s
+0001c5 deeb                      	RCALL lcd_clear_display
+0001c6 e0f2
+0001c7 e7e2
+0001c8 dee2                      	PRINTSTRING countfours
+0001c9 e084                      	LDI RVAL, 4
+0001ca d08e                      	RCALL get_stat			; get total number of throws	
+0001cb df89                      	RCALL printhex			; print as 2 hex numbers
+0001cc ef8a
+0001cd de9f
+0001ce ef8a
+0001cf de9d
+0001d0 ef8a
+0001d1 de9b
+0001d2 ef8a
+0001d3 de99                      	DELAY_1S
+0001d4 ef8a
+0001d5 de97
+0001d6 ef8a
+0001d7 de95
+0001d8 ef8a
+0001d9 de93
+0001da ef8a
+0001db de91                      	DELAY_1S
                                  
-                                 	RCALL lcd_clear_display
-                                 	PRINTSTRING countfives
-                                 	LDI RVAL, 5
-                                 	RCALL get_stat			; get total number of throws	
-                                 	RCALL printhex			; print as 2 hex numbers
-                                 	RCALL delay_1_s
+0001dc ded4                      	RCALL lcd_clear_display
+0001dd e0f2
+0001de e7ee
+0001df decb                      	PRINTSTRING countfives
+0001e0 e085                      	LDI RVAL, 5
+0001e1 d077                      	RCALL get_stat			; get total number of throws	
+0001e2 df72                      	RCALL printhex			; print as 2 hex numbers
+0001e3 ef8a
+0001e4 de88
+0001e5 ef8a
+0001e6 de86
+0001e7 ef8a
+0001e8 de84
+0001e9 ef8a
+0001ea de82                      	DELAY_1S
+0001eb ef8a
+0001ec de80
+0001ed ef8a
+0001ee de7e
+0001ef ef8a
+0001f0 de7c
+0001f1 ef8a
+0001f2 de7a                      	DELAY_1S
                                  
-                                 	RCALL lcd_clear_display
-                                 	PRINTSTRING countsixs
-                                 	LDI RVAL, 6
-                                 	RCALL get_stat			; get total number of throws	
-                                 	RCALL printhex			; print as 2 hex numbers
-                                 	RCALL delay_1_s
+0001f3 debd                      	RCALL lcd_clear_display
+0001f4 e0f2
+0001f5 e8ea
+0001f6 deb4                      	PRINTSTRING countsixs
+0001f7 e086                      	LDI RVAL, 6
+0001f8 d060                      	RCALL get_stat			; get total number of throws	
+0001f9 df5b                      	RCALL printhex			; print as 2 hex numbers
+0001fa ef8a
+0001fb de71
+0001fc ef8a
+0001fd de6f
+0001fe ef8a
+0001ff de6d
+000200 ef8a
+000201 de6b                      	DELAY_1S
+000202 ef8a
+000203 de69
+000204 ef8a
+000205 de67
+000206 ef8a
+000207 de65
+000208 ef8a
+000209 de63                      	DELAY_1S
                                  
-                                 	RCALL lcd_clear_display
-                                 	RET*/
+00020a dea6                      	RCALL lcd_clear_display
+00020b 9508                      	RET
                                  
                                  clearstat:
-000167 df49                      	RCALL lcd_clear_display
-000168 e0f2
-000169 e3e2
-00016a df40                      	PRINTSTRING clearstring
-                                 	//RCALL clear_stat
-00016b 9508                      	RET
+00020c dea4                      	RCALL lcd_clear_display
+00020d e0f2
+00020e e3e4
+00020f de9b                      	PRINTSTRING clearstring
+000210 d04f                      	RCALL clear_stat
+000211 9508                      	RET
                                  	.INCLUDE "monitor.inc"
                                  
                                   * monitor.inc
@@ -2011,45 +2131,45 @@ C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab
                                   *  Created: 2016-11-19 12:42:26
                                   *   Author: Magnus Krampell
                                   */ 
-00016c 6f4d
-00016d 696e
-00016e 6f74
-00016f 0072                       monitorstr: .DB "Monitor",0
+000212 6f4d
+000213 696e
+000214 6f74
+000215 0072                       monitorstr: .DB "Monitor",0
                                  // moni_start_str: .DB ">0000: ",0
                                  
                                   init_monitor:
-000170 9508                      	RET
+000216 9508                      	RET
                                  
                                  ; read keys from keyboard. If * - exit, if # advance address. if number - use as XH.
                                  moni_read_keyboard:
-000171 df4e                      	RCALL read_keyboard
-000172 3083                      	CPI		RVAL, 0x03		; '*'?
-000173 f049                      	BREQ monireadquit		; yes, go back
-000174 308b                      	CPI		RVAL, 0x0B		; '#'?
-000175 f039                      	BREQ monireadquit		; yes, go back
-000176 308f                      	CPI		RVAL, NO_KEY
-000177 f411                      	BRNE	moni_akey		; a key, which one?
-000178 2e38                      	MOV		R3, RVAL		; save in case another key was pressed before this
-000179 cff7                      	RJMP	moni_read_keyboard
+000217 dea8                      	RCALL read_keyboard
+000218 3083                      	CPI		RVAL, 0x03		; '*'?
+000219 f049                      	BREQ monireadquit		; yes, go back
+00021a 308b                      	CPI		RVAL, 0x0B		; '#'?
+00021b f039                      	BREQ monireadquit		; yes, go back
+00021c 308f                      	CPI		RVAL, NO_KEY
+00021d f411                      	BRNE	moni_akey		; a key, which one?
+00021e 2e38                      	MOV		R3, RVAL		; save in case another key was pressed before this
+00021f cff7                      	RJMP	moni_read_keyboard
                                  moni_akey:					; some key is pressed
                                  //rcall printhex
-00017a 1583                      	CP		RVAL, R3
-00017b f3a9                      	BREQ	moni_read_keyboard			; repeat key, skip...
-00017c 2e38                      	MOV		R3, RVAL		; no repeat, save new key to detect repeat next time
+000220 1583                      	CP		RVAL, R3
+000221 f3a9                      	BREQ	moni_read_keyboard			; repeat key, skip...
+000222 2e38                      	MOV		R3, RVAL		; no repeat, save new key to detect repeat next time
                                  			; ok, accept only one key, for now....
                                  monireadquit:
-00017d 9508                      	RET
+000223 9508                      	RET
                                  
                                  moni_print_address:
-00017e e38e                      	LDI RVAL, '>'
-00017f df06                      	RCALL lcd_write_chr
-000180 2f8b                      	MOV RVAL, XH
-000181 dfd1                      	RCALL printhex
-000182 2f8a                      	MOV RVAL, XL
-000183 dfcf                      	RCALL printhex
-000184 e38a                      	LDI RVAL, ':'
-000185 df00                      	RCALL lcd_write_chr
-000186 9508                      	RET
+000224 e38e                      	LDI RVAL, '>'
+000225 de60                      	RCALL lcd_write_chr
+000226 2f8b                      	MOV RVAL, XH
+000227 df2d                      	RCALL printhex
+000228 2f8a                      	MOV RVAL, XL
+000229 df2b                      	RCALL printhex
+00022a e38a                      	LDI RVAL, ':'
+00022b de5a                      	RCALL lcd_write_chr
+00022c 9508                      	RET
                                  
                                  ; monitor displays memory content on the format:
                                  ;	0x0100: 0xAB	The cell '0100' (hex) contains 'AB' (hex)
@@ -2057,48 +2177,48 @@ C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab
                                  ; the button * means "go back to the main menu"
                                  
                                  monitor:
-000187 df29                      	RCALL lcd_clear_display
-000188 e0f2
-000189 ede8
-00018a df20                      	PRINTSTRING monitorstr
-00018b ef8a
-00018c dee0
-00018d ef8a
-00018e dede
-00018f ef8a
-000190 dedc
-000191 ef8a
-000192 deda                      	DELAY_1S ;RCALL delay_1_s
-000193 e0b0                      	LDI	XH,	0x00	; set start value
-000194 e0a0                      	LDI	XL,	0x00
+00022d de83                      	RCALL lcd_clear_display
+00022e e0f4
+00022f e2e4
+000230 de7a                      	PRINTSTRING monitorstr
+000231 ef8a
+000232 de3a
+000233 ef8a
+000234 de38
+000235 ef8a
+000236 de36
+000237 ef8a
+000238 de34                      	DELAY_1S ;RCALL delay_1_s
+000239 e0b0                      	LDI	XH,	0x00	; set start value
+00023a e0a0                      	LDI	XL,	0x00
                                  moni_next:
-000195 df1b                      	RCALL lcd_clear_display
-000196 dfe7                      	RCALL moni_print_address
-000197 918d                      	LD	RVAL, X+			; get memory value where X points...
-000198 dfba                      	RCALL printhex			; print that value on LCD
-000199 dfd7                      	RCALL moni_read_keyboard ; returns with "a real key", not NO_KEY!
-00019a 3083                      	CPI		RVAL, 0x03		; '*'?
-00019b f049                      	BREQ moniquit			; yes, quit
-00019c 308b                      	CPI		RVAL, 0x0B		; '#'?
-00019d f021                      	BREQ moni_more
+00023b de75                      	RCALL lcd_clear_display
+00023c dfe7                      	RCALL moni_print_address
+00023d 918d                      	LD	RVAL, X+			; get memory value where X points...
+00023e df16                      	RCALL printhex			; print that value on LCD
+00023f dfd7                      	RCALL moni_read_keyboard ; returns with "a real key", not NO_KEY!
+000240 3083                      	CPI		RVAL, 0x03		; '*'?
+000241 f051                      	BREQ moniquit			; yes, quit
+000242 308b                      	CPI		RVAL, 0x0B		; '#'?
+000243 f029                      	BREQ moni_more
                                  
                                  	; some number was returned. Use it in the X register
-                                 //	RCALL to_ASCII	; map key to corresponding number.....
-00019e 5380                      	SUBI RVAL, 0x30	; convert from ASCII to number
-00019f 2fb8                      	MOV	XH, RVAL	; use number as high start address
-0001a0 27aa                      	CLR	XL			; set XL to 00
-0001a1 cff3                      	RJMP moni_next
+000244 de93                      	RCALL key_convert ; map key to corresponding number.....
+000245 5380                      	SUBI RVAL, 0x30	; convert from ASCII to number
+000246 2fb8                      	MOV	XH, RVAL	; use number as high start address
+000247 27aa                      	CLR	XL			; set XL to 00
+000248 cff2                      	RJMP moni_next
                                  
                                  moni_more:			; continue and display next address
                                  					; X is already pointing at the next address...
-0001a2 ec88                      	LDI		RVAL, 200
-0001a3 dec9                      	RCALL	delay_ms
-0001a4 cff0                      	RJMP moni_next
+000249 ec88                      	LDI		RVAL, 200
+00024a de22                      	RCALL	delay_ms
+00024b cfef                      	RJMP moni_next
                                  	
                                  
                                  moniquit:
                                  	.INCLUDE "stat_data.inc"
-0001a5 9508                      
+00024c 9508                      
                                   * stat_data.inc
                                   *
                                   *  Created: 2020-12-11 12:59:23
@@ -2123,169 +2243,168 @@ C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab
                                  	clear_stat	(no parameters in nor out)
                                  				Clears all data.
                                  --------------------------------------------------------*/
+                                 ; REGISTER IN USE:
+                                 ; R15 - TEMP VARIABLE
+                                 ; R16 - DICE VALUE
+                                 ; R24 - RETURN VALUE
                                  
                                  	.DSEG				; The following applies to the RAM:
                                  	.ORG	0x100			; Set starting
                                  							; address of data
                                  							; segment to 0x100
                                  
-                                 //<your_label>:	.BYTE		<n>		; <skapa så mycket plats som behövs.
-                                 									;Antag att max värde per lagrad variabel är 255>
+000100                           stat_total:	.BYTE		7		; <skapa så mycket plats som behövs.
+                                 									
+                                 
                                  	.CSEG
-                                 store_stat:		;<skriv kod för rutinen>
-0001a6 9508                      	RET
-                                 get_stat:		;<skriv kod för rutinen>
-0001a7 9508                      	RET
-                                 clear_stat:     ;<skriv kod för rutinen>
-0001a8 9508                      
+                                 store_stat:		
+00024d e0b1                      	LDI XH, HIGH(stat_total)
+00024e e0a0                      	LDI XL, LOW(stat_total)
+00024f 90fc                      	LD R15, X
+000250 94f3                      	INC R15
+000251 92fc                      	ST X, R15	; INCREASE TOTAL DICE ROLLS, AND STORE IT TO MEMORY
+                                 
+000252 0fa0                      	ADD XL, R16
+000253 e080                      	LDI R24, 0
+000254 1fb8                      	ADC XH, R24
+000255 90fc                      	LD R15,X
+000256 94f3                      	INC R15
+000257 92fc                      	ST X, R15		; INCREASE SPECIFIC DICE ROLL (Nbr1-6)
+                                 
+000258 9508                      	RET
+                                 
+                                 get_stat:
+000259 e0b1                      	LDI XH, HIGH(stat_total)
+00025a e0a0                      	LDI XL, LOW(stat_total)
+00025b 0fa8                      	ADD XL, RVAL
+00025c e080                      	LDI RVAL, 0
+00025d 1fb8                      	ADC XH, RVAL
+00025e 918c                      	LD RVAL, X
+                                 			
+00025f 9508                      	RET
+                                 clear_stat:    
+000260 e000                      	LDI R16, 0x00
+000261 9300 0100                 	STS stat_total, R16
+000263 9300 0101                 	STS stat_total+1, R16
+000265 9300 0102                 	STS stat_total+2, R16
+000267 9300 0103                 	STS stat_total+3, R16
+000269 9300 0104                 	STS stat_total+4, R16
+00026b 9300 0105                 	STS stat_total+5, R16
+00026d 9300 0106                 	STS stat_total+6, R16
+00026f 9508                      
                                  	
                                  ;==============================================================================
                                  ; Basic initializations of stack pointer, I/O pins, etc.
                                  ;==============================================================================
                                  init:
                                  	; Set stack pointer to point at the end of RAM.
-0001a9 ef0f                      	LDI R16, LOW(RAMEND)
-0001aa bf0d                      	OUT SPL, R16
-0001ab e00a                      	LDI R16, HIGH(RAMEND)
-0001ac bf0e                      	OUT SPH, R16
+000270 ef0f                      	LDI R16, LOW(RAMEND)
+000271 bf0d                      	OUT SPL, R16
+000272 e00a                      	LDI R16, HIGH(RAMEND)
+000273 bf0e                      	OUT SPH, R16
                                  	; Initialize pins
-0001ad 940e 01b6                 	CALL init_pins
-0001af 940e 008d                 	CALL lcd_init
-0001b1 940e 014a                 	CALL init_stat
-0001b3 940e 0170                 	CALL init_monitor
+000274 940e 027d                 	CALL init_pins
+000276 940e 008d                 	CALL lcd_init
+000278 940e 014b                 	CALL init_stat
+00027a 940e 0216                 	CALL init_monitor
                                  	; Jump to main part of program
-0001b5 c007                      	RJMP main
+00027c c007                      	RJMP main
                                  
                                  ;==============================================================================
                                  ; Initialize I/O pins
                                  ;==============================================================================
                                  init_pins:	
                                  
-0001b6 ef0f                      	LDI TEMP, 0xFF ; SET TEMP TO HIGH
-0001b7 bb00                      	OUT DDRF, TEMP ;PORT F OUTPUT
-0001b8 b904                      	OUT DDRB, TEMP ;PORT B OUTPUT
-0001b9 b90a                      	OUT DDRD, TEMP ;PORT D OUTPUT
+00027d ef0f                      	LDI TEMP, 0xFF ; SET TEMP TO HIGH
+00027e bb00                      	OUT DDRF, TEMP ;PORT F OUTPUT
+00027f b904                      	OUT DDRB, TEMP ;PORT B OUTPUT
+000280 b90a                      	OUT DDRD, TEMP ;PORT D OUTPUT
                                  
-0001ba e000                      	LDI TEMP, 0x00 ; SET TEMP TO LOW
-0001bb b90d                      	OUT DDRE, TEMP ; PORT E INPUT
+000281 e000                      	LDI TEMP, 0x00 ; SET TEMP TO LOW
+000282 b90d                      	OUT DDRE, TEMP ; PORT E INPUT
                                  
-0001bc 9508                      	RET
+000283 9508                      	RET
                                  
                                  ;==============================================================================
                                  ; Main part of program
                                  ;==============================================================================
                                  main:
-0001bd e0f1
-0001be ede2
-0001bf deeb                      	PRINTSTRING Dice_start
-0001c0 ef8a
-0001c1 deab
-0001c2 ef8a
-0001c3 dea9
-0001c4 ef8a
-0001c5 dea7
-0001c6 ef8a
-0001c7 dea5                      	DELAY_1S
+000284 e0f1
+000285 ede2
+000286 de24                      	PRINTSTRING Dice_start
+000287 ef8a
+000288 dde4
+000289 ef8a
+00028a dde2
+00028b ef8a
+00028c dde0
+00028d ef8a
+00028e ddde                      	DELAY_1S
                                  again:
-0001c8 dee8                      	RCALL lcd_clear_display  
-0001c9 ef8a
-0001ca dea2
-0001cb ef8a
-0001cc dea0
-0001cd ef8a
-0001ce de9e
-0001cf ef8a
-0001d0 de9c                      	DELAY_1S
-0001d1 e0f1
-0001d2 eeee
-0001d3 ded7                      	PRINTSTRING Dice_2
+00028f de21                      	RCALL lcd_clear_display  
+                                 	
+000290 e0f1
+000291 eeee
+000292 de18                      	PRINTSTRING Dice_2
                                  	
                                  				
                                  loop:																		  
-0001d4 deeb                      	RCALL read_keyboard	
-0001d5 defd                      	RCALL key_compare	
-0001d6 3382                      	CPI RVAL, '2'			; if input is 2
-0001d7 f049                      	BREQ roll_dice_prep
-0001d8 3383                      	CPI RVAL, '3'			; if input is 3
-0001d9 f119                      	BREQ show_stats				
-0001da 3388                      	CPI RVAL, '8'			; if input is 8
-0001db f181                      	BREQ clear_stats	
-0001dc 3389                      	CPI RVAL, '9'			; if input is 8
-0001dd f1c1                      	BREQ go_monitor						  
+000293 de2c                      	RCALL read_keyboard	
+000294 de3e                      	RCALL key_compare	
+000295 3382                      	CPI RVAL, '2'			; if input is 2
+000296 f049                      	BREQ roll_dice_prep
+000297 3383                      	CPI RVAL, '3'			; if input is 3
+000298 f119                      	BREQ show_stats				
+000299 3388                      	CPI RVAL, '8'			; if input is 8
+00029a f119                      	BREQ clear_stats	
+00029b 3389                      	CPI RVAL, '9'			; if input is 8
+00029c f119                      	BREQ go_monitor						  
                                  	//LCD_WRITE_REG_CHAR RVAL
-0001de ef8a                      	LDI R24, 250
-0001df de8d                      	RCALL delay_ms
-0001e0 cff3                      	RJMP loop
+00029d ef8a                      	LDI R24, 250
+00029e ddce                      	RCALL delay_ms
+00029f cff3                      	RJMP loop
                                  
                                  roll_dice_prep:
-0001e1 decf                      	RCALL lcd_clear_display 
-0001e2 e288                      	LDI R24, 40
-0001e3 de89                      	RCALL delay_ms
-0001e4 e0f1
-0001e5 edec
-0001e6 dec4                      	PRINTSTRING Dice_roll
-0001e7 df26                      	RCALL roll_dice
-0001e8 930f                      	PUSH R16				; store value from roll_dice on stack
-0001e9 dec7                      	RCALL lcd_clear_display
-0001ea e288                      	LDI R24, 40
-0001eb de81                      	RCALL delay_ms
-0001ec e0f1
-0001ed efee
-0001ee debc                      	PRINTSTRING dice_value ; prints value to lcd
-0001ef 910f                      	POP R16					; get value from stack
-0001f0 2f80                      	MOV RVAL, R16
-0001f1 e300                      	LDI R16, CONVERT
-0001f2 0f80                      	ADD RVAL, R16
-0001f3 de92                      	RCALL lcd_write_chr
-0001f4 ef8a
-0001f5 de77
-0001f6 ef8a
-0001f7 de75
-0001f8 ef8a
-0001f9 de73
-0001fa ef8a
-0001fb de71                      	DELAY_1S
-0001fc cfcb                      	RJMP again
+0002a0 de10                      	RCALL lcd_clear_display 
+0002a1 e288                      	LDI R24, 40
+0002a2 ddca                      	RCALL delay_ms
+0002a3 e0f1
+0002a4 edec
+0002a5 de05                      	PRINTSTRING Dice_roll
+0002a6 de67                      	RCALL roll_dice
+0002a7 930f                      	PUSH R16				; store value from roll_dice on stack
+0002a8 de08                      	RCALL lcd_clear_display
+0002a9 e288                      	LDI R24, 40
+0002aa ddc2                      	RCALL delay_ms
+0002ab e0f1
+0002ac efee
+0002ad ddfd                      	PRINTSTRING dice_value ; prints value to lcd
+0002ae 910f                      	POP R16					; get value from stack
+0002af 2f80                      	MOV RVAL, R16
+0002b0 e300                      	LDI R16, CONVERT
+0002b1 0f80                      	ADD RVAL, R16
+0002b2 ddd3                      	RCALL lcd_write_chr
+0002b3 ef8a
+0002b4 ddb8
+0002b5 ef8a
+0002b6 ddb6
+0002b7 ef8a
+0002b8 ddb4
+0002b9 ef8a
+0002ba ddb2                      	DELAY_1S
+0002bb cfd3                      	RJMP again
                                  
                                  show_stats:
-0001fd deb3                      	RCALL lcd_clear_display 
-0001fe e288                      	LDI R24, 40
-0001ff de6d                      	RCALL delay_ms
-000200 e0f2
-000201 e0e6
-000202 dea8                      	PRINTSTRING Dice_temp
-000203 ef8a
-000204 de68
-000205 ef8a
-000206 de66
-000207 ef8a
-000208 de64
-000209 ef8a
-00020a de62                      	DELAY_1S
-00020b cfbc                      	RJMP again
+                                 
+0002bc deac                      	RCALL showstat
+0002bd cfd1                      	RJMP again
                                  
                                  clear_stats:
-                                 /*	RCALL lcd_clear_display 
-                                 	LDI R24, 40
-                                 	RCALL delay_ms*/
-00020c df5a                      	RCALL clearstat
-00020d ef8a
-00020e de5e
-00020f ef8a
-000210 de5c
-000211 ef8a
-000212 de5a
-000213 ef8a
-000214 de58                      	DELAY_1S
-000215 cfb2                      	RJMP again
+0002be df4d                      	RCALL clearstat
+0002bf cfcf                      	RJMP again
                                  
                                  go_monitor:
-                                 /*	RCALL lcd_clear_display 
-                                 	LDI R24, 40
-                                 	RCALL delay_ms
-                                 	PRINTSTRING Dice_temp2
-                                 	DELAY_1S*/
-000216 df70                      	RCALL monitor
+0002c0 df6c                      	RCALL monitor
 
 
 RESOURCE USE INFORMATION
@@ -2303,15 +2422,15 @@ counted separately from r26..r31 here.
 .dseg memory usage only counts static data declared with .byte
 
 "ATmega32U4" register use summary:
-x  :   1 y  :   0 z  :   5 r0 :   0 r1 :   0 r2 :   0 r3 :   3 r4 :   0 
+x  :   6 y  :   0 z  :   5 r0 :   0 r1 :   0 r2 :   0 r3 :   3 r4 :   0 
 r5 :   2 r6 :   4 r7 :   0 r8 :   0 r9 :   0 r10:   0 r11:   0 r12:   0 
-r13:   0 r14:   0 r15:   0 r16:  19 r17:   3 r18:  11 r19:   6 r20:   0 
-r21:   0 r22:   0 r23:   0 r24: 101 r25:   0 r26:   3 r27:   3 r28:   0 
-r29:   0 r30:  13 r31:  13 
-Registers used: 14 out of 35 (40.0%)
+r13:   0 r14:   0 r15:   6 r16:  28 r17:   3 r18:  11 r19:   6 r20:   0 
+r21:   0 r22:   0 r23:   0 r24: 157 r25:   0 r26:   7 r27:   7 r28:   0 
+r29:   0 r30:  19 r31:  19 
+Registers used: 15 out of 35 (42.9%)
 
 "ATmega32U4" instruction use summary:
-.lds  :   0 .sts  :   0 adc   :   3 add   :   4 adiw  :   0 and   :   0 
+.lds  :   0 .sts  :   0 adc   :   5 add   :   6 adiw  :   0 and   :   0 
 andi  :   2 asr   :   0 bclr  :   0 bld   :   0 brbc  :   0 brbs  :   0 
 brcc  :   0 brcs  :   0 break :   0 breq  :  13 brge  :   0 brhc  :   0 
 brhs  :   0 brid  :   0 brie  :   0 brlo  :   0 brlt  :   0 brmi  :   0 
@@ -2320,23 +2439,23 @@ brvs  :   0 bset  :   0 bst   :   0 call  :   4 cbi   :   3 cbr   :   0
 clc   :   0 clh   :   0 cli   :   0 cln   :   0 clr   :   3 cls   :   0 
 clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :   2 cpc   :   0 
 cpi   :  15 cpse  :   0 dec   :   3 eor   :   0 fmul  :   0 fmuls :   0 
-fmulsu:   0 icall :   0 ijmp  :   0 in    :   0 inc   :   1 jmp   :   0 
-ld    :   1 ldd   :   0 ldi   :  87 lds   :   0 lpm   :   9 lsl   :   4 
+fmulsu:   0 icall :   0 ijmp  :   0 in    :   0 inc   :   3 jmp   :   0 
+ld    :   4 ldd   :   0 ldi   : 156 lds   :   0 lpm   :   9 lsl   :   4 
 lsr   :   0 mov   :  12 movw  :   0 mul   :   0 muls  :   0 mulsu :   0 
 neg   :   0 nop   :  20 or    :   0 ori   :   0 out   :   8 pop   :   3 
-push  :   3 rcall :  91 ret   :  23 reti  :   0 rjmp  :  13 rol   :   0 
+push  :   3 rcall : 166 ret   :  24 reti  :   0 rjmp  :  13 rol   :   0 
 ror   :   0 sbc   :   0 sbci  :   0 sbi   :   2 sbic  :   1 sbis  :   0 
 sbiw  :   0 sbr   :   0 sbrc  :   0 sbrs  :   0 sec   :   0 seh   :   0 
 sei   :   0 sen   :   0 ser   :   0 ses   :   0 set   :   0 sev   :   0 
-sez   :   0 sleep :   0 spm   :   0 st    :   0 std   :   0 sts   :   0 
+sez   :   0 sleep :   0 spm   :   0 st    :   2 std   :   0 sts   :   7 
 sub   :   0 subi  :   1 swap  :   3 tst   :   0 wdr   :   0 
-Instructions used: 28 out of 113 (24.8%)
+Instructions used: 30 out of 113 (26.5%)
 
 "ATmega32U4" memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000000 0x000430    678    224    902   32768   2.8%
-[.dseg] 0x000100 0x000100      0      0      0    2560   0.0%
+[.cseg] 0x000000 0x000584   1018    224   1242   32768   3.8%
+[.dseg] 0x000100 0x000107      0      7      7    2560   0.3%
 [.eseg] 0x000000 0x000000      0      0      0    1024   0.0%
 
 Assembly complete, 0 errors, 0 warnings
