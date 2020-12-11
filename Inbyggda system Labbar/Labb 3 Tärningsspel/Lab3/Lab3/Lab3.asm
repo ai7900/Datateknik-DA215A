@@ -99,13 +99,15 @@ roll_dice_prep:
 	RCALL delay_ms
 	PRINTSTRING Dice_roll
 	RCALL roll_dice
-	PUSH R24
+	PUSH R16				; store value from roll_dice on stack
 	RCALL lcd_clear_display
 	LDI R24, 40
 	RCALL delay_ms
-	POP R24
-	PRINTSTRING dice_value
-	RCALL key_compare
+	PRINTSTRING dice_value ; prints value to lcd
+	POP R16					; get value from stack
+	MOV RVAL, R16
+	LDI R16, CONVERT
+	ADD RVAL, R16
 	RCALL lcd_write_chr
 	DELAY_1S
 	RJMP again

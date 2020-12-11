@@ -12,10 +12,12 @@
 
 roll_dice:
 	LDI R16, 6   ;dice have 6 values
+	
 test: 
 	NOP
 	NOP
 	RCALL read_keyboard	;key-value in RVAL
+	RCALL key_convert
 	CPI RVAL, ROLL_KEY
 	BREQ roll	;yes, key 1 is still pressed
 	RET			;no, key is released

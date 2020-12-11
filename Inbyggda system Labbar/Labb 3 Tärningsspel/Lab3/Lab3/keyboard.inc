@@ -47,6 +47,7 @@ key_compare:
     CP RVAL, LVAL
     BREQ key_return        ; If RVAL and LVAL is equal branch to loop
     MOV LVAL, RVAL    ; Copy our return value to last value
+key_convert:
 	LDI ZH, high(map_table <<1)		;Initialize Z pointer
 	LDI ZL, low(map_table <<1)
 	ADD ZL, RVAL					;Add index
