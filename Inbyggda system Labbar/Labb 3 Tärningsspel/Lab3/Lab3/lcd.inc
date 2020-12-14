@@ -8,6 +8,12 @@
  * Author:	Mathias Beckius
  *
  * Date:	2014-11-24
+ * Additions: Johan Fritiofsson & Mattias Ståhlberg
+ * Date 2020-12-14
+ *
+ * Registers in use:
+ * R16
+ * R24
  */
 
 ;==========
@@ -146,7 +152,9 @@ lcd_write_string_loop:
 	CPI R16,0x00
 	BRNE lcd_write_string_loop				; If R16 == 0x00 exit otherwise loop for print of next char.
 	RET
-
+;==============================================================================
+; Clears the LCD display
+;==============================================================================
 lcd_clear_display:
 	PUSH R24
 	LCD_INSTRUCTION 0x01

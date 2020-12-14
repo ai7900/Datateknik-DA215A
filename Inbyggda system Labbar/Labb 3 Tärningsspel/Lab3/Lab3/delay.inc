@@ -4,6 +4,11 @@
  * Author:	Mattias Ståhlberg & Johan Fritiofsson
  *
  * Date:	2020-11-25
+ *
+ * Diffent kinds of delays through macros and subroutines
+ * REGISTERS IN USE
+ *	R18
+ *	R24
  */
   
 

@@ -2,11 +2,12 @@
  * dicestrings.inc
  *
  *  Created: 2020-12-08 15:52:24
- *   Author: maste
+ *   Author: Johan Fritiofsson & Mattias Ståhlberg
+ * Strings that are used in the dice game.
  */ 
 
 
- ;==============================================================================
+;==============================================================================
 ; Definition of strings
 ;==============================================================================
 	Str_1:		.DB "Welcome!",0,0			

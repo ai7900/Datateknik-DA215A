@@ -4,6 +4,14 @@
 ; Created: 2020-12-04 09:50:00
 ; Author : Johan Fritiofsson, Mattias Ståhlberg
 ;
+; 	 
+;	About this program: 
+; 	This program is a dice game. Reads input from a keyboard. Hold '2' to start rolling, once relased value of the
+;   throw is shown, and stored to memory. Stats about all throws can be shown.
+;	 
+; 	 
+;
+; 
 
 
 ;==============================================================================

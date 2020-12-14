@@ -9,11 +9,16 @@
  */ 
 
 
- ;==============================================================================
+;==============================================================================
 ; Definitions of registers, etc. ("constants")
 ;==============================================================================
 	map_table: .DB "147*2580369#"
 
+
+;==============================================================================
+; read_keyboard:
+; reads keyboard and returns binaray value. Output R24 
+;==============================================================================
 
 
 read_keyboard:
@@ -28,7 +33,7 @@ scan_key:
 	OUT PORTB, R19
 	PUSH R18
 	LDI R24, 1
-	RCALL delay_ms ; delay for bounce
+	RCALL delay_ms			; delay for avoiding bounce-effect
 	POP R18
 	
 	SBIC PINE, 6
@@ -36,17 +41,23 @@ scan_key:
 	INC R18	
 	CPI R18, 12
 	BRNE scan_key
-	LDI R18, NO_KEY        ; no key was pressed!
+	LDI R18, NO_KEY			; no key was pressed!
 return_key_val:
-	MOV RVAL, R18		; COPY FROM R18 TO RVAL
+	MOV RVAL, R18			; COPY FROM R18 TO RVAL
 	RET
 
 key_compare:
     CPI RVAL, NO_KEY
-    BREQ key_release    ; branch to key_relased if return value was NO_KEY
+    BREQ key_release		; branch to key_relased if return value was NO_KEY
     CP RVAL, LVAL
-    BREQ key_return        ; If RVAL and LVAL is equal branch to loop
-    MOV LVAL, RVAL    ; Copy our return value to last value
+    BREQ key_return			; If RVAL and LVAL is equal branch to loop
+    MOV LVAL, RVAL			; Copy our return value to last value
+
+;==============================================================================
+; key_convert:
+; converts from binary to ASCII. Input R24, output R24
+;==============================================================================
+
 key_convert:
 	LDI ZH, high(map_table <<1)		;Initialize Z pointer
 	LDI ZL, low(map_table <<1)
