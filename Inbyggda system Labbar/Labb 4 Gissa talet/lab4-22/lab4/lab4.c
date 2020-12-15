@@ -19,6 +19,9 @@
 #include "hmi/hmi.h"
 #include "random/random.h"
 #include "guess_nr.h"
+#include "lcd/lcd.h"
+#include "delay/delay.h"
+
 
 int main(void)
 {
@@ -51,5 +54,13 @@ int main(void)
 	ER TESTKOD. GLÖM INTE ATT AVKOMMENTERA HUVUDPROGRAMMET
 ******************************************************************************/
 
-	while (1);
+	while (1)
+	{
+		lcd_set_cursor_mode(CURSOR_BLINK);
+		delay_s(2);
+		lcd_set_cursor_mode(CURSOR_ON);
+		delay_s(2);
+		lcd_set_cursor_mode(CURSOR_OFF);
+		delay_s(2);
+	}
 }

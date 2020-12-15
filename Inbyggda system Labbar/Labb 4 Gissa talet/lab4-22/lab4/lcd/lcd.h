@@ -28,9 +28,9 @@ enum lcd_register
  */
 enum lcd_cursor
 {
-	CURSOR_OFF		= 0,
-	CURSOR_ON		= 0,		// UPPGIFT: ändra värdet!
-	CURSOR_BLINK	= 0			// UPPGIFT: ändra värdet!
+	CURSOR_OFF		= 0x0C,
+	CURSOR_ON		= 0x0E,		// UPPGIFT: ändra värdet!
+	CURSOR_BLINK	= 0x0F			// UPPGIFT: ändra värdet!
 };
 
 void lcd_init(void);
