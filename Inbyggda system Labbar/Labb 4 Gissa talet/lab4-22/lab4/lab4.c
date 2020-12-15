@@ -57,24 +57,29 @@ int main(void)
 	hmi_init();
 
 	char* test= "test";
-	char testchar ;
+	char testchar;
+	lcd_write_str(test);
+	//lcd_write(INSTRUCTION,0x10);
+	lcd_write(INSTRUCTION,0x04);
+	
 	//'t','e','s','t','\0';
 	while (1)
 	{
-		//lcd_write_str(test);
-		//lcd_set_cursor_mode(CURSOR_BLINK);
-		//delay_s(2);
-		//lcd_set_cursor_mode(CURSOR_ON);
-		//delay_s(2);
-		//lcd_set_cursor_mode(CURSOR_OFF);
+		//CURSUR TEST
+			//lcd_write_str(test);
+			//lcd_set_cursor_mode(CURSOR_BLINK);
+			//delay_s(2);
+			//lcd_set_cursor_mode(CURSOR_ON);
+			//delay_s(2);
+			//lcd_set_cursor_mode(CURSOR_OFF);
 		
-		
-		testchar = numkey_read();
-		if (testchar != '\0')
-		{
-			lcd_write(DATA,testchar);
-			delay_ms(200);
-		}
+		//KEYPAD TEST
+			testchar = numkey_read();
+			if (testchar != '\0')
+			{
+				lcd_write(DATA,testchar);
+				delay_ms(200);
+			}
 		
 		
 	}

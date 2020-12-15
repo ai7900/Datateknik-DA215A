@@ -87,21 +87,29 @@ uint8_t input_int(char *p_msg, uint16_t *p_int_nr)
 	lcd_write_str(p_msg);
 	lcd_set_cursor_mode(CURSOR_BLINK);
 	lcd_set_cursor_pos(1, 0);
-	while (1) {
-		do {								// read keyboard....
+	while (1) 
+	{
+		do 
+		{								// read keyboard....
 			key = numkey_read();
-		} while (key == NO_KEY);			// ...until a key is pressed!
+		} 
+		while (key == NO_KEY);			// ...until a key is pressed!
 		
-		if (key == '#') {					// confirmation of the number?
-			break;
-		} else if (key == '*') {			// erase digit?
-			if (length > 0) {
+			if (key == '#')
+			{					// confirmation of the number?
+				break;
+			} 
+			else if (key == '*') 
+			{			// erase digit?
+				if (length > 0) {
 				//UPPGIFT: skriv kod så att tecknet suddas från displayen!
 				length--;
 			}
-		} else if (length < max_length) {	// enter digit?
-			lcd_write(DATA, key);
-			numbers[length] = key;
+			} 
+			else if (length < max_length) 
+			{	// enter digit?
+				lcd_write(DATA, key);
+				numbers[length] = key;
 			length++;
 		}
 
