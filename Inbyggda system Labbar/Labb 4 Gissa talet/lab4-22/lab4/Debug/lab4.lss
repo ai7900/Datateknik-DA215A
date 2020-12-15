@@ -1,0 +1,210 @@
+
+lab4.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .data         00000004  00800100  000000e0  00000154  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  1 .text         000000e0  00000000  00000000  00000074  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  2 .comment      00000030  00000000  00000000  00000158  2**0
+                  CONTENTS, READONLY
+  3 .debug_aranges 00000110  00000000  00000000  00000188  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  4 .debug_info   00000c5e  00000000  00000000  00000298  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_abbrev 00000642  00000000  00000000  00000ef6  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_line   0000055f  00000000  00000000  00001538  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_frame  000001d8  00000000  00000000  00001a98  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_str    00000389  00000000  00000000  00001c70  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_loc    000005f2  00000000  00000000  00001ff9  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_ranges 000000b0  00000000  00000000  000025eb  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+ */
+void play_guess_nr(uint16_t rnd_nr)
+{
+	uint16_t nr_of_guesses = 0;
+	// show initial message, before game starts.
+	output_msg("Can you guess", "the number?", 3);
+   0:	0c 94 56 00 	jmp	0xac	; 0xac <__ctors_end>
+   4:	0c 94 6b 00 	jmp	0xd6	; 0xd6 <__bad_interrupt>
+   8:	0c 94 6b 00 	jmp	0xd6	; 0xd6 <__bad_interrupt>
+   c:	0c 94 6b 00 	jmp	0xd6	; 0xd6 <__bad_interrupt>
+		if (input_length > 0 && guessed_nr >= 1 && guessed_nr <= 100) {
+			// ...return that number!
+			return guessed_nr;
+		} else {
+			// show error/info message!
+			output_msg("Enter a number", "between 1-100!", 1);
+  10:	0c 94 6b 00 	jmp	0xd6	; 0xd6 <__bad_interrupt>
+  14:	0c 94 6b 00 	jmp	0xd6	; 0xd6 <__bad_interrupt>
+  18:	0c 94 6b 00 	jmp	0xd6	; 0xd6 <__bad_interrupt>
+  1c:	0c 94 6b 00 	jmp	0xd6	; 0xd6 <__bad_interrupt>
+	const uint8_t max_length = 3;
+	char numbers[max_length + 1];		// UPPGIFT: Varför måste man dimensionera arrayen för ett extra tecken?
+	uint8_t key;
+	
+	lcd_clear();
+	lcd_write_str(p_msg);
+  20:	0c 94 6b 00 	jmp	0xd6	; 0xd6 <__bad_interrupt>
+  24:	0c 94 6b 00 	jmp	0xd6	; 0xd6 <__bad_interrupt>
+	lcd_set_cursor_mode(CURSOR_BLINK);
+  28:	0c 94 6b 00 	jmp	0xd6	; 0xd6 <__bad_interrupt>
+	lcd_set_cursor_pos(1, 0);
+  2c:	0c 94 6b 00 	jmp	0xd6	; 0xd6 <__bad_interrupt>
+  30:	0c 94 6b 00 	jmp	0xd6	; 0xd6 <__bad_interrupt>
+ * return:
+ *	number of digits (0-3)
+ */
+uint8_t input_int(char *p_msg, uint16_t *p_int_nr)
+{
+	uint8_t length = 0;
+  34:	0c 94 6b 00 	jmp	0xd6	; 0xd6 <__bad_interrupt>
+	lcd_write_str(p_msg);
+	lcd_set_cursor_mode(CURSOR_BLINK);
+	lcd_set_cursor_pos(1, 0);
+	while (1) {
+		do {								// read keyboard....
+			key = numkey_read();
+  38:	0c 94 6b 00 	jmp	0xd6	; 0xd6 <__bad_interrupt>
+		} while (key == NO_KEY);			// ...until a key is pressed!
+  3c:	0c 94 6b 00 	jmp	0xd6	; 0xd6 <__bad_interrupt>
+		
+		if (key == '#') {					// confirmation of the number?
+  40:	0c 94 6b 00 	jmp	0xd6	; 0xd6 <__bad_interrupt>
+			break;
+		} else if (key == '*') {			// erase digit?
+  44:	0c 94 6b 00 	jmp	0xd6	; 0xd6 <__bad_interrupt>
+			if (length > 0) {
+  48:	0c 94 6b 00 	jmp	0xd6	; 0xd6 <__bad_interrupt>
+				//UPPGIFT: skriv kod så att tecknet suddas från displayen!
+				length--;
+  4c:	0c 94 6b 00 	jmp	0xd6	; 0xd6 <__bad_interrupt>
+			}
+		} else if (length < max_length) {	// enter digit?
+  50:	0c 94 6b 00 	jmp	0xd6	; 0xd6 <__bad_interrupt>
+			lcd_write(DATA, key);
+  54:	0c 94 6b 00 	jmp	0xd6	; 0xd6 <__bad_interrupt>
+  58:	0c 94 6b 00 	jmp	0xd6	; 0xd6 <__bad_interrupt>
+			numbers[length] = key;
+  5c:	0c 94 6b 00 	jmp	0xd6	; 0xd6 <__bad_interrupt>
+  60:	0c 94 6b 00 	jmp	0xd6	; 0xd6 <__bad_interrupt>
+  64:	0c 94 6b 00 	jmp	0xd6	; 0xd6 <__bad_interrupt>
+  68:	0c 94 6b 00 	jmp	0xd6	; 0xd6 <__bad_interrupt>
+			length++;
+  6c:	0c 94 6b 00 	jmp	0xd6	; 0xd6 <__bad_interrupt>
+
+		// continue when key is released!
+			//UPPGIFT: Skriv kod så att koden stannar/"loopar" tills att numkey_read() inte längre detekterar en knapptryckning!
+	};
+	// terminate string
+	numbers[length] = '\0';
+  70:	0c 94 6b 00 	jmp	0xd6	; 0xd6 <__bad_interrupt>
+  74:	0c 94 6b 00 	jmp	0xd6	; 0xd6 <__bad_interrupt>
+	
+	// if a number was entered...
+	if (length > 0) {
+  78:	0c 94 6b 00 	jmp	0xd6	; 0xd6 <__bad_interrupt>
+{
+	uint16_t result = 0;
+	uint16_t multiplier = 1;
+	uint8_t ascii;
+	uint8_t nr;
+	uint8_t pos = length - 1;
+  7c:	0c 94 6b 00 	jmp	0xd6	; 0xd6 <__bad_interrupt>
+	while (1) {
+		// determine ascii code
+		ascii = (uint8_t) *(p_str + pos);
+  80:	0c 94 6b 00 	jmp	0xd6	; 0xd6 <__bad_interrupt>
+		// determine number (0-9)
+		nr = ascii - 48;
+  84:	0c 94 6b 00 	jmp	0xd6	; 0xd6 <__bad_interrupt>
+		// convert number and add to result
+		result += nr * multiplier;
+  88:	0c 94 6b 00 	jmp	0xd6	; 0xd6 <__bad_interrupt>
+		
+		multiplier *= 10;
+		if (pos > 0) {
+  8c:	0c 94 6b 00 	jmp	0xd6	; 0xd6 <__bad_interrupt>
+		// determine number (0-9)
+		nr = ascii - 48;
+		// convert number and add to result
+		result += nr * multiplier;
+		
+		multiplier *= 10;
+  90:	0c 94 6b 00 	jmp	0xd6	; 0xd6 <__bad_interrupt>
+	uint8_t ascii;
+	uint8_t nr;
+	uint8_t pos = length - 1;
+	while (1) {
+		// determine ascii code
+		ascii = (uint8_t) *(p_str + pos);
+  94:	0c 94 6b 00 	jmp	0xd6	; 0xd6 <__bad_interrupt>
+  98:	0c 94 6b 00 	jmp	0xd6	; 0xd6 <__bad_interrupt>
+  9c:	0c 94 6b 00 	jmp	0xd6	; 0xd6 <__bad_interrupt>
+		// determine number (0-9)
+		nr = ascii - 48;
+  a0:	0c 94 6b 00 	jmp	0xd6	; 0xd6 <__bad_interrupt>
+		// convert number and add to result
+		result += nr * multiplier;
+  a4:	0c 94 6b 00 	jmp	0xd6	; 0xd6 <__bad_interrupt>
+  a8:	0c 94 6b 00 	jmp	0xd6	; 0xd6 <__bad_interrupt>
+
+000000ac <__ctors_end>:
+  ac:	11 24       	eor	r1, r1
+  ae:	1f be       	out	0x3f, r1	; 63
+  b0:	cf ef       	ldi	r28, 0xFF	; 255
+		
+		multiplier *= 10;
+  b2:	da e0       	ldi	r29, 0x0A	; 10
+  b4:	de bf       	out	0x3e, r29	; 62
+  b6:	cd bf       	out	0x3d, r28	; 61
+
+000000b8 <__do_copy_data>:
+  b8:	11 e0       	ldi	r17, 0x01	; 1
+  ba:	a0 e0       	ldi	r26, 0x00	; 0
+  bc:	b1 e0       	ldi	r27, 0x01	; 1
+  be:	e0 ee       	ldi	r30, 0xE0	; 224
+  c0:	f0 e0       	ldi	r31, 0x00	; 0
+  c2:	02 c0       	rjmp	.+4      	; 0xc8 <__do_copy_data+0x10>
+  c4:	05 90       	lpm	r0, Z+
+  c6:	0d 92       	st	X+, r0
+		if (pos > 0) {
+  c8:	a4 30       	cpi	r26, 0x04	; 4
+  ca:	b1 07       	cpc	r27, r17
+		} else {
+			break;
+		}
+	}
+	// return result from conversion
+	*p_nr = result;
+  cc:	d9 f7       	brne	.-10     	; 0xc4 <__do_copy_data+0xc>
+  ce:	0e 94 6d 00 	call	0xda	; 0xda <main>
+		// convert number!
+		str_to_uint16(numbers, length, p_int_nr);
+	}
+	// return the number of digits
+	return length;
+}
+  d2:	0c 94 6e 00 	jmp	0xdc	; 0xdc <_exit>
+
+000000d6 <__bad_interrupt>:
+  d6:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+000000da <main>:
+  da:	ff cf       	rjmp	.-2      	; 0xda <main>
+
+000000dc <_exit>:
+  dc:	f8 94       	cli
+
+000000de <__stop_program>:
+  de:	ff cf       	rjmp	.-2      	; 0xde <__stop_program>
