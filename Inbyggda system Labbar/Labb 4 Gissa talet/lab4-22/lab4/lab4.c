@@ -54,8 +54,12 @@ int main(void)
 	ER TESTKOD. GLÖM INTE ATT AVKOMMENTERA HUVUDPROGRAMMET
 ******************************************************************************/
 
+	hmi_init();
+
+	char* test= "test";
 	while (1)
 	{
+		
 		lcd_set_cursor_mode(CURSOR_BLINK);
 		delay_s(2);
 		lcd_set_cursor_mode(CURSOR_ON);

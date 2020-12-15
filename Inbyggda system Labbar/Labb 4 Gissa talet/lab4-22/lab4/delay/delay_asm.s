@@ -109,7 +109,7 @@ loop_s:
 	RCALL delay_ms
 	LDI R24, 250
 	RCALL delay_ms
-	DEC 18
+	DEC R19
 	CPI R19, 0
 	BRNE loop_s
 	RET
