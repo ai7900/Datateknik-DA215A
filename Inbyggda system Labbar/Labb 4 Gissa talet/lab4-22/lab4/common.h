@@ -1,10 +1,12 @@
 ﻿/*
  * common.h
  *
- * Author:	????
+ * Author:	Mattias Sthålberg & Johan Fritiofsson
  *
- * Date:	????
+ * Date:	2020-12-15
  */ 
+
+//This header file contains macros for bit manipulation. 
 
 #ifndef COMMON_H_
 #define COMMON_H_
@@ -12,12 +14,12 @@
 /*
  * This macro is used to set a specific bit in a register.
  */
-#define SET_BIT(reg, pos)	(reg) = (reg)
-
+#define SET_BIT(reg, pos)	((reg) |= (1<<pos));
+			
 /*
  * This macro is used to clear a specific bit in a register.
  */
-#define CLR_BIT(reg, pos)	(reg) = (reg)
+#define CLR_BIT(reg, pos)	((reg) &= ~(1<<pos));
 
 /*
  * This macro is used to modify several bits of a register.
@@ -28,6 +30,6 @@
  * The bit mask is used to clear the bits that should be modified.
  */
 #define SET_BIT_LEVELS(reg, bit_mask, bit_data) \
-	(reg) = (reg)
+	(reg) = (((reg) & (bit_mask)) | ((bit_data) & ~(bit_mask)))
 
 #endif /* COMMON_H_ */
