@@ -3,29 +3,29 @@ lab4.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .data         00000000  00800100  00800100  00000284  2**0
+  0 .data         0000000c  00800100  0000026e  000002e2  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  1 .text         00000230  00000000  00000000  00000054  2**1
+  1 .text         0000026e  00000000  00000000  00000074  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .comment      00000030  00000000  00000000  00000284  2**0
+  2 .comment      00000030  00000000  00000000  000002ee  2**0
                   CONTENTS, READONLY
-  3 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  000002b4  2**2
+  3 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  00000320  2**2
                   CONTENTS, READONLY
-  4 .debug_aranges 000000e8  00000000  00000000  000002f8  2**3
+  4 .debug_aranges 000000e8  00000000  00000000  00000360  2**3
                   CONTENTS, READONLY, DEBUGGING
-  5 .debug_info   000014ab  00000000  00000000  000003e0  2**0
+  5 .debug_info   000014bd  00000000  00000000  00000448  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_abbrev 00000dd9  00000000  00000000  0000188b  2**0
+  6 .debug_abbrev 00000e0d  00000000  00000000  00001905  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_line   0000086d  00000000  00000000  00002664  2**0
+  7 .debug_line   0000088f  00000000  00000000  00002712  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_frame  00000168  00000000  00000000  00002ed4  2**2
+  8 .debug_frame  0000018c  00000000  00000000  00002fa4  2**2
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_str    0000069b  00000000  00000000  0000303c  2**0
+  9 .debug_str    000006a4  00000000  00000000  00003130  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_loc    000004fa  00000000  00000000  000036d7  2**0
+ 10 .debug_loc    00000629  00000000  00000000  000037d4  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_ranges 00000088  00000000  00000000  00003bd1  2**0
+ 11 .debug_ranges 00000088  00000000  00000000  00003dfd  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -87,16 +87,16 @@ Disassembly of section .text:
   b8:	11 e0       	ldi	r17, 0x01	; 1
   ba:	a0 e0       	ldi	r26, 0x00	; 0
   bc:	b1 e0       	ldi	r27, 0x01	; 1
-  be:	e0 e3       	ldi	r30, 0x30	; 48
+  be:	ee e6       	ldi	r30, 0x6E	; 110
   c0:	f2 e0       	ldi	r31, 0x02	; 2
   c2:	02 c0       	rjmp	.+4      	; 0xc8 <__do_copy_data+0x10>
   c4:	05 90       	lpm	r0, Z+
   c6:	0d 92       	st	X+, r0
-  c8:	a0 30       	cpi	r26, 0x00	; 0
+  c8:	ac 30       	cpi	r26, 0x0C	; 12
   ca:	b1 07       	cpc	r27, r17
   cc:	d9 f7       	brne	.-10     	; 0xc4 <__do_copy_data+0xc>
-  ce:	0e 94 a7 00 	call	0x14e	; 0x14e <main>
-  d2:	0c 94 16 01 	jmp	0x22c	; 0x22c <_exit>
+  ce:	0e 94 cd 00 	call	0x19a	; 0x19a <main>
+  d2:	0c 94 35 01 	jmp	0x26a	; 0x26a <_exit>
 
 000000d6 <__bad_interrupt>:
   d6:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
@@ -208,7 +208,7 @@ void hmi_init(void)
 	numkey_init();
  13c:	0e 94 a3 00 	call	0x146	; 0x146 <numkey_init>
 	lcd_init();
- 140:	0e 94 e8 00 	call	0x1d0	; 0x1d0 <lcd_init>
+ 140:	0e 94 07 01 	call	0x20e	; 0x20e <lcd_init>
  144:	08 95       	ret
 
 00000146 <numkey_init>:
@@ -225,198 +225,258 @@ void numkey_init(void)
  14a:	84 b9       	out	0x04, r24	; 4
  14c:	08 95       	ret
 
-0000014e <main>:
+0000014e <numkey_read>:
+ * return:
+ *	If a key is pressed, then a character that represents the key is returned.
+ *	Otherwise, a NO_KEY character is returned!
+ */
+char numkey_read(void)
+{
+ 14e:	0f 93       	push	r16
+ 150:	1f 93       	push	r17
+ 152:	cf 93       	push	r28
+ 154:	df 93       	push	r29
+ 156:	c0 e0       	ldi	r28, 0x00	; 0
+ 158:	d0 e0       	ldi	r29, 0x00	; 0
+	uint8_t	i;
+	for (i = 0; i < sizeof(key_map); i++)
+	{
+		SET_BIT_LEVELS(PORTB,0x0F, i << 4);
+ 15a:	85 b1       	in	r24, 0x05	; 5
+ 15c:	28 2f       	mov	r18, r24
+ 15e:	2f 70       	andi	r18, 0x0F	; 15
+ 160:	ce 01       	movw	r24, r28
+ 162:	82 95       	swap	r24
+ 164:	92 95       	swap	r25
+ 166:	90 7f       	andi	r25, 0xF0	; 240
+ 168:	98 27       	eor	r25, r24
+ 16a:	80 7f       	andi	r24, 0xF0	; 240
+ 16c:	98 27       	eor	r25, r24
+ 16e:	82 2b       	or	r24, r18
+ 170:	85 b9       	out	0x05, r24	; 5
+		delay_ms(1);
+ 172:	81 e0       	ldi	r24, 0x01	; 1
+ 174:	0e 94 84 00 	call	0x108	; 0x108 <delay_ms>
+		if (PINE & 0b01000000)
+ 178:	66 9b       	sbis	0x0c, 6	; 12
+ 17a:	05 c0       	rjmp	.+10     	; 0x186 <numkey_read+0x38>
+		{
+			return key_map[i];
+ 17c:	fe 01       	movw	r30, r28
+ 17e:	e0 50       	subi	r30, 0x00	; 0
+ 180:	ff 4f       	sbci	r31, 0xFF	; 255
+ 182:	80 81       	ld	r24, Z
+ 184:	05 c0       	rjmp	.+10     	; 0x190 <numkey_read+0x42>
+ 186:	21 96       	adiw	r28, 0x01	; 1
+ *	Otherwise, a NO_KEY character is returned!
+ */
+char numkey_read(void)
+{
+	uint8_t	i;
+	for (i = 0; i < sizeof(key_map); i++)
+ 188:	cc 30       	cpi	r28, 0x0C	; 12
+ 18a:	d1 05       	cpc	r29, r1
+ 18c:	31 f7       	brne	.-52     	; 0x15a <numkey_read+0xc>
+			//}
+	}
+	
+	
+	// no key was pressed!
+	return NO_KEY;
+ 18e:	80 e0       	ldi	r24, 0x00	; 0
+ 190:	df 91       	pop	r29
+ 192:	cf 91       	pop	r28
+ 194:	1f 91       	pop	r17
+ 196:	0f 91       	pop	r16
+ 198:	08 95       	ret
+
+0000019a <main>:
 	
 	NÄR DET ÄR DAGS ATT TESTA HUVUDPROGRAMMET KOMMENTERAR NI UT (ELLER RADERAR)
 	ER TESTKOD. GLÖM INTE ATT AVKOMMENTERA HUVUDPROGRAMMET
 ******************************************************************************/
 
 	hmi_init();
- 14e:	0e 94 9e 00 	call	0x13c	; 0x13c <hmi_init>
-
-	char* test= "test";
-	while (1)
-	{
+ 19a:	0e 94 9e 00 	call	0x13c	; 0x13c <hmi_init>
+		//lcd_set_cursor_mode(CURSOR_ON);
+		//delay_s(2);
+		//lcd_set_cursor_mode(CURSOR_OFF);
 		
-		lcd_set_cursor_mode(CURSOR_BLINK);
- 152:	8f e0       	ldi	r24, 0x0F	; 15
- 154:	0e 94 e2 00 	call	0x1c4	; 0x1c4 <lcd_set_cursor_mode>
-		delay_s(2);
- 158:	82 e0       	ldi	r24, 0x02	; 2
- 15a:	0e 94 91 00 	call	0x122	; 0x122 <delay_s>
-		lcd_set_cursor_mode(CURSOR_ON);
- 15e:	8e e0       	ldi	r24, 0x0E	; 14
- 160:	0e 94 e2 00 	call	0x1c4	; 0x1c4 <lcd_set_cursor_mode>
-		delay_s(2);
- 164:	82 e0       	ldi	r24, 0x02	; 2
- 166:	0e 94 91 00 	call	0x122	; 0x122 <delay_s>
-		lcd_set_cursor_mode(CURSOR_OFF);
- 16a:	8c e0       	ldi	r24, 0x0C	; 12
- 16c:	0e 94 e2 00 	call	0x1c4	; 0x1c4 <lcd_set_cursor_mode>
-		delay_s(2);
- 170:	82 e0       	ldi	r24, 0x02	; 2
- 172:	0e 94 91 00 	call	0x122	; 0x122 <delay_s>
- 176:	ed cf       	rjmp	.-38     	; 0x152 <main+0x4>
+		
+		testchar = numkey_read();
+ 19e:	0e 94 a7 00 	call	0x14e	; 0x14e <numkey_read>
+		if (testchar != '\0')
+ 1a2:	88 23       	and	r24, r24
+ 1a4:	e1 f3       	breq	.-8      	; 0x19e <main+0x4>
+		{
+			lcd_write(DATA,testchar);
+ 1a6:	68 2f       	mov	r22, r24
+ 1a8:	81 e0       	ldi	r24, 0x01	; 1
+ 1aa:	0e 94 e5 00 	call	0x1ca	; 0x1ca <lcd_write>
+			delay_ms(200);
+ 1ae:	88 ec       	ldi	r24, 0xC8	; 200
+ 1b0:	0e 94 84 00 	call	0x108	; 0x108 <delay_ms>
+ 1b4:	f4 cf       	rjmp	.-24     	; 0x19e <main+0x4>
 
-00000178 <write_4bit_msb>:
- *	data: 4 bits of data
- */
+000001b6 <write_4bit_msb>:
+*	data: 4 bits of data
+*/
 static void write_4bit_msb(uint8_t data)
 {
 	//write data
-	SET_BIT_LEVELS(PORTF, 0x0F, data);	
- 178:	91 b3       	in	r25, 0x11	; 17
- 17a:	9f 70       	andi	r25, 0x0F	; 15
- 17c:	80 7f       	andi	r24, 0xF0	; 240
- 17e:	89 2b       	or	r24, r25
- 180:	81 bb       	out	0x11, r24	; 17
+	SET_BIT_LEVELS(PORTF, 0x0F, data);
+ 1b6:	91 b3       	in	r25, 0x11	; 17
+ 1b8:	9f 70       	andi	r25, 0x0F	; 15
+ 1ba:	80 7f       	andi	r24, 0xF0	; 240
+ 1bc:	89 2b       	or	r24, r25
+ 1be:	81 bb       	out	0x11, r24	; 17
 	// generate pulse on the Enable pin
 	SET_BIT(PORTD, 7);
- 182:	5f 9a       	sbi	0x0b, 7	; 11
+ 1c0:	5f 9a       	sbi	0x0b, 7	; 11
 	delay_1_micros();
- 184:	0e 94 6d 00 	call	0xda	; 0xda <delay_1_micros>
+ 1c2:	0e 94 6d 00 	call	0xda	; 0xda <delay_1_micros>
 	CLR_BIT(PORTD, 7);
- 188:	5f 98       	cbi	0x0b, 7	; 11
- 18a:	08 95       	ret
+ 1c6:	5f 98       	cbi	0x0b, 7	; 11
+ 1c8:	08 95       	ret
 
-0000018c <lcd_write>:
- * parameter:
- *	lcd_reg: register to communicate with (Instruction or Data register)
- *	data: 8-bit instruction or data (character)
- */
+000001ca <lcd_write>:
+* parameter:
+*	lcd_reg: register to communicate with (Instruction or Data register)
+*	data: 8-bit instruction or data (character)
+*/
 void lcd_write(enum lcd_register lcd_reg, uint8_t data)
 {
- 18c:	cf 93       	push	r28
- 18e:	c6 2f       	mov	r28, r22
+ 1ca:	cf 93       	push	r28
+ 1cc:	c6 2f       	mov	r28, r22
 	// select register
 	if (lcd_reg == INSTRUCTION) {
- 190:	81 11       	cpse	r24, r1
- 192:	02 c0       	rjmp	.+4      	; 0x198 <lcd_write+0xc>
+ 1ce:	81 11       	cpse	r24, r1
+ 1d0:	02 c0       	rjmp	.+4      	; 0x1d6 <lcd_write+0xc>
 		CLR_BIT(PORTD, 6);	// Instruction Register
- 194:	5e 98       	cbi	0x0b, 6	; 11
- 196:	01 c0       	rjmp	.+2      	; 0x19a <lcd_write+0xe>
-	} else {
+ 1d2:	5e 98       	cbi	0x0b, 6	; 11
+ 1d4:	01 c0       	rjmp	.+2      	; 0x1d8 <lcd_write+0xe>
+		} else {
 		SET_BIT(PORTD, 6);	// Data Register
- 198:	5e 9a       	sbi	0x0b, 6	; 11
+ 1d6:	5e 9a       	sbi	0x0b, 6	; 11
 	}
 	// write data
 	write_4bit_msb(data);
- 19a:	8c 2f       	mov	r24, r28
- 19c:	0e 94 bc 00 	call	0x178	; 0x178 <write_4bit_msb>
+ 1d8:	8c 2f       	mov	r24, r28
+ 1da:	0e 94 db 00 	call	0x1b6	; 0x1b6 <write_4bit_msb>
 	write_4bit_msb(data << 4);
- 1a0:	8c 2f       	mov	r24, r28
- 1a2:	82 95       	swap	r24
- 1a4:	80 7f       	andi	r24, 0xF0	; 240
- 1a6:	0e 94 bc 00 	call	0x178	; 0x178 <write_4bit_msb>
+ 1de:	8c 2f       	mov	r24, r28
+ 1e0:	82 95       	swap	r24
+ 1e2:	80 7f       	andi	r24, 0xF0	; 240
+ 1e4:	0e 94 db 00 	call	0x1b6	; 0x1b6 <write_4bit_msb>
 	delay_micros(45);
- 1aa:	8d e2       	ldi	r24, 0x2D	; 45
- 1ac:	0e 94 74 00 	call	0xe8	; 0xe8 <delay_micros>
+ 1e8:	8d e2       	ldi	r24, 0x2D	; 45
+ 1ea:	0e 94 74 00 	call	0xe8	; 0xe8 <delay_micros>
 }
- 1b0:	cf 91       	pop	r28
- 1b2:	08 95       	ret
+ 1ee:	cf 91       	pop	r28
+ 1f0:	08 95       	ret
 
-000001b4 <lcd_clear>:
+000001f2 <lcd_clear>:
 /*
- * Clears the LCD and moves the cursor to position row 0, column 0.
- */
+* Clears the LCD and moves the cursor to position row 0, column 0.
+*/
 void lcd_clear(void)
 {
 	lcd_write(INSTRUCTION, 0x01);
- 1b4:	61 e0       	ldi	r22, 0x01	; 1
- 1b6:	80 e0       	ldi	r24, 0x00	; 0
- 1b8:	0e 94 c6 00 	call	0x18c	; 0x18c <lcd_write>
+ 1f2:	61 e0       	ldi	r22, 0x01	; 1
+ 1f4:	80 e0       	ldi	r24, 0x00	; 0
+ 1f6:	0e 94 e5 00 	call	0x1ca	; 0x1ca <lcd_write>
 	delay_ms(2);
- 1bc:	82 e0       	ldi	r24, 0x02	; 2
- 1be:	0e 94 84 00 	call	0x108	; 0x108 <delay_ms>
- 1c2:	08 95       	ret
+ 1fa:	82 e0       	ldi	r24, 0x02	; 2
+ 1fc:	0e 94 84 00 	call	0x108	; 0x108 <delay_ms>
+ 200:	08 95       	ret
 
-000001c4 <lcd_set_cursor_mode>:
- */
+00000202 <lcd_set_cursor_mode>:
+*/
 void lcd_set_cursor_mode(enum lcd_cursor mode)
 {
 	uint8_t cursor_mode;
 	cursor_mode = 0x0C | mode;
 	lcd_write(INSTRUCTION, cursor_mode);
- 1c4:	68 2f       	mov	r22, r24
- 1c6:	6c 60       	ori	r22, 0x0C	; 12
- 1c8:	80 e0       	ldi	r24, 0x00	; 0
- 1ca:	0e 94 c6 00 	call	0x18c	; 0x18c <lcd_write>
- 1ce:	08 95       	ret
+ 202:	68 2f       	mov	r22, r24
+ 204:	6c 60       	ori	r22, 0x0C	; 12
+ 206:	80 e0       	ldi	r24, 0x00	; 0
+ 208:	0e 94 e5 00 	call	0x1ca	; 0x1ca <lcd_write>
+ 20c:	08 95       	ret
 
-000001d0 <lcd_init>:
- *	- configuration of LCD communication
- */
+0000020e <lcd_init>:
+*	- configuration of LCD communication
+*/
 void lcd_init(void)
 {
 	// PF4-PF7 (A3-A0) as outputs (LCD D4-D7)
 	DDRF = 0xF0;
- 1d0:	80 ef       	ldi	r24, 0xF0	; 240
- 1d2:	80 bb       	out	0x10, r24	; 16
+ 20e:	80 ef       	ldi	r24, 0xF0	; 240
+ 210:	80 bb       	out	0x10, r24	; 16
 	// PD6 & PD7 (D12 & D6) as outputs (LCD RS & LCD E)
 	DDRD = 0xC0;
- 1d4:	80 ec       	ldi	r24, 0xC0	; 192
- 1d6:	8a b9       	out	0x0a, r24	; 10
+ 212:	80 ec       	ldi	r24, 0xC0	; 192
+ 214:	8a b9       	out	0x0a, r24	; 10
 	
 	// wait more than 15 ms after power-up!
 	delay_ms(20);
- 1d8:	84 e1       	ldi	r24, 0x14	; 20
- 1da:	0e 94 84 00 	call	0x108	; 0x108 <delay_ms>
+ 216:	84 e1       	ldi	r24, 0x14	; 20
+ 218:	0e 94 84 00 	call	0x108	; 0x108 <delay_ms>
 	// select Instruction Register
 	CLR_BIT(PORTD, 6);
- 1de:	5e 98       	cbi	0x0b, 6	; 11
+ 21c:	5e 98       	cbi	0x0b, 6	; 11
 
 	// Function Set: 8 bit data interface
 	write_4bit_msb(0x30);
- 1e0:	80 e3       	ldi	r24, 0x30	; 48
- 1e2:	0e 94 bc 00 	call	0x178	; 0x178 <write_4bit_msb>
+ 21e:	80 e3       	ldi	r24, 0x30	; 48
+ 220:	0e 94 db 00 	call	0x1b6	; 0x1b6 <write_4bit_msb>
 	delay_ms(10);
- 1e6:	8a e0       	ldi	r24, 0x0A	; 10
- 1e8:	0e 94 84 00 	call	0x108	; 0x108 <delay_ms>
+ 224:	8a e0       	ldi	r24, 0x0A	; 10
+ 226:	0e 94 84 00 	call	0x108	; 0x108 <delay_ms>
 	write_4bit_msb(0x30);
- 1ec:	80 e3       	ldi	r24, 0x30	; 48
- 1ee:	0e 94 bc 00 	call	0x178	; 0x178 <write_4bit_msb>
+ 22a:	80 e3       	ldi	r24, 0x30	; 48
+ 22c:	0e 94 db 00 	call	0x1b6	; 0x1b6 <write_4bit_msb>
 	delay_ms(10);
- 1f2:	8a e0       	ldi	r24, 0x0A	; 10
- 1f4:	0e 94 84 00 	call	0x108	; 0x108 <delay_ms>
+ 230:	8a e0       	ldi	r24, 0x0A	; 10
+ 232:	0e 94 84 00 	call	0x108	; 0x108 <delay_ms>
 	write_4bit_msb(0x30);
- 1f8:	80 e3       	ldi	r24, 0x30	; 48
- 1fa:	0e 94 bc 00 	call	0x178	; 0x178 <write_4bit_msb>
+ 236:	80 e3       	ldi	r24, 0x30	; 48
+ 238:	0e 94 db 00 	call	0x1b6	; 0x1b6 <write_4bit_msb>
 	delay_ms(10);
- 1fe:	8a e0       	ldi	r24, 0x0A	; 10
- 200:	0e 94 84 00 	call	0x108	; 0x108 <delay_ms>
+ 23c:	8a e0       	ldi	r24, 0x0A	; 10
+ 23e:	0e 94 84 00 	call	0x108	; 0x108 <delay_ms>
 
 	// Function Set: switch to 4 bit data interface
 	write_4bit_msb(0x20);
- 204:	80 e2       	ldi	r24, 0x20	; 32
- 206:	0e 94 bc 00 	call	0x178	; 0x178 <write_4bit_msb>
+ 242:	80 e2       	ldi	r24, 0x20	; 32
+ 244:	0e 94 db 00 	call	0x1b6	; 0x1b6 <write_4bit_msb>
 	delay_micros(45);
- 20a:	8d e2       	ldi	r24, 0x2D	; 45
- 20c:	0e 94 74 00 	call	0xe8	; 0xe8 <delay_micros>
+ 248:	8d e2       	ldi	r24, 0x2D	; 45
+ 24a:	0e 94 74 00 	call	0xe8	; 0xe8 <delay_micros>
 
 	// Function Set: 4 bit data interface, 2 lines, font 5x10
-	lcd_write(INSTRUCTION, 0x28);		
- 210:	68 e2       	ldi	r22, 0x28	; 40
- 212:	80 e0       	ldi	r24, 0x00	; 0
- 214:	0e 94 c6 00 	call	0x18c	; 0x18c <lcd_write>
+	lcd_write(INSTRUCTION, 0x28);
+ 24e:	68 e2       	ldi	r22, 0x28	; 40
+ 250:	80 e0       	ldi	r24, 0x00	; 0
+ 252:	0e 94 e5 00 	call	0x1ca	; 0x1ca <lcd_write>
 
 	// Display on, no cursor
 	lcd_set_cursor_mode(CURSOR_OFF);
- 218:	8c e0       	ldi	r24, 0x0C	; 12
- 21a:	0e 94 e2 00 	call	0x1c4	; 0x1c4 <lcd_set_cursor_mode>
+ 256:	8c e0       	ldi	r24, 0x0C	; 12
+ 258:	0e 94 01 01 	call	0x202	; 0x202 <lcd_set_cursor_mode>
 
 	// clear display
 	lcd_clear();
- 21e:	0e 94 da 00 	call	0x1b4	; 0x1b4 <lcd_clear>
+ 25c:	0e 94 f9 00 	call	0x1f2	; 0x1f2 <lcd_clear>
 
 	// Entry Mode Set: incremental cursor movement, no display shift
 	lcd_write(INSTRUCTION, 0x06);
- 222:	66 e0       	ldi	r22, 0x06	; 6
- 224:	80 e0       	ldi	r24, 0x00	; 0
- 226:	0e 94 c6 00 	call	0x18c	; 0x18c <lcd_write>
- 22a:	08 95       	ret
+ 260:	66 e0       	ldi	r22, 0x06	; 6
+ 262:	80 e0       	ldi	r24, 0x00	; 0
+ 264:	0e 94 e5 00 	call	0x1ca	; 0x1ca <lcd_write>
+ 268:	08 95       	ret
 
-0000022c <_exit>:
- 22c:	f8 94       	cli
+0000026a <_exit>:
+ 26a:	f8 94       	cli
 
-0000022e <__stop_program>:
- 22e:	ff cf       	rjmp	.-2      	; 0x22e <__stop_program>
+0000026c <__stop_program>:
+ 26c:	ff cf       	rjmp	.-2      	; 0x26c <__stop_program>
