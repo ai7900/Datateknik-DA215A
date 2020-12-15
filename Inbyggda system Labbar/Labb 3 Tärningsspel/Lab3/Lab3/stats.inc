@@ -118,4 +118,5 @@ clearstat:
 	RCALL lcd_clear_display
 	PRINTSTRING clearstring
 	RCALL clear_stat
+	DELAY_1S
 	RET

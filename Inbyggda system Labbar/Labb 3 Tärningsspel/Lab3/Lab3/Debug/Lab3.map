@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.8  C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\Lab3.asm Fri Dec 11 15:00:29 2020
+AVRASM ver. 2.2.8  C:\Project\Datateknik-DA215A\Inbyggda system Labbar\Labb 3 Tärningsspel\Lab3\Lab3\Lab3.asm Tue Dec 15 13:24:42 2020
 
 
 EQU  SIGNATURE_000 0000001e
@@ -1005,7 +1005,7 @@ EQU  CONVERT      00000030
 DEF  TEMP         r16
 DEF  RVAL         r24
 DEF  LVAL         r17
-CSEG init         00000270
+CSEG init         00000278
 CSEG delay_1_micros 00000056
 CSEG delay_micros 0000005d
 CSEG delay_ms     0000006d
@@ -1042,7 +1042,7 @@ EQU  ROLL_KEY     00000032
 CSEG roll_dice    0000010e
 CSEG test         0000010f
 CSEG roll         00000117
-CSEG store_stat   0000024d
+CSEG store_stat   00000255
 CSEG clearstring  0000011a
 CSEG totalstring  00000120
 CSEG countones    00000127
@@ -1052,28 +1052,28 @@ CSEG countfours   00000139
 CSEG countfives   0000013f
 CSEG countsixs    00000145
 CSEG init_stat    0000014b
-CSEG clear_stat   00000260
+CSEG clear_stat   00000268
 CSEG hexconv      0000014d
 CSEG printhex     00000155
 CSEG showstat     00000169
-CSEG get_stat     00000259
+CSEG get_stat     00000261
 CSEG clearstat    0000020c
-CSEG monitorstr   00000212
-CSEG init_monitor 00000216
-CSEG moni_read_keyboard 00000217
-CSEG monireadquit 00000223
-CSEG moni_akey    00000220
-CSEG moni_print_address 00000224
-CSEG monitor      0000022d
-CSEG moni_next    0000023b
-CSEG moniquit     0000024c
-CSEG moni_more    00000249
+CSEG monitorstr   0000021a
+CSEG init_monitor 0000021e
+CSEG moni_read_keyboard 0000021f
+CSEG monireadquit 0000022b
+CSEG moni_akey    00000228
+CSEG moni_print_address 0000022c
+CSEG monitor      00000235
+CSEG moni_next    00000243
+CSEG moniquit     00000254
+CSEG moni_more    00000251
 DSEG stat_total   00000100
-CSEG init_pins    0000027d
-CSEG main         00000284
-CSEG again        0000028f
-CSEG loop         00000293
-CSEG roll_dice_prep 000002a0
-CSEG show_stats   000002bc
-CSEG clear_stats  000002be
-CSEG go_monitor   000002c0
+CSEG init_pins    00000285
+CSEG main         0000028c
+CSEG again        00000297
+CSEG loop         0000029b
+CSEG roll_dice_prep 000002a8
+CSEG show_stats   000002c4
+CSEG clear_stats  000002c6
+CSEG go_monitor   000002c8
