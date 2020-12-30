@@ -60,12 +60,12 @@ int main(void)
 	char testchar;
 	lcd_write_str(test);
 	//lcd_write(INSTRUCTION,0x10);
-	lcd_write(INSTRUCTION,0x04);
+	//lcd_write(INSTRUCTION,0x04);
 	
 	//'t','e','s','t','\0';
 	while (1)
 	{
-		//CURSUR TEST
+		//CURSOR TEST
 			//lcd_write_str(test);
 			//lcd_set_cursor_mode(CURSOR_BLINK);
 			//delay_s(2);
@@ -79,6 +79,7 @@ int main(void)
 			{
 				lcd_write(DATA,testchar);
 				delay_ms(200);
+				lcd_write(INSTRUCTION, 0x10);
 			}
 		
 		

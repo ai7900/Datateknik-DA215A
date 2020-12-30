@@ -46,7 +46,7 @@ Discarded input sections
  .data          0x00000000        0x0 hmi/hmi.o
  .bss           0x00000000        0x0 hmi/hmi.o
  .text.input_int
-                0x00000000       0xe6 hmi/hmi.o
+                0x00000000      0x106 hmi/hmi.o
  .text.output_msg
                 0x00000000       0x40 hmi/hmi.o
  .text          0x00000000        0x0 numkey/numkey.o
@@ -620,14 +620,14 @@ END GROUP
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000     0x14f1
+.debug_info     0x00000000     0x1549
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000      0x9f4 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega32u4/avr5/crtatmega32u4.o
  .debug_info    0x000009f4       0x95 delay/delay_asm.o
- .debug_info    0x00000a89      0x3f3 hmi/hmi.o
- .debug_info    0x00000e7c      0x104 numkey/numkey.o
- .debug_info    0x00000f80      0x194 lab4.o
- .debug_info    0x00001114      0x3dd lcd/lcd.o
+ .debug_info    0x00000a89      0x44b hmi/hmi.o
+ .debug_info    0x00000ed4      0x104 numkey/numkey.o
+ .debug_info    0x00000fd8      0x194 lab4.o
+ .debug_info    0x0000116c      0x3dd lcd/lcd.o
 
 .debug_abbrev   0x00000000      0xe06
  *(.debug_abbrev)
@@ -638,14 +638,14 @@ END GROUP
  .debug_abbrev  0x00000bf1       0xf0 lab4.o
  .debug_abbrev  0x00000ce1      0x125 lcd/lcd.o
 
-.debug_line     0x00000000      0x89b
+.debug_line     0x00000000      0x8b7
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x19a C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega32u4/avr5/crtatmega32u4.o
  .debug_line    0x0000019a      0x162 delay/delay_asm.o
- .debug_line    0x000002fc      0x1f5 hmi/hmi.o
- .debug_line    0x000004f1      0x110 numkey/numkey.o
- .debug_line    0x00000601       0x9d lab4.o
- .debug_line    0x0000069e      0x1fd lcd/lcd.o
+ .debug_line    0x000002fc      0x211 hmi/hmi.o
+ .debug_line    0x0000050d      0x110 numkey/numkey.o
+ .debug_line    0x0000061d       0x9d lab4.o
+ .debug_line    0x000006ba      0x1fd lcd/lcd.o
 
 .debug_frame    0x00000000      0x18c
  *(.debug_frame)

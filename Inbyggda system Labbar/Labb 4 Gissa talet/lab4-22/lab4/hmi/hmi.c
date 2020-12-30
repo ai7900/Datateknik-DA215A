@@ -80,7 +80,7 @@ uint8_t input_int(char *p_msg, uint16_t *p_int_nr)
 {
 	uint8_t length = 0;
 	const uint8_t max_length = 3;
-	char numbers[max_length + 1];		// UPPGIFT: Varför måste man dimensionera arrayen för ett extra tecken?
+	char numbers[max_length + 1];		// UPPGIFT: Varför måste man dimensionera arrayen för ett extra tecken? Vi måste ge plats till '\0' då det är en string vi har att göra med.
 	uint8_t key;
 	
 	lcd_clear();
@@ -95,26 +95,32 @@ uint8_t input_int(char *p_msg, uint16_t *p_int_nr)
 		} 
 		while (key == NO_KEY);			// ...until a key is pressed!
 		
-			if (key == '#')
-			{					// confirmation of the number?
-				break;
-			} 
-			else if (key == '*') 
-			{			// erase digit?
-				if (length > 0) {
-				//UPPGIFT: skriv kod så att tecknet suddas från displayen!
-				length--;
+		if (key == '#')
+		{					// confirmation of the number?
+			break;
+		} 
+		else if (key == '*') 
+		{			
+			// erase digit?
+			if (length > 0) 
+			{
+			//UPPGIFT: skriv kod så att tecknet suddas från displayen!
+			length--;
+			lcd_set_cursor_pos(1,length);
+			lcd_write(DATA,' ');
+			lcd_set_cursor_pos(1,length);
 			}
-			} 
-			else if (length < max_length) 
-			{	// enter digit?
-				lcd_write(DATA, key);
-				numbers[length] = key;
+		} 
+		else if (length < max_length) 
+		{	
+			// enter digit?
+			lcd_write(DATA, key);
+			numbers[length] = key;
 			length++;
 		}
 
-		// continue when key is released!
-			//UPPGIFT: Skriv kod så att koden stannar/"loopar" tills att numkey_read() inte längre detekterar en knapptryckning!
+		while(numkey_read() != NO_KEY);	// continue when key is released!
+										//UPPGIFT: Skriv kod så att koden stannar/"loopar" tills att numkey_read() inte längre detekterar en knapptryckning! Stannar i while loopen så länge som den inte får NO_KEY
 	};
 	// terminate string
 	numbers[length] = '\0';

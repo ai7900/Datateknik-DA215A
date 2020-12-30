@@ -13,19 +13,19 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY
   4 .debug_aranges 000000e8  00000000  00000000  000003a8  2**3
                   CONTENTS, READONLY, DEBUGGING
-  5 .debug_info   000014f1  00000000  00000000  00000490  2**0
+  5 .debug_info   00001549  00000000  00000000  00000490  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_abbrev 00000e06  00000000  00000000  00001981  2**0
+  6 .debug_abbrev 00000e06  00000000  00000000  000019d9  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_line   0000089b  00000000  00000000  00002787  2**0
+  7 .debug_line   000008b7  00000000  00000000  000027df  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_frame  0000018c  00000000  00000000  00003024  2**2
+  8 .debug_frame  0000018c  00000000  00000000  00003098  2**2
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_str    000006a4  00000000  00000000  000031b0  2**0
+  9 .debug_str    000006a4  00000000  00000000  00003224  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_loc    00000629  00000000  00000000  00003854  2**0
+ 10 .debug_loc    00000629  00000000  00000000  000038c8  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_ranges 00000088  00000000  00000000  00003e7d  2**0
+ 11 .debug_ranges 00000088  00000000  00000000  00003ef1  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -305,30 +305,29 @@ char numkey_read(void)
  19e:	8c e0       	ldi	r24, 0x0C	; 12
  1a0:	91 e0       	ldi	r25, 0x01	; 1
  1a2:	0e 94 3d 01 	call	0x27a	; 0x27a <lcd_write_str>
-	//lcd_write(INSTRUCTION,0x10);
-	lcd_write(INSTRUCTION,0x04);
- 1a6:	64 e0       	ldi	r22, 0x04	; 4
- 1a8:	80 e0       	ldi	r24, 0x00	; 0
- 1aa:	0e 94 ed 00 	call	0x1da	; 0x1da <lcd_write>
 			//lcd_set_cursor_mode(CURSOR_ON);
 			//delay_s(2);
 			//lcd_set_cursor_mode(CURSOR_OFF);
 		
 		//KEYPAD TEST
 			testchar = numkey_read();
- 1ae:	0e 94 a7 00 	call	0x14e	; 0x14e <numkey_read>
+ 1a6:	0e 94 a7 00 	call	0x14e	; 0x14e <numkey_read>
 			if (testchar != '\0')
- 1b2:	88 23       	and	r24, r24
- 1b4:	e1 f3       	breq	.-8      	; 0x1ae <main+0x14>
+ 1aa:	88 23       	and	r24, r24
+ 1ac:	e1 f3       	breq	.-8      	; 0x1a6 <main+0xc>
 			{
 				lcd_write(DATA,testchar);
- 1b6:	68 2f       	mov	r22, r24
- 1b8:	81 e0       	ldi	r24, 0x01	; 1
- 1ba:	0e 94 ed 00 	call	0x1da	; 0x1da <lcd_write>
+ 1ae:	68 2f       	mov	r22, r24
+ 1b0:	81 e0       	ldi	r24, 0x01	; 1
+ 1b2:	0e 94 ed 00 	call	0x1da	; 0x1da <lcd_write>
 				delay_ms(200);
- 1be:	88 ec       	ldi	r24, 0xC8	; 200
- 1c0:	0e 94 84 00 	call	0x108	; 0x108 <delay_ms>
- 1c4:	f4 cf       	rjmp	.-24     	; 0x1ae <main+0x14>
+ 1b6:	88 ec       	ldi	r24, 0xC8	; 200
+ 1b8:	0e 94 84 00 	call	0x108	; 0x108 <delay_ms>
+				lcd_write(INSTRUCTION, 0x10);
+ 1bc:	60 e1       	ldi	r22, 0x10	; 16
+ 1be:	80 e0       	ldi	r24, 0x00	; 0
+ 1c0:	0e 94 ed 00 	call	0x1da	; 0x1da <lcd_write>
+ 1c4:	f0 cf       	rjmp	.-32     	; 0x1a6 <main+0xc>
 
 000001c6 <write_4bit_msb>:
 */
