@@ -25,7 +25,7 @@
 
 int main(void)
 {
-/*
+
 	uint16_t rnd_nr;
 	
 	// initialize HMI (LCD and numeric keyboard)
@@ -53,35 +53,35 @@ int main(void)
 	NÄR DET ÄR DAGS ATT TESTA HUVUDPROGRAMMET KOMMENTERAR NI UT (ELLER RADERAR)
 	ER TESTKOD. GLÖM INTE ATT AVKOMMENTERA HUVUDPROGRAMMET
 ******************************************************************************/
-
-	hmi_init();
-
-	char* test= "test";
-	char testchar;
-	lcd_write_str(test);
-	//lcd_write(INSTRUCTION,0x10);
-	//lcd_write(INSTRUCTION,0x04);
-	
-	//'t','e','s','t','\0';
-	while (1)
-	{
-		//CURSOR TEST
-			//lcd_write_str(test);
-			//lcd_set_cursor_mode(CURSOR_BLINK);
-			//delay_s(2);
-			//lcd_set_cursor_mode(CURSOR_ON);
-			//delay_s(2);
-			//lcd_set_cursor_mode(CURSOR_OFF);
-		
-		//KEYPAD TEST
-			testchar = numkey_read();
-			if (testchar != '\0')
-			{
-				lcd_write(DATA,testchar);
-				delay_ms(200);
-				lcd_write(INSTRUCTION, 0x10);
-			}
-		
-		
-	}
+//
+	//hmi_init();
+//
+	//char* test= "test";
+	//char testchar;
+	//lcd_write_str(test);
+	////lcd_write(INSTRUCTION,0x10);
+	////lcd_write(INSTRUCTION,0x04);
+	//
+	////'t','e','s','t','\0';
+	//while (1)
+	//{
+		////CURSOR TEST
+			////lcd_write_str(test);
+			////lcd_set_cursor_mode(CURSOR_BLINK);
+			////delay_s(2);
+			////lcd_set_cursor_mode(CURSOR_ON);
+			////delay_s(2);
+			////lcd_set_cursor_mode(CURSOR_OFF);
+		//
+		////KEYPAD TEST
+			//testchar = numkey_read();
+			//if (testchar != '\0')
+			//{
+				//lcd_write(DATA,testchar);
+				//delay_ms(200);
+				//lcd_write(INSTRUCTION, 0x10);
+			//}
+		//
+		//
+	//}
 }

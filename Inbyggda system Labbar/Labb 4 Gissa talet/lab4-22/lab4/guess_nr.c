@@ -3,7 +3,7 @@
  *
  * This is a simple game called "Guess the number".
  *
- * Author:	Mathias Beckius
+ * Author:	Mathias Beckius & Mattias Ståhlberg & Johan Fritiofsson
  *
  * Date:	2014-11-28
  */ 
@@ -28,8 +28,10 @@ static uint16_t get_nr(void)
 {
 	uint16_t input_length;
 	uint16_t guessed_nr;
+	char *numberText = "Enter number:";
 	while (1) {
 		input_length = 0; //UPPGIFT: ändra koden så att 'input_int()' anropas, returvärdet ska lagras i 'input_length', 'guessed_nr' ska modifieras av 'input_int()'.
+		input_length = input_int(numberText, &guessed_nr);
 		// if the user entered a number, and if it was between 1 and 100...
 		if (input_length > 0 && guessed_nr >= 1 && guessed_nr <= 100) {
 			// ...return that number!
@@ -58,6 +60,7 @@ static uint8_t playing_game(uint16_t rnd_nr, uint16_t *p_nr_of_guesses)
 	guessed_nr = get_nr();
 	// keep track of number of guesses
 		//UPPGIFT: öka innehållet i variabeln som 'p_nr_of_guesses' pekar på.
+		*p_nr_of_guesses +=1; 
 	
 	// if the guessed number was the correct number...
 	if (guessed_nr == rnd_nr) {
@@ -68,6 +71,8 @@ static uint8_t playing_game(uint16_t rnd_nr, uint16_t *p_nr_of_guesses)
 	} else { // number too high?
 		output_msg("Too high!", "", 1);
 	}
+	
+	
 	return 1;		// return 1 for "keep on playing!"
 }
 
