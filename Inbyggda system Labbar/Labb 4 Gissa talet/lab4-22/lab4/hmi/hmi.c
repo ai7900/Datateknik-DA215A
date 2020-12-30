@@ -106,9 +106,10 @@ uint8_t input_int(char *p_msg, uint16_t *p_int_nr)
 			{
 			//UPPGIFT: skriv kod så att tecknet suddas från displayen!
 			length--;
-			lcd_set_cursor_pos(1,length);
-			lcd_write(DATA,' ');
-			lcd_set_cursor_pos(1,length);
+			lcd_write(INSTRUCTION,0x10);	//Flytta pekare ett steg åt vänster
+			lcd_write(DATA,' ');			//Rensa nuvarande position
+			lcd_write(INSTRUCTION,0x10);	//Flytta pekare ett steg åt vänster
+			
 			}
 		} 
 		else if (length < max_length) 
