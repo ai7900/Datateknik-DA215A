@@ -24,6 +24,15 @@ ISR(ADC_vect)
 {
 	// read ADC value
 					// UPPGIFT: Läs in ADC-värdet. Börja med att läsa av det "låga" registret, därefter det "höga" registret!
+	unsigned char low,high;
+
+	low = ADCL;
+	high = ADCH;
+
+	adc = (high << 8 ) + low;
+	
+	//adc = ADCL;
+	//adc += (ADCH*256); 
 }
 
 /*
@@ -31,14 +40,15 @@ ISR(ADC_vect)
  */
 void temp_init(void)
 {
+	
 	// UPPGIFT: konfigurera ADC-enheten genom ställa in ADMUX och ADCSRA enligt kommentarerna nedanför!
 	ADMUX |= (1 << REFS0);		// set reference voltage (internal 5V)
-	ADMUX |= 0b001001			// select diff.amp 10x on ADC0 & ADC1
+	ADMUX |= 0b00001001;		// select diff.amp 10x on ADC0 & ADC1
 								// right adjustment of ADC value
 	
 	ADCSRA |= (1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0);				// prescaler 128
 	ADCSRA |= (1 << ADATE);		// enable Auto Trigger
-	ADCSRA |= (1 << ADIF);		// enable Interrupt
+	ADCSRA |= (1 << ADIE);		// enable Interrupt
 	ADCSRA |= (1 << ADEN);		// enable ADC
 
 	// disable digital input on ADC0 and ADC1

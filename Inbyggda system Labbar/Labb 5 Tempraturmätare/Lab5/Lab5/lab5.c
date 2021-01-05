@@ -62,8 +62,7 @@ int main(void)
 		output_msg("TEMPERATURE:", temp_str,0);
 			
 		
-		while(currentState == nextState)
-		{
+	
 			key = numkey_read();
 			switch (key)
 			{
@@ -77,13 +76,13 @@ int main(void)
 				nextState = SHOW_TEMP_CF;
 				break;
 				case NO_KEY:
-				break; 
+				break;
 				default:
 				
 				break;
 			}
 			
-		}
+		
 		currentState = nextState;
 	
     }
