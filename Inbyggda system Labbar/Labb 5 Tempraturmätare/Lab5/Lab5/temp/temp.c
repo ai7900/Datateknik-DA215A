@@ -32,14 +32,14 @@ ISR(ADC_vect)
 void temp_init(void)
 {
 	// UPPGIFT: konfigurera ADC-enheten genom ställa in ADMUX och ADCSRA enligt kommentarerna nedanför!
-	ADMUX |= 0;		// set reference voltage (internal 5V)
-	ADMUX |= 0;					// select diff.amp 10x on ADC0 & ADC1
+	ADMUX |= (1 << REFS0);		// set reference voltage (internal 5V)
+	ADMUX |= 0b001001			// select diff.amp 10x on ADC0 & ADC1
 								// right adjustment of ADC value
 	
-	ADCSRA |= 0;				// prescaler 128
-	ADCSRA |= 0;		// enable Auto Trigger
-	ADCSRA |= 0;		// enable Interrupt
-	ADCSRA |= 0;		// enable ADC
+	ADCSRA |= (1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0);				// prescaler 128
+	ADCSRA |= (1 << ADATE);		// enable Auto Trigger
+	ADCSRA |= (1 << ADIF);		// enable Interrupt
+	ADCSRA |= (1 << ADEN);		// enable ADC
 
 	// disable digital input on ADC0 and ADC1
 	DIDR0 = 3;
@@ -50,7 +50,7 @@ void temp_init(void)
 	sei();
 
 	// start initial conversion
-	ADCSRA |= 0;	// UPPGIFT: gör så att den initiala A/D-omvandlingen sker
+	ADCSRA |= (1 << ADSC);	// UPPGIFT: gör så att den initiala A/D-omvandlingen sker
 }
 
 /*
