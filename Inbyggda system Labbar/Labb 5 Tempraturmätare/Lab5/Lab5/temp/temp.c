@@ -3,7 +3,7 @@
  *
  * This is the device driver for the LM35 temperature sensor.
  *
- * Author:	Mathias Beckius
+ * Author:	Mathias Beckius &  Mattias Ståhlberg & Johan Fritiofsson
  *
  * Date:	2014-12-07
  */ 
@@ -72,6 +72,7 @@ uint8_t temp_read_celsius(void)
  */
 uint8_t temp_read_fahrenheit(void)
 {
+	
 	uint16_t convert = ((temp_read_celsius() * 90) / 5) + 320;
 	uint16_t temp = convert / 10;
 	// round up?

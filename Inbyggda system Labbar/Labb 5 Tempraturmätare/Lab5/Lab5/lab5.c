@@ -6,11 +6,14 @@
  */ 
 
 #include <xc.h>
+#include <stdio.h>
 #include "hmi/hmi.h"
 #include "lcd/lcd.h"
 #include "delay/delay.h"
 #include "common.h"
 #include "temp/temp.h"
+#include "numkey/numkey.h"
+
 
 enum state 
 {
@@ -27,29 +30,61 @@ int main(void)
 	numkey_init();
 	temp_init();
 	
-	char key; 
+	char key;
+	char temp_str[17]; 
 	
 	state_t currentState = SHOW_TEMP_C;
 	state_t nextState = SHOW_TEMP_C;
 	
-
+	output_msg("Press 1-3","To change mode", 0);
 	
     while(1)
     {
         switch (currentState)
         {
 	        case SHOW_TEMP_C:
-			output_msg("Visar C", "noob",0);
+			sprintf(temp_str,"%u%cC",temp_read_celsius(),0xDF);
+			
 		
 	        break;
 			case SHOW_TEMP_F:
-			//output_msg("Visar F", "noob",0);
+			sprintf(temp_str,"%u%cF",temp_read_fahrenheit(),0xDF);
+			
+			
 			break;
 			case SHOW_TEMP_CF:
-			//output_msg("Visar CF", "noob",0);
+			sprintf(temp_str,"%u%cC, %u%cF",temp_read_celsius(),0xDF,temp_read_fahrenheit(),0xDF);
+			
+
 			break;
 
         }
+		output_msg("TEMPERATURE:", temp_str,0);
+			
+		
+		while(currentState == nextState)
+		{
+			key = numkey_read();
+			switch (key)
+			{
+				case '1':
+				nextState = SHOW_TEMP_C;
+				break;
+				case '2':
+				nextState = SHOW_TEMP_F;
+				break;
+				case '3':
+				nextState = SHOW_TEMP_CF;
+				break;
+				case NO_KEY:
+				break; 
+				default:
+				
+				break;
+			}
+			
+		}
+		currentState = nextState;
 	
     }
 }

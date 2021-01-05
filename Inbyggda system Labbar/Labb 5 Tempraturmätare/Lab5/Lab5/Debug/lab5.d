@@ -12,8 +12,11 @@ lab5.d lab5.o: .././lab5.c \
  c:\program\ files\microchip\xc8\v2.31\avr\avr\include\avr\version.h \
  c:\program\ files\microchip\xc8\v2.31\avr\avr\include\avr\fuse.h \
  c:\program\ files\microchip\xc8\v2.31\avr\avr\include\avr\lock.h \
+ c:\program\ files\microchip\xc8\v2.31\avr\avr\include\stdio.h \
+ c:\program\ files\microchip\xc8\v2.31\avr\lib\gcc\avr\5.4.0\include\stdarg.h \
+ c:\program\ files\microchip\xc8\v2.31\avr\lib\gcc\avr\5.4.0\include\stddef.h \
  .././hmi/hmi.h .././lcd/lcd.h .././delay/delay.h .././common.h \
- .././temp/temp.h
+ .././temp/temp.h .././numkey/numkey.h
 
 c:\program\ files\microchip\xc8\v2.31\avr\lib\gcc\avr\5.4.0\include\xc.h:
 
@@ -41,6 +44,12 @@ c:\program\ files\microchip\xc8\v2.31\avr\avr\include\avr\fuse.h:
 
 c:\program\ files\microchip\xc8\v2.31\avr\avr\include\avr\lock.h:
 
+c:\program\ files\microchip\xc8\v2.31\avr\avr\include\stdio.h:
+
+c:\program\ files\microchip\xc8\v2.31\avr\lib\gcc\avr\5.4.0\include\stdarg.h:
+
+c:\program\ files\microchip\xc8\v2.31\avr\lib\gcc\avr\5.4.0\include\stddef.h:
+
 .././hmi/hmi.h:
 
 .././lcd/lcd.h:
@@ -50,3 +59,5 @@ c:\program\ files\microchip\xc8\v2.31\avr\avr\include\avr\lock.h:
 .././common.h:
 
 .././temp/temp.h:
+
+.././numkey/numkey.h:
