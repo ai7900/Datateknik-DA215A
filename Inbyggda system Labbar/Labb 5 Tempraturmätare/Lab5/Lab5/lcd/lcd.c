@@ -141,7 +141,7 @@ void lcd_write(enum lcd_register lcd_reg, uint8_t data)
 * parameter:
 *	p_str: pointer to the string's first character
 */
-void lcd_write_str(char *p_str)
+void lcd_write_str(const char *p_str)
 {
 	uint8_t i =0;
 	while (p_str[i] !='\0')

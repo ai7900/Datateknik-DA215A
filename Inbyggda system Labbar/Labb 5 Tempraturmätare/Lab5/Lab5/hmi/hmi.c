@@ -145,7 +145,7 @@ uint8_t input_int(char *p_msg, uint16_t *p_int_nr)
  *	p_str2: pointer to first character of the string.
  *  delay_after_msg: number of seconds to wait after message is shown.
  */
-void output_msg(char *p_str1, char *p_str2, uint8_t delay_after_msg)
+void output_msg(const char *p_str1, const char *p_str2, uint8_t delay_after_msg)
 {
 	lcd_set_cursor_mode(CURSOR_OFF);
 	lcd_clear();

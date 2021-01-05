@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<project>                                  
+  <executable name="Lab5.elf">                 
+    <memory name="program">              
+      <units>bytes</units>                 
+      <length>32768</length>                 
+      <used>849</used>                     
+      <free>31919</free>                     
+    </memory>                              
+    <memory name="data">                 
+      <units>bytes</units>                 
+      <length>2560</length>                 
+      <used>0</used>                     
+      <free>2560</free>                     
+    </memory>                              
+  </executable>                            
+</project>                                 

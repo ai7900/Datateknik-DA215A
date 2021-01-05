@@ -32,6 +32,7 @@ int main(void)
 	state_t currentState = SHOW_TEMP_C;
 	state_t nextState = SHOW_TEMP_C;
 	
+
 	
     while(1)
     {
@@ -39,16 +40,16 @@ int main(void)
         {
 	        case SHOW_TEMP_C:
 			output_msg("Visar C", "noob",0);
+		
 	        break;
 			case SHOW_TEMP_F:
-			output_msg("Visar F", "noob",0);
+			//output_msg("Visar F", "noob",0);
 			break;
 			case SHOW_TEMP_CF:
-			output_msg("Visar CF", "noob",0);
+			//output_msg("Visar CF", "noob",0);
 			break;
 
         }
-		
 	
     }
 }

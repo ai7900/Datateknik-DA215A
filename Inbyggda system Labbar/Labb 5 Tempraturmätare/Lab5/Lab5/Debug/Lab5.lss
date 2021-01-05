@@ -1,0 +1,692 @@
+
+Lab5.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .data         00000000  00800100  00800100  000003c6  2**0
+                  ALLOC, LOAD, DATA
+  1 .text         00000100  00000000  00000000  00000074  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  2 .comment      0000002f  00000000  00000000  000003c6  2**0
+                  CONTENTS, READONLY
+  3 .debug_aranges 00000128  00000000  00000000  000003f8  2**3
+                  CONTENTS, READONLY, DEBUGGING
+  4 .debug_info   00002187  00000000  00000000  00000520  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_abbrev 00000e41  00000000  00000000  000026a7  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_line   000009a1  00000000  00000000  000034e8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_frame  0000021c  00000000  00000000  00003e8c  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_str    00000433  00000000  00000000  000040a8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_loc    000006af  00000000  00000000  000044db  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_ranges 000000b8  00000000  00000000  00004b8a  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .text         00000004  0000034e  0000034e  000003c2  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 12 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  00004c44  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 13 .text         00000062  0000010e  0000010e  00000182  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 14 .text.hmi_init 0000000a  0000033c  0000033c  000003b0  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 15 .text.output_msg 00000052  000001d0  000001d0  00000244  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 16 .text.write_4bit_msb 0000001c  000002dc  000002dc  00000350  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 17 .text.lcd_write 00000030  0000028c  0000028c  00000300  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 18 .text.lcd_clear 00000010  00000320  00000320  00000394  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 19 .text.lcd_set_cursor_mode 0000000c  00000330  00000330  000003a4  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 20 .text.lcd_init 00000060  00000170  00000170  000001e4  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 21 .text.lcd_set_cursor_pos 00000014  000002f8  000002f8  0000036c  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 22 .text.lcd_write_str 00000038  00000222  00000222  00000296  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 23 .progmemx.data 0000000d  00000100  00000100  00000174  2**0
+                  CONTENTS, ALLOC, LOAD, READONLY, PROGMEMX
+ 24 .text.main    00000020  000002bc  000002bc  00000330  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 25 .text.numkey_init 00000008  00000346  00000346  000003ba  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 26 .text.__vector_29 00000014  0000030c  0000030c  00000380  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 27 .text.temp_init 00000032  0000025a  0000025a  000002ce  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 56 00 	jmp	0xac	; 0xac <__ctors_end>
+   4:	0c 94 a7 01 	jmp	0x34e	; 0x34e <__bad_interrupt>
+   8:	0c 94 a7 01 	jmp	0x34e	; 0x34e <__bad_interrupt>
+   c:	0c 94 a7 01 	jmp	0x34e	; 0x34e <__bad_interrupt>
+  10:	0c 94 a7 01 	jmp	0x34e	; 0x34e <__bad_interrupt>
+  14:	0c 94 a7 01 	jmp	0x34e	; 0x34e <__bad_interrupt>
+  18:	0c 94 a7 01 	jmp	0x34e	; 0x34e <__bad_interrupt>
+  1c:	0c 94 a7 01 	jmp	0x34e	; 0x34e <__bad_interrupt>
+  20:	0c 94 a7 01 	jmp	0x34e	; 0x34e <__bad_interrupt>
+  24:	0c 94 a7 01 	jmp	0x34e	; 0x34e <__bad_interrupt>
+  28:	0c 94 a7 01 	jmp	0x34e	; 0x34e <__bad_interrupt>
+  2c:	0c 94 a7 01 	jmp	0x34e	; 0x34e <__bad_interrupt>
+  30:	0c 94 a7 01 	jmp	0x34e	; 0x34e <__bad_interrupt>
+  34:	0c 94 a7 01 	jmp	0x34e	; 0x34e <__bad_interrupt>
+  38:	0c 94 a7 01 	jmp	0x34e	; 0x34e <__bad_interrupt>
+  3c:	0c 94 a7 01 	jmp	0x34e	; 0x34e <__bad_interrupt>
+  40:	0c 94 a7 01 	jmp	0x34e	; 0x34e <__bad_interrupt>
+  44:	0c 94 a7 01 	jmp	0x34e	; 0x34e <__bad_interrupt>
+  48:	0c 94 a7 01 	jmp	0x34e	; 0x34e <__bad_interrupt>
+  4c:	0c 94 a7 01 	jmp	0x34e	; 0x34e <__bad_interrupt>
+  50:	0c 94 a7 01 	jmp	0x34e	; 0x34e <__bad_interrupt>
+  54:	0c 94 a7 01 	jmp	0x34e	; 0x34e <__bad_interrupt>
+  58:	0c 94 a7 01 	jmp	0x34e	; 0x34e <__bad_interrupt>
+  5c:	0c 94 a7 01 	jmp	0x34e	; 0x34e <__bad_interrupt>
+  60:	0c 94 a7 01 	jmp	0x34e	; 0x34e <__bad_interrupt>
+  64:	0c 94 a7 01 	jmp	0x34e	; 0x34e <__bad_interrupt>
+  68:	0c 94 a7 01 	jmp	0x34e	; 0x34e <__bad_interrupt>
+  6c:	0c 94 a7 01 	jmp	0x34e	; 0x34e <__bad_interrupt>
+  70:	0c 94 a7 01 	jmp	0x34e	; 0x34e <__bad_interrupt>
+  74:	0c 94 86 01 	jmp	0x30c	; 0x30c <__vector_29>
+  78:	0c 94 a7 01 	jmp	0x34e	; 0x34e <__bad_interrupt>
+  7c:	0c 94 a7 01 	jmp	0x34e	; 0x34e <__bad_interrupt>
+  80:	0c 94 a7 01 	jmp	0x34e	; 0x34e <__bad_interrupt>
+  84:	0c 94 a7 01 	jmp	0x34e	; 0x34e <__bad_interrupt>
+  88:	0c 94 a7 01 	jmp	0x34e	; 0x34e <__bad_interrupt>
+  8c:	0c 94 a7 01 	jmp	0x34e	; 0x34e <__bad_interrupt>
+  90:	0c 94 a7 01 	jmp	0x34e	; 0x34e <__bad_interrupt>
+  94:	0c 94 a7 01 	jmp	0x34e	; 0x34e <__bad_interrupt>
+  98:	0c 94 a7 01 	jmp	0x34e	; 0x34e <__bad_interrupt>
+  9c:	0c 94 a7 01 	jmp	0x34e	; 0x34e <__bad_interrupt>
+  a0:	0c 94 a7 01 	jmp	0x34e	; 0x34e <__bad_interrupt>
+  a4:	0c 94 a7 01 	jmp	0x34e	; 0x34e <__bad_interrupt>
+  a8:	0c 94 a7 01 	jmp	0x34e	; 0x34e <__bad_interrupt>
+
+000000ac <__ctors_end>:
+  ac:	11 24       	eor	r1, r1
+  ae:	1f be       	out	0x3f, r1	; 63
+  b0:	cf ef       	ldi	r28, 0xFF	; 255
+  b2:	da e0       	ldi	r29, 0x0A	; 10
+  b4:	de bf       	out	0x3e, r29	; 62
+  b6:	cd bf       	out	0x3d, r28	; 61
+
+000000b8 <__do_copy_data>:
+  b8:	ec ea       	ldi	r30, 0xAC	; 172
+  ba:	f0 e0       	ldi	r31, 0x00	; 0
+  bc:	40 e0       	ldi	r20, 0x00	; 0
+  be:	17 c0       	rjmp	.+46     	; 0xee <__do_clear_bss+0x8>
+  c0:	b5 91       	lpm	r27, Z+
+  c2:	a5 91       	lpm	r26, Z+
+  c4:	35 91       	lpm	r19, Z+
+  c6:	25 91       	lpm	r18, Z+
+  c8:	05 91       	lpm	r16, Z+
+  ca:	07 fd       	sbrc	r16, 7
+  cc:	0c c0       	rjmp	.+24     	; 0xe6 <__do_clear_bss>
+  ce:	95 91       	lpm	r25, Z+
+  d0:	85 91       	lpm	r24, Z+
+  d2:	ef 01       	movw	r28, r30
+  d4:	f9 2f       	mov	r31, r25
+  d6:	e8 2f       	mov	r30, r24
+  d8:	05 90       	lpm	r0, Z+
+  da:	0d 92       	st	X+, r0
+  dc:	a2 17       	cp	r26, r18
+  de:	b3 07       	cpc	r27, r19
+  e0:	d9 f7       	brne	.-10     	; 0xd8 <__do_copy_data+0x20>
+  e2:	fe 01       	movw	r30, r28
+  e4:	04 c0       	rjmp	.+8      	; 0xee <__do_clear_bss+0x8>
+
+000000e6 <__do_clear_bss>:
+  e6:	1d 92       	st	X+, r1
+  e8:	a2 17       	cp	r26, r18
+  ea:	b3 07       	cpc	r27, r19
+  ec:	e1 f7       	brne	.-8      	; 0xe6 <__do_clear_bss>
+  ee:	ec 3a       	cpi	r30, 0xAC	; 172
+  f0:	f4 07       	cpc	r31, r20
+  f2:	31 f7       	brne	.-52     	; 0xc0 <__do_copy_data+0x8>
+  f4:	0e 94 5e 01 	call	0x2bc	; 0x2bc <main>
+  f8:	0c 94 7e 00 	jmp	0xfc	; 0xfc <_exit>
+
+000000fc <_exit>:
+  fc:	f8 94       	cli
+
+000000fe <__stop_program>:
+  fe:	ff cf       	rjmp	.-2      	; 0xfe <__stop_program>
+
+Disassembly of section .text:
+
+0000034e <__bad_interrupt>:
+ 34e:	0c 94 00 00 	jmp	0	; 0x0 <__TEXT_REGION_ORIGIN__>
+
+Disassembly of section .text:
+
+0000010e <delay_1_micros>:
+	...
+	NOP
+	NOP
+	NOP
+	NOP
+	NOP
+	RET
+ 11a:	08 95       	ret
+
+0000011c <delay_micros>:
+	...
+	NOP
+	NOP
+	NOP
+	NOP
+	NOP
+	DEC R24
+ 134:	8a 95       	dec	r24
+	CPI R24, 0			; more loops to do?
+ 136:	80 30       	cpi	r24, 0x00	; 0
+	BRNE delay_micros	;	continue!
+ 138:	89 f7       	brne	.-30     	; 0x11c <delay_micros>
+	RET
+ 13a:	08 95       	ret
+
+0000013c <delay_ms>:
+; Delay of X ms
+;	LDI + RCALL = 4 cycles
+;==============================================================================
+.global delay_ms	
+delay_ms:
+	MOV R18, R24
+ 13c:	28 2f       	mov	r18, r24
+
+0000013e <loop_dms>:
+loop_dms:
+	LDI R24, 250
+ 13e:	8a ef       	ldi	r24, 0xFA	; 250
+	RCALL delay_micros
+ 140:	ed df       	rcall	.-38     	; 0x11c <delay_micros>
+	LDI R24, 250
+ 142:	8a ef       	ldi	r24, 0xFA	; 250
+	RCALL delay_micros
+ 144:	eb df       	rcall	.-42     	; 0x11c <delay_micros>
+	LDI R24, 250
+ 146:	8a ef       	ldi	r24, 0xFA	; 250
+	RCALL delay_micros
+ 148:	e9 df       	rcall	.-46     	; 0x11c <delay_micros>
+	LDI R24, 250
+ 14a:	8a ef       	ldi	r24, 0xFA	; 250
+	RCALL delay_micros
+ 14c:	e7 df       	rcall	.-50     	; 0x11c <delay_micros>
+	DEC R18
+ 14e:	2a 95       	dec	r18
+	CPI R18, 0			; more loops to do?
+ 150:	20 30       	cpi	r18, 0x00	; 0
+	BRNE loop_dms		;	continue!
+ 152:	a9 f7       	brne	.-22     	; 0x13e <loop_dms>
+	RET
+ 154:	08 95       	ret
+
+00000156 <delay_s>:
+;==============================================================================
+; Delay seconds. R24 input.
+;==============================================================================
+.global delay_s	
+delay_s:
+	MOV R19, R24
+ 156:	38 2f       	mov	r19, r24
+
+00000158 <loop_s>:
+loop_s:
+	LDI R24, 250
+ 158:	8a ef       	ldi	r24, 0xFA	; 250
+	RCALL delay_ms
+ 15a:	f0 df       	rcall	.-32     	; 0x13c <delay_ms>
+	LDI R24, 250
+ 15c:	8a ef       	ldi	r24, 0xFA	; 250
+	RCALL delay_ms
+ 15e:	ee df       	rcall	.-36     	; 0x13c <delay_ms>
+	LDI R24, 250
+ 160:	8a ef       	ldi	r24, 0xFA	; 250
+	RCALL delay_ms
+ 162:	ec df       	rcall	.-40     	; 0x13c <delay_ms>
+	LDI R24, 250
+ 164:	8a ef       	ldi	r24, 0xFA	; 250
+	RCALL delay_ms
+ 166:	ea df       	rcall	.-44     	; 0x13c <delay_ms>
+	DEC R19
+ 168:	3a 95       	dec	r19
+	CPI R19, 0
+ 16a:	30 30       	cpi	r19, 0x00	; 0
+	BRNE loop_s
+ 16c:	a9 f7       	brne	.-22     	; 0x158 <loop_s>
+	RET
+ 16e:	08 95       	ret
+
+Disassembly of section .text.hmi_init:
+
+0000033c <hmi_init>:
+ *	- init numeric keyboard
+ *	- init LCD
+ */
+void hmi_init(void)
+{
+	numkey_init();
+ 33c:	0e 94 a3 01 	call	0x346	; 0x346 <numkey_init>
+	lcd_init();
+ 340:	0e 94 b8 00 	call	0x170	; 0x170 <lcd_init>
+ 344:	08 95       	ret
+
+Disassembly of section .text.output_msg:
+
+000001d0 <output_msg>:
+			break;
+		}
+	}
+	// return result from conversion
+	*p_nr = result;
+}
+ 1d0:	6f 92       	push	r6
+ 1d2:	7f 92       	push	r7
+ 1d4:	8f 92       	push	r8
+ 1d6:	cf 92       	push	r12
+ 1d8:	df 92       	push	r13
+ 1da:	ef 92       	push	r14
+ 1dc:	0f 93       	push	r16
+ 1de:	3b 01       	movw	r6, r22
+ 1e0:	88 2e       	mov	r8, r24
+ 1e2:	69 01       	movw	r12, r18
+ 1e4:	e4 2e       	mov	r14, r20
+ 1e6:	8c e0       	ldi	r24, 0x0C	; 12
+ 1e8:	0e 94 98 01 	call	0x330	; 0x330 <lcd_set_cursor_mode>
+ 1ec:	0e 94 90 01 	call	0x320	; 0x320 <lcd_clear>
+ 1f0:	88 2d       	mov	r24, r8
+ 1f2:	b3 01       	movw	r22, r6
+ 1f4:	0e 94 11 01 	call	0x222	; 0x222 <lcd_write_str>
+ 1f8:	60 e0       	ldi	r22, 0x00	; 0
+ 1fa:	81 e0       	ldi	r24, 0x01	; 1
+ 1fc:	0e 94 7c 01 	call	0x2f8	; 0x2f8 <lcd_set_cursor_pos>
+ 200:	8e 2d       	mov	r24, r14
+ 202:	b6 01       	movw	r22, r12
+ 204:	0e 94 11 01 	call	0x222	; 0x222 <lcd_write_str>
+ 208:	00 23       	and	r16, r16
+ 20a:	19 f0       	breq	.+6      	; 0x212 <output_msg+0x42>
+ 20c:	80 2f       	mov	r24, r16
+ 20e:	0e 94 ab 00 	call	0x156	; 0x156 <delay_s>
+ 212:	0f 91       	pop	r16
+ 214:	ef 90       	pop	r14
+ 216:	df 90       	pop	r13
+ 218:	cf 90       	pop	r12
+ 21a:	8f 90       	pop	r8
+ 21c:	7f 90       	pop	r7
+ 21e:	6f 90       	pop	r6
+ 220:	08 95       	ret
+
+Disassembly of section .text.write_4bit_msb:
+
+000002dc <write_4bit_msb>:
+*	data: 4 bits of data
+*/
+static void write_4bit_msb(uint8_t data)
+{
+	//write data
+	SET_BIT_LEVELS(PORTF, 0x0F, data);
+ 2dc:	91 b3       	in	r25, 0x11	; 17
+ 2de:	9f 70       	andi	r25, 0x0F	; 15
+ 2e0:	80 7f       	andi	r24, 0xF0	; 240
+ 2e2:	89 2b       	or	r24, r25
+ 2e4:	81 bb       	out	0x11, r24	; 17
+	// generate pulse on the Enable pin
+	SET_BIT(PORTD, 7);
+ 2e6:	8b b1       	in	r24, 0x0b	; 11
+ 2e8:	80 68       	ori	r24, 0x80	; 128
+ 2ea:	8b b9       	out	0x0b, r24	; 11
+	delay_1_micros();
+ 2ec:	0e 94 87 00 	call	0x10e	; 0x10e <delay_1_micros>
+	CLR_BIT(PORTD, 7);
+ 2f0:	8b b1       	in	r24, 0x0b	; 11
+ 2f2:	8f 77       	andi	r24, 0x7F	; 127
+ 2f4:	8b b9       	out	0x0b, r24	; 11
+ 2f6:	08 95       	ret
+
+Disassembly of section .text.lcd_write:
+
+0000028c <lcd_write>:
+* parameter:
+*	lcd_reg: register to communicate with (Instruction or Data register)
+*	data: 8-bit instruction or data (character)
+*/
+void lcd_write(enum lcd_register lcd_reg, uint8_t data)
+{
+ 28c:	cf 93       	push	r28
+ 28e:	c6 2f       	mov	r28, r22
+	// select register
+	if (lcd_reg == INSTRUCTION) {
+ 290:	81 11       	cpse	r24, r1
+ 292:	04 c0       	rjmp	.+8      	; 0x29c <lcd_write+0x10>
+		CLR_BIT(PORTD, 6);	// Instruction Register
+ 294:	8b b1       	in	r24, 0x0b	; 11
+ 296:	8f 7b       	andi	r24, 0xBF	; 191
+ 298:	8b b9       	out	0x0b, r24	; 11
+ 29a:	03 c0       	rjmp	.+6      	; 0x2a2 <lcd_write+0x16>
+		} else {
+		SET_BIT(PORTD, 6);	// Data Register
+ 29c:	8b b1       	in	r24, 0x0b	; 11
+ 29e:	80 64       	ori	r24, 0x40	; 64
+ 2a0:	8b b9       	out	0x0b, r24	; 11
+	}
+	// write data
+	write_4bit_msb(data);
+ 2a2:	8c 2f       	mov	r24, r28
+ 2a4:	0e 94 6e 01 	call	0x2dc	; 0x2dc <write_4bit_msb>
+	write_4bit_msb(data << 4);
+ 2a8:	8c 2f       	mov	r24, r28
+ 2aa:	82 95       	swap	r24
+ 2ac:	80 7f       	andi	r24, 0xF0	; 240
+ 2ae:	0e 94 6e 01 	call	0x2dc	; 0x2dc <write_4bit_msb>
+	delay_micros(45);
+ 2b2:	8d e2       	ldi	r24, 0x2D	; 45
+ 2b4:	0e 94 8e 00 	call	0x11c	; 0x11c <delay_micros>
+}
+ 2b8:	cf 91       	pop	r28
+ 2ba:	08 95       	ret
+
+Disassembly of section .text.lcd_clear:
+
+00000320 <lcd_clear>:
+/*
+* Clears the LCD and moves the cursor to position row 0, column 0.
+*/
+void lcd_clear(void)
+{
+	lcd_write(INSTRUCTION, 0x01);
+ 320:	61 e0       	ldi	r22, 0x01	; 1
+ 322:	80 e0       	ldi	r24, 0x00	; 0
+ 324:	0e 94 46 01 	call	0x28c	; 0x28c <lcd_write>
+	delay_ms(2);
+ 328:	82 e0       	ldi	r24, 0x02	; 2
+ 32a:	0e 94 9e 00 	call	0x13c	; 0x13c <delay_ms>
+ 32e:	08 95       	ret
+
+Disassembly of section .text.lcd_set_cursor_mode:
+
+00000330 <lcd_set_cursor_mode>:
+*	mode: cursor mode
+*/
+void lcd_set_cursor_mode(enum lcd_cursor mode)
+{
+	uint8_t cursor_mode;
+	cursor_mode = 0x0C | mode;
+ 330:	68 2f       	mov	r22, r24
+ 332:	6c 60       	ori	r22, 0x0C	; 12
+	lcd_write(INSTRUCTION, cursor_mode);
+ 334:	80 e0       	ldi	r24, 0x00	; 0
+ 336:	0e 94 46 01 	call	0x28c	; 0x28c <lcd_write>
+ 33a:	08 95       	ret
+
+Disassembly of section .text.lcd_init:
+
+00000170 <lcd_init>:
+*	- configuration of LCD communication
+*/
+void lcd_init(void)
+{
+	// PF4-PF7 (A3-A0) as outputs (LCD D4-D7)
+	DDRF = 0xF0;
+ 170:	80 ef       	ldi	r24, 0xF0	; 240
+ 172:	80 bb       	out	0x10, r24	; 16
+	// PD6 & PD7 (D12 & D6) as outputs (LCD RS & LCD E)
+	DDRD = 0xC0;
+ 174:	80 ec       	ldi	r24, 0xC0	; 192
+ 176:	8a b9       	out	0x0a, r24	; 10
+	
+	// wait more than 15 ms after power-up!
+	delay_ms(20);
+ 178:	84 e1       	ldi	r24, 0x14	; 20
+ 17a:	0e 94 9e 00 	call	0x13c	; 0x13c <delay_ms>
+	// select Instruction Register
+	CLR_BIT(PORTD, 6);
+ 17e:	8b b1       	in	r24, 0x0b	; 11
+ 180:	8f 7b       	andi	r24, 0xBF	; 191
+ 182:	8b b9       	out	0x0b, r24	; 11
+
+	// Function Set: 8 bit data interface
+	write_4bit_msb(0x30);
+ 184:	80 e3       	ldi	r24, 0x30	; 48
+ 186:	0e 94 6e 01 	call	0x2dc	; 0x2dc <write_4bit_msb>
+	delay_ms(10);
+ 18a:	8a e0       	ldi	r24, 0x0A	; 10
+ 18c:	0e 94 9e 00 	call	0x13c	; 0x13c <delay_ms>
+	write_4bit_msb(0x30);
+ 190:	80 e3       	ldi	r24, 0x30	; 48
+ 192:	0e 94 6e 01 	call	0x2dc	; 0x2dc <write_4bit_msb>
+	delay_ms(10);
+ 196:	8a e0       	ldi	r24, 0x0A	; 10
+ 198:	0e 94 9e 00 	call	0x13c	; 0x13c <delay_ms>
+	write_4bit_msb(0x30);
+ 19c:	80 e3       	ldi	r24, 0x30	; 48
+ 19e:	0e 94 6e 01 	call	0x2dc	; 0x2dc <write_4bit_msb>
+	delay_ms(10);
+ 1a2:	8a e0       	ldi	r24, 0x0A	; 10
+ 1a4:	0e 94 9e 00 	call	0x13c	; 0x13c <delay_ms>
+
+	// Function Set: switch to 4 bit data interface
+	write_4bit_msb(0x20);
+ 1a8:	80 e2       	ldi	r24, 0x20	; 32
+ 1aa:	0e 94 6e 01 	call	0x2dc	; 0x2dc <write_4bit_msb>
+	delay_micros(45);
+ 1ae:	8d e2       	ldi	r24, 0x2D	; 45
+ 1b0:	0e 94 8e 00 	call	0x11c	; 0x11c <delay_micros>
+
+	// Function Set: 4 bit data interface, 2 lines, font 5x10
+	lcd_write(INSTRUCTION, 0x28);
+ 1b4:	68 e2       	ldi	r22, 0x28	; 40
+ 1b6:	80 e0       	ldi	r24, 0x00	; 0
+ 1b8:	0e 94 46 01 	call	0x28c	; 0x28c <lcd_write>
+
+	// Display on, no cursor
+	lcd_set_cursor_mode(CURSOR_OFF);
+ 1bc:	8c e0       	ldi	r24, 0x0C	; 12
+ 1be:	0e 94 98 01 	call	0x330	; 0x330 <lcd_set_cursor_mode>
+
+	// clear display
+	lcd_clear();
+ 1c2:	0e 94 90 01 	call	0x320	; 0x320 <lcd_clear>
+
+	// Entry Mode Set: incremental cursor movement, no display shift
+	lcd_write(INSTRUCTION, 0x06);
+ 1c6:	66 e0       	ldi	r22, 0x06	; 6
+ 1c8:	80 e0       	ldi	r24, 0x00	; 0
+ 1ca:	0e 94 46 01 	call	0x28c	; 0x28c <lcd_write>
+ 1ce:	08 95       	ret
+
+Disassembly of section .text.lcd_set_cursor_pos:
+
+000002f8 <lcd_set_cursor_pos>:
+*	col: 0 is the first column, 15 is the last visible column
+*/
+void lcd_set_cursor_pos(uint8_t row, uint8_t col)
+{
+	uint8_t cursor_pos;
+	cursor_pos = 0x80 | (row << 6) | col;
+ 2f8:	20 e4       	ldi	r18, 0x40	; 64
+ 2fa:	82 9f       	mul	r24, r18
+ 2fc:	c0 01       	movw	r24, r0
+ 2fe:	11 24       	eor	r1, r1
+ 300:	68 2b       	or	r22, r24
+ 302:	60 68       	ori	r22, 0x80	; 128
+	lcd_write(INSTRUCTION, cursor_pos);
+ 304:	80 e0       	ldi	r24, 0x00	; 0
+ 306:	0e 94 46 01 	call	0x28c	; 0x28c <lcd_write>
+ 30a:	08 95       	ret
+
+Disassembly of section .text.lcd_write_str:
+
+00000222 <lcd_write_str>:
+*
+* parameter:
+*	p_str: pointer to the string's first character
+*/
+void lcd_write_str(const char *p_str)
+{
+ 222:	cf 92       	push	r12
+ 224:	df 92       	push	r13
+ 226:	ef 92       	push	r14
+ 228:	cf 93       	push	r28
+ 22a:	6b 01       	movw	r12, r22
+ 22c:	e8 2e       	mov	r14, r24
+	uint8_t i =0;
+ 22e:	c0 e0       	ldi	r28, 0x00	; 0
+	while (p_str[i] !='\0')
+ 230:	04 c0       	rjmp	.+8      	; 0x23a <lcd_write_str+0x18>
+	{
+		lcd_write(DATA, p_str[i]);
+ 232:	81 e0       	ldi	r24, 0x01	; 1
+ 234:	0e 94 46 01 	call	0x28c	; 0x28c <lcd_write>
+		i++;
+ 238:	cf 5f       	subi	r28, 0xFF	; 255
+*	p_str: pointer to the string's first character
+*/
+void lcd_write_str(const char *p_str)
+{
+	uint8_t i =0;
+	while (p_str[i] !='\0')
+ 23a:	ae 2d       	mov	r26, r14
+ 23c:	c6 01       	movw	r24, r12
+ 23e:	8c 0f       	add	r24, r28
+ 240:	91 1d       	adc	r25, r1
+ 242:	a1 1d       	adc	r26, r1
+ 244:	fc 01       	movw	r30, r24
+ 246:	64 91       	lpm	r22, Z
+ 248:	a7 fd       	sbrc	r26, 7
+ 24a:	60 81       	ld	r22, Z
+ 24c:	61 11       	cpse	r22, r1
+ 24e:	f1 cf       	rjmp	.-30     	; 0x232 <lcd_write_str+0x10>
+	{
+		lcd_write(DATA, p_str[i]);
+		i++;
+	}
+ 250:	cf 91       	pop	r28
+ 252:	ef 90       	pop	r14
+ 254:	df 90       	pop	r13
+ 256:	cf 90       	pop	r12
+ 258:	08 95       	ret
+
+Disassembly of section .text.main:
+
+000002bc <main>:
+
+typedef enum state state_t;
+
+int main(void)
+{
+	hmi_init();
+ 2bc:	0e 94 9e 01 	call	0x33c	; 0x33c <hmi_init>
+	numkey_init();
+ 2c0:	0e 94 a3 01 	call	0x346	; 0x346 <numkey_init>
+	temp_init();
+ 2c4:	0e 94 2d 01 	call	0x25a	; 0x25a <temp_init>
+    while(1)
+    {
+        switch (currentState)
+        {
+	        case SHOW_TEMP_C:
+			output_msg("Visar C", "noob",0);
+ 2c8:	00 e0       	ldi	r16, 0x00	; 0
+ 2ca:	20 e0       	ldi	r18, 0x00	; 0
+ 2cc:	31 e0       	ldi	r19, 0x01	; 1
+ 2ce:	40 e0       	ldi	r20, 0x00	; 0
+ 2d0:	65 e0       	ldi	r22, 0x05	; 5
+ 2d2:	71 e0       	ldi	r23, 0x01	; 1
+ 2d4:	80 e0       	ldi	r24, 0x00	; 0
+ 2d6:	0e 94 e8 00 	call	0x1d0	; 0x1d0 <output_msg>
+ 2da:	f6 cf       	rjmp	.-20     	; 0x2c8 <main+0xc>
+
+Disassembly of section .text.numkey_init:
+
+00000346 <numkey_init>:
+ * This function configures the ports and pins to be used by the keyboard.
+ */
+void numkey_init(void)
+{
+	// PE6 (D7) as input (key pressed?)
+	DDRE = 0x00;
+ 346:	1d b8       	out	0x0d, r1	; 13
+	// PB4-PB7 (D8-D11) as outputs (MUX and decoder)
+	DDRB = 0xF0;
+ 348:	80 ef       	ldi	r24, 0xF0	; 240
+ 34a:	84 b9       	out	0x04, r24	; 4
+ 34c:	08 95       	ret
+
+Disassembly of section .text.__vector_29:
+
+0000030c <__vector_29>:
+/*
+ * Interrupt Service Routine for the ADC.
+ * The ISR will execute when a A/D conversion is complete.
+ */
+ISR(ADC_vect)
+{
+ 30c:	1f 92       	push	r1
+ 30e:	0f 92       	push	r0
+ 310:	0f b6       	in	r0, 0x3f	; 63
+ 312:	0f 92       	push	r0
+ 314:	11 24       	eor	r1, r1
+	// read ADC value
+					// UPPGIFT: Läs in ADC-värdet. Börja med att läsa av det "låga" registret, därefter det "höga" registret!
+}
+ 316:	0f 90       	pop	r0
+ 318:	0f be       	out	0x3f, r0	; 63
+ 31a:	0f 90       	pop	r0
+ 31c:	1f 90       	pop	r1
+ 31e:	18 95       	reti
+
+Disassembly of section .text.temp_init:
+
+0000025a <temp_init>:
+ * Initialize the ADC and ISR.
+ */
+void temp_init(void)
+{
+	// UPPGIFT: konfigurera ADC-enheten genom ställa in ADMUX och ADCSRA enligt kommentarerna nedanför!
+	ADMUX |= 0;		// set reference voltage (internal 5V)
+ 25a:	ec e7       	ldi	r30, 0x7C	; 124
+ 25c:	f0 e0       	ldi	r31, 0x00	; 0
+ 25e:	80 81       	ld	r24, Z
+ 260:	80 83       	st	Z, r24
+	ADMUX |= 0;					// select diff.amp 10x on ADC0 & ADC1
+ 262:	80 81       	ld	r24, Z
+ 264:	80 83       	st	Z, r24
+								// right adjustment of ADC value
+	
+	ADCSRA |= 0;				// prescaler 128
+ 266:	ea e7       	ldi	r30, 0x7A	; 122
+ 268:	f0 e0       	ldi	r31, 0x00	; 0
+ 26a:	80 81       	ld	r24, Z
+ 26c:	80 83       	st	Z, r24
+	ADCSRA |= 0;		// enable Auto Trigger
+ 26e:	80 81       	ld	r24, Z
+ 270:	80 83       	st	Z, r24
+	ADCSRA |= 0;		// enable Interrupt
+ 272:	80 81       	ld	r24, Z
+ 274:	80 83       	st	Z, r24
+	ADCSRA |= 0;		// enable ADC
+ 276:	80 81       	ld	r24, Z
+ 278:	80 83       	st	Z, r24
+
+	// disable digital input on ADC0 and ADC1
+	DIDR0 = 3;
+ 27a:	83 e0       	ldi	r24, 0x03	; 3
+ 27c:	80 93 7e 00 	sts	0x007E, r24	; 0x80007e <__TEXT_REGION_LENGTH__+0x7f807e>
+		
+	// disable USB controller (to make interrupts possible)
+	USBCON = 0;	
+ 280:	10 92 d8 00 	sts	0x00D8, r1	; 0x8000d8 <__TEXT_REGION_LENGTH__+0x7f80d8>
+	// enable global interrupts
+	sei();
+ 284:	78 94       	sei
+
+	// start initial conversion
+	ADCSRA |= 0;	// UPPGIFT: gör så att den initiala A/D-omvandlingen sker
+ 286:	80 81       	ld	r24, Z
+ 288:	80 83       	st	Z, r24
+ 28a:	08 95       	ret

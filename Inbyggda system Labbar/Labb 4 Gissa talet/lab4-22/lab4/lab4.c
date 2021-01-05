@@ -35,6 +35,7 @@ int main(void)
 	
 	// show start screen for the game
 	output_msg("Welcome!", "Let's play...", 3);
+
 	// play game
     while (1) {
 		// generate a random number
