@@ -6,6 +6,12 @@
  */ 
 
 #include <xc.h>
+#include "delay/delay.h"
+#include "hmi/hmi.h"
+#include "lcd/lcd.h"
+#include "numkey/numkey.h"
+#include "regulator/regulator.h"
+
 
 int main(void)
 {
