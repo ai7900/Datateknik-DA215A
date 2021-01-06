@@ -27,6 +27,8 @@ state_t currentState = MOTOR_OFF;
 state_t nextState = MOTOR_OFF;
 
 char key;
+char mode_str[17];
+char reg_str[17];
 
 
 int main(void)
@@ -39,6 +41,7 @@ int main(void)
 		key = numkey_read();
         switch(currentState)
 		{
+			///////////MOTOR ON/////////////
 			case MOTOR_ON:
 			if (regulator_read_power() > 0)
 			{
@@ -48,29 +51,30 @@ int main(void)
 			{
 				nextState = MOTOR_OFF;
 			}
-			output_msg("MOTOR ON","INSER POWER HERE", 0); // TODO:
+			mode_str = "MOTOR ON";
 			break;
-			
+			////////////MOTOR OFF/////////////
 			case MOTOR_OFF:
 				if(key == '2' && regulator_read_power() == 0)
 				nextState = MOTOR_ON;
-				output_msg("MOTOR OFF","",0);
+				mode_str = "MOTOR OFF";
 			break;
-			
+			////////////MOTOR RUNNING/////////////
 			case MOTOR_RUNNING:
 			
 			if (key == '1')
 			nextState= MOTOR_OFF;
 			
-			output_msg("MOTOR RUNNING", "INSERT POWER HERE",0); // TODO:
+			mode_str = "MOTOR RUNNING";
 			break;
 		}
-		
+		sprintf(reg_str,"%u/%",regulator_read_power());
+		output_msg(mode_str,reg_str,0);
 		currentState = nextState;
     }
 }
 
-void init(void)
+int init()
 {
 	hmi_init();
 	numkey_init();
