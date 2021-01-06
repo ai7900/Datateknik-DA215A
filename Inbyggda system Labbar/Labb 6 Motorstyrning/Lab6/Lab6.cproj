@@ -118,6 +118,12 @@
     <Compile Include="lcd\lcd.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="motor\motor.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="motor\motor.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="numkey\numkey.c">
       <SubType>compile</SubType>
     </Compile>
@@ -135,6 +141,7 @@
     <Folder Include="delay\" />
     <Folder Include="hmi\" />
     <Folder Include="lcd\" />
+    <Folder Include="motor\" />
     <Folder Include="numkey\" />
     <Folder Include="regulator" />
   </ItemGroup>
