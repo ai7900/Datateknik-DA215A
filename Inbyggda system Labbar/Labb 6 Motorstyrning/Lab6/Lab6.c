@@ -51,21 +51,20 @@ int main(void)
 			{
 				nextState = MOTOR_OFF;
 			}
-			mode_str = "MOTOR ON";
+			sprintf(mode_str, "MOTOR ON");
 			break;
 			////////////MOTOR OFF/////////////
 			case MOTOR_OFF:
 				if(key == '2' && regulator_read_power() == 0)
 				nextState = MOTOR_ON;
-				mode_str = "MOTOR OFF";
+				sprintf(mode_str, "MOTOR OFF");
 			break;
 			////////////MOTOR RUNNING/////////////
 			case MOTOR_RUNNING:
 			
 			if (key == '1')
 			nextState= MOTOR_OFF;
-			
-			mode_str = "MOTOR RUNNING";
+			sprintf(mode_str, "MOTOR RUNNING");
 			break;
 		}
 		sprintf(reg_str,"%u/%",regulator_read_power());
