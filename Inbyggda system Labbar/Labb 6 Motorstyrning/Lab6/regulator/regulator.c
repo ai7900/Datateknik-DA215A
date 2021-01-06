@@ -87,3 +87,12 @@ uint8_t temp_read_fahrenheit(void)
 	}
 	return (uint8_t) temp;
 }
+
+uint8_t regulator_read_power(void)
+{
+	uint16_t adc_correction = adc * 100;
+	uint16_t regulator = adc_correction / 1000;
+	if((adc_correction % 1000) >= 500)
+		regulator++;
+	return (uint8_t) regulator;
+}
