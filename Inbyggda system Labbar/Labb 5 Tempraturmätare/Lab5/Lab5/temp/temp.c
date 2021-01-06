@@ -5,7 +5,7 @@
  *
  * Author:	Mathias Beckius &  Mattias Ståhlberg & Johan Fritiofsson
  *
- * Date:	2014-12-07
+ * Date:	2021-01-05
  */ 
 
 #include <avr/io.h>
@@ -23,16 +23,12 @@ static volatile uint16_t adc = 221;
 ISR(ADC_vect)
 {
 	// read ADC value
-					// UPPGIFT: Läs in ADC-värdet. Börja med att läsa av det "låga" registret, därefter det "höga" registret!
 	unsigned char low,high;
 
 	low = ADCL;
 	high = ADCH;
 
 	adc = (high << 8 ) + low;
-	
-	//adc = ADCL;
-	//adc += (ADCH*256); 
 }
 
 /*

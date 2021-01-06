@@ -1,7 +1,7 @@
 /*
  * lab5.c
- *
- * Created: 1/5/2021 1:33:22 PM
+ *	This program is used to read the temperature from a LM35 sensor and show it to an LCD screen in either celcius or farenheit or both.
+ *  Created: 1/5/2021 1:33:22 PM
  *  Author: Mattias Ståhlberg & Johan Fritiofsson
  */ 
 
@@ -14,7 +14,7 @@
 #include "temp/temp.h"
 #include "numkey/numkey.h"
 
-
+	
 enum state 
 {
 	SHOW_TEMP_C,
@@ -26,6 +26,7 @@ typedef enum state state_t;
 
 int main(void)
 {
+	// Initializations 
 	hmi_init();
 	numkey_init();
 	temp_init();
@@ -36,8 +37,8 @@ int main(void)
 	state_t currentState = SHOW_TEMP_C;
 	state_t nextState = SHOW_TEMP_C;
 	
-	output_msg("Press 1-3","To change mode", 0);
-	
+
+	// Main program
     while(1)
     {
         switch (currentState)
@@ -61,8 +62,6 @@ int main(void)
         }
 		output_msg("TEMPERATURE:", temp_str,0);
 			
-		
-	
 			key = numkey_read();
 			switch (key)
 			{
