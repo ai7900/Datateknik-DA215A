@@ -496,15 +496,15 @@ END GROUP
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x0000000000000000     0x227f
+.debug_info     0x0000000000000000     0x22fd
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x0000000000000000      0x9f4 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.6.364/xc8/avr/lib/avr5/memx-const/crtatmega32u4.o
- .debug_info    0x00000000000009f4       0x96 delay/delay_asm.o
- .debug_info    0x0000000000000a8a      0x6bb hmi/hmi.o
- .debug_info    0x0000000000001145      0x65b lcd/lcd.o
- .debug_info    0x00000000000017a0      0x458 lab5.o
- .debug_info    0x0000000000001bf8      0x2f6 numkey/numkey.o
- .debug_info    0x0000000000001eee      0x391 temp/temp.o
+ .debug_info    0x00000000000009f4       0xab delay/delay_asm.o
+ .debug_info    0x0000000000000a9f      0x6d0 hmi/hmi.o
+ .debug_info    0x000000000000116f      0x670 lcd/lcd.o
+ .debug_info    0x00000000000017df      0x46d lab5.o
+ .debug_info    0x0000000000001c4c      0x30b numkey/numkey.o
+ .debug_info    0x0000000000001f57      0x3a6 temp/temp.o
 
 .debug_abbrev   0x0000000000000000      0xe53
  *(.debug_abbrev)
