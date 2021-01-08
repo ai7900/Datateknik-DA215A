@@ -90,9 +90,21 @@ uint8_t temp_read_fahrenheit(void)
 
 uint8_t regulator_read_power(void)
 {
-	uint16_t adc_correction = adc * 100;
-	uint16_t regulator = adc_correction / 1000;
-	if((adc_correction % 1000) >= 500)
-		regulator++;
-	return (uint8_t) regulator;
+	//uint16_t adc_correction = adc * 100;
+	//uint16_t regulator = adc_correction / 1000;
+	//if((adc_correction % 1000) >= 500)
+		//regulator++;
+	//return (uint8_t) regulator;
+	
+	//uint16_t regulator = adc;
+	//return (uint8_t)regulator;
+	
+	uint16_t temp = adc - 528; //adc returns interval between 528 and 1019
+	temp = temp * 100;
+	temp = temp / 491;
+
+	if(temp >= 0 && temp <= 100)
+	return (uint8_t)temp;
+
+	return 0;
 }

@@ -67,7 +67,7 @@ int main(void)
 			sprintf(mode_str, "MOTOR RUNNING");
 			break;
 		}
-		sprintf(reg_str,"%u/%",regulator_read_power());
+		sprintf(reg_str,"%u%c%c",regulator_read_power(), '%', 'h');
 		output_msg(mode_str,reg_str,0);
 		currentState = nextState;
     }

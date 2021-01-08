@@ -36,6 +36,7 @@ SUBDIRS :=  \
 ../delay/ \
 ../hmi/ \
 ../lcd/ \
+../motor/ \
 ../numkey/ \
 ../regulator
 
@@ -46,6 +47,7 @@ C_SRCS +=  \
 ../hmi/hmi.c \
 ../Lab6.c \
 ../lcd/lcd.c \
+../motor/motor.c \
 ../numkey/numkey.c \
 ../regulator/regulator.c
 
@@ -63,6 +65,7 @@ delay/delay_asm.o \
 hmi/hmi.o \
 Lab6.o \
 lcd/lcd.o \
+motor/motor.o \
 numkey/numkey.o \
 regulator/regulator.o
 
@@ -72,6 +75,7 @@ delay/delay_asm.o \
 hmi/hmi.o \
 Lab6.o \
 lcd/lcd.o \
+motor/motor.o \
 numkey/numkey.o \
 regulator/regulator.o
 
@@ -81,6 +85,7 @@ delay/delay_asm.d \
 hmi/hmi.d \
 Lab6.d \
 lcd/lcd.d \
+motor/motor.d \
 numkey/numkey.d \
 regulator/regulator.d
 
@@ -90,6 +95,7 @@ delay/delay_asm.d \
 hmi/hmi.d \
 Lab6.d \
 lcd/lcd.d \
+motor/motor.d \
 numkey/numkey.d \
 regulator/regulator.d
 
@@ -129,6 +135,13 @@ hmi/hmi.o: ../hmi/hmi.c
 	
 
 lcd/lcd.o: ../lcd/lcd.c
+	@echo Building file: $<
+	@echo Invoking: XC8 C Compiler : 2.31
+	$(QUOTE)C:\Program Files\Microchip\xc8\v2.31\bin\xc8-cc.exe$(QUOTE)  -mcpu=ATmega32U4  -mdfp="C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\xc8"  -c -x c -funsigned-char -funsigned-bitfields -mext=cci -D__ATmega32U4__ -DDEBUG  -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
+motor/motor.o: ../motor/motor.c
 	@echo Building file: $<
 	@echo Invoking: XC8 C Compiler : 2.31
 	$(QUOTE)C:\Program Files\Microchip\xc8\v2.31\bin\xc8-cc.exe$(QUOTE)  -mcpu=ATmega32U4  -mdfp="C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\xc8"  -c -x c -funsigned-char -funsigned-bitfields -mext=cci -D__ATmega32U4__ -DDEBUG  -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 

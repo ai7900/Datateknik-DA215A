@@ -12,6 +12,8 @@ Lab6.c
 
 lcd\lcd.c
 
+motor\motor.c
+
 numkey\numkey.c
 
 regulator\regulator.c
