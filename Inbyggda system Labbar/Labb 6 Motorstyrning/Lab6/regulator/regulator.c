@@ -14,7 +14,7 @@
 
 /*	For storage of ADC value from temperature sensor.
 	Initial value is good to use before A/D conversion is configured!	*/
-static volatile uint16_t adc = 221;
+static volatile uint8_t adc = 221;
 
 /*
  * Interrupt Service Routine for the ADC.
@@ -22,13 +22,8 @@ static volatile uint16_t adc = 221;
  */
 ISR(ADC_vect)
 {
-	// read ADC value
-	unsigned char low,high;
-
-	low = ADCL;
-	high = ADCH;
-
-	adc = (high << 8 ) + low;
+	adc = ADCH;
+	
 }
 
 /*
@@ -39,8 +34,9 @@ void regulator_init(void)
 	
 	// UPPGIFT: konfigurera ADC-enheten genom ställa in ADMUX och ADCSRA enligt kommentarerna nedanför!
 	ADMUX |= (1 << REFS0);		// set reference voltage (internal 5V)
-	ADMUX |= 0b00001001;		// select diff.amp 10x on ADC0 & ADC1
-								// right adjustment of ADC value
+	ADMUX |= (1 << MUX0);		// select diff.amp 1x on  ADC1 ”Single Ended Input”
+	ADMUX |= (1 << ADLAR);		
+								
 	
 	ADCSRA |= (1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0);				// prescaler 128
 	ADCSRA |= (1 << ADATE);		// enable Auto Trigger
@@ -59,52 +55,15 @@ void regulator_init(void)
 	ADCSRA |= (1 << ADSC);	// UPPGIFT: gör så att den initiala A/D-omvandlingen sker
 }
 
-/*
- * Returns the regulatorerature in Celsius.
- */
-uint8_t temp_read_celsius(void)
-{
-	uint16_t adc_correction = adc * 98;
-	uint16_t temp = adc_correction / 1000;
-	// round up?
-	if ((adc_correction % 1000) >= 500) {
-		temp++;
-	}
-	return (uint8_t) temp;
-}
 
 /*
- * Returns the temperature in Fahrenheit.
- */
-uint8_t temp_read_fahrenheit(void)
-{
-	
-	uint16_t convert = ((temp_read_celsius() * 90) / 5) + 320;
-	uint16_t temp = convert / 10;
-	// round up?
-	if ((convert % 10) >= 5) {
-		temp++;
-	}
-	return (uint8_t) temp;
-}
-
+* Returns percent of power 0%-100%
+*/
 uint8_t regulator_read_power(void)
 {
-	//uint16_t adc_correction = adc * 100;
-	//uint16_t regulator = adc_correction / 1000;
-	//if((adc_correction % 1000) >= 500)
-		//regulator++;
-	//return (uint8_t) regulator;
+	uint16_t temp = adc * 100;
+	uint16_t adc_correction = temp / 255;
 	
-	//uint16_t regulator = adc;
-	//return (uint8_t)regulator;
-	
-	uint16_t temp = adc - 528; //adc returns interval between 528 and 1019
-	temp = temp * 100;
-	temp = temp / 491;
 
-	if(temp >= 0 && temp <= 100)
-	return (uint8_t)temp;
-
-	return 0;
+	return (uint8_t)adc_correction;
 }

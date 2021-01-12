@@ -14,8 +14,6 @@
 #include <inttypes.h>
 
 void regulator_init(void);
-uint8_t temp_read_celsius(void);
-uint8_t temp_read_fahrenheit(void);
 uint8_t regulator_read_power(void);
 
 #endif /* TEMP_H_ */
