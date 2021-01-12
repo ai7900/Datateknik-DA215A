@@ -1,9 +1,9 @@
 ﻿/*
  * temp.h
  *
- * This is the device driver for the LM35 temperature sensor.
+ * This is the device driver for the for a potentiometer.
  *
- * Author:	Mathias Beckius
+ *  Author: Mattias Ståhlberg, Johan Fritiofsson
  *
  * Date:	2014-12-07
  */ 

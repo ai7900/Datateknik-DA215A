@@ -1,6 +1,6 @@
 /*
  * main.c
- *
+ * This is a program runs a fan and shows stats about current settings about it. What the current state is and power.
  * Created: 1/6/2021 11:38:59 AM
  *  Author: Mattias Ståhlberg, Johan Fritiofsson
  */ 
@@ -13,6 +13,7 @@
 #include "numkey/numkey.h"
 #include "regulator/regulator.h"
 #include "common.h"
+#include "motor/motor.h"
 
 enum state
 {
@@ -34,6 +35,7 @@ char reg_str[17];
 int main(void)
 {
 	init();
+	motor_init();
 	
     while(1)
     {
@@ -58,16 +60,17 @@ int main(void)
 				if(key == '2' && regulator_read_power() == 0)
 				nextState = MOTOR_ON;
 				sprintf(mode_str, "MOTOR OFF");
+				motor_set_speed(0);
 			break;
 			////////////MOTOR RUNNING/////////////
 			case MOTOR_RUNNING:
-			
+			motor_set_speed(regulator_read_power());
 			if (key == '1')
 			nextState= MOTOR_OFF;
 			sprintf(mode_str, "MOTOR RUNNING");
 			break;
 		}
-		sprintf(reg_str,"%u%c%c",regulator_read_power(), '%', 'h');
+		sprintf(reg_str,"%u%c",regulator_read_power(), '%');
 		output_msg(mode_str,reg_str,0);
 		currentState = nextState;
     }
