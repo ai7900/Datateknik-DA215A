@@ -3,6 +3,8 @@
  *	This program is used to read the temperature from a LM35 sensor and show it to an LCD screen in either celcius or farenheit or both.
  *  Created: 1/5/2021 1:33:22 PM
  *  Author: Mattias Ståhlberg & Johan Fritiofsson
+ 
+ Date:	2021-01-12
  */ 
 
 #include <xc.h>
